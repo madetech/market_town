@@ -33,6 +33,8 @@ module MarketTown
 
       validate :country_is_iso3166
 
+      private
+
       def country_is_iso3166
         if ISO3166::Country.find_country_by_alpha2(country).nil?
           errors.add(:country, 'Country was not valid ISO3166 alpha 2')
