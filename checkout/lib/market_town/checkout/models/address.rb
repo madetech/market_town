@@ -4,14 +4,6 @@ require 'countries/iso3166'
 module MarketTown
   module Checkout
     class Address
-      class InvalidError < RuntimeError
-        attr_reader :data
-
-        def initialize(data)
-          @data = data
-        end
-      end
-
       include ActiveModel::Model
 
       def self.validate!(address_attrs)
@@ -44,6 +36,14 @@ module MarketTown
       def country_is_iso3166
         if ISO3166::Country.find_country_by_alpha2(country).nil?
           errors.add(:country, 'Country was not valid ISO3166 alpha 2')
+        end
+      end
+
+      class InvalidError < RuntimeError
+        attr_reader :data
+
+        def initialize(data)
+          @data = data
         end
       end
     end
