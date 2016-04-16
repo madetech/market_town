@@ -44,9 +44,9 @@ module MarketTown
 
       def validate_address(type, address)
         Address.validate!(address)
-      rescue Checkout::Address::InvalidError => e
+      rescue Address::InvalidError => e
         message = { type: type }.merge(e.data)
-        raise Checkout::AddressStep::InvalidAddressError.new(message)
+        raise InvalidAddressError.new(message)
       end
     end
   end
