@@ -4,16 +4,21 @@ require 'countries/iso3166'
 module MarketTown
   module Checkout
     class Address
-      class InvalidError < RuntimeError; end
+      class InvalidError < RuntimeError
+        attr_reader :data
+
+        def initialize(data)
+          @data = data
+        end
+      end
 
       include ActiveModel::Model
 
-      def self.validate!(type, address_attrs)
+      def self.validate!(address_attrs)
         address = new(address_attrs)
 
         if address.invalid?
-          raise InvalidError.new(address_type: type,
-                                 address: address_attrs,
+          raise InvalidError.new(address: address_attrs,
                                  errors: address.errors.messages)
         end
       end

@@ -9,15 +9,18 @@ module MarketTown
       private
 
       def validate_billing_address(state)
-        Address.validate!(:billing, state[:billing_address])
-      rescue Checkout::Address::InvalidError => e
-        raise Checkout::AddressStep::InvalidAddressError.new(e.message)
+        validate_address(:billing, state[:billing_address])
       end
 
       def validate_delivery_address(state)
-        Address.validate!(:delivery, state[:delivery_address])
+        validate_address(:delivery, state[:delivery_address])
+      end
+
+      def validate_address(type, address)
+        Address.validate!(address)
       rescue Checkout::Address::InvalidError => e
-        raise Checkout::AddressStep::InvalidAddressError.new(e.message)
+        message = { type: type }.merge(e.data)
+        raise Checkout::AddressStep::InvalidAddressError.new(message)
       end
     end
   end
