@@ -1,6 +1,8 @@
 module MarketTown
   module Checkout
     class CompleteStep < Step
+      class AlreadyCompleteError < RuntimeError; end
+
       steps :ensure_incomplete,
             :set_completed_at,
             :send_order_complete_notice
@@ -22,8 +24,6 @@ module MarketTown
       rescue MissingDependency
         add_warning(state, :unsent_order_complete_notice)
       end
-
-      class AlreadyCompleteError < RuntimeError; end
     end
   end
 end
