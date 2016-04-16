@@ -4,8 +4,6 @@ require 'countries/iso3166'
 module MarketTown
   module Checkout
     class Address
-      include ActiveModel::Model
-
       def self.validate!(address_attrs)
         address = new(address_attrs)
 
@@ -14,6 +12,8 @@ module MarketTown
                                  errors: address.errors.messages)
         end
       end
+
+      include ActiveModel::Model
 
       attr_accessor :name,
                     :company,
