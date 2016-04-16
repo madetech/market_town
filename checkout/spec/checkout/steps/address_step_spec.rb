@@ -1,7 +1,11 @@
 module MarketTown::Checkout
   describe AddressStep do
     let(:fulfilment) { double(can_fulfil_address?: true) }
-    let(:deps) { Dependencies.new(fulfilment: fulfilment) }
+    let(:address_storage) { double(store: nil) }
+
+    let(:deps) { Dependencies.new(fulfilment: fulfilment,
+                                  address_storage: address_storage) }
+
     let(:steps) { AddressStep.new(deps) }
 
     let(:mock_address) do
@@ -13,7 +17,7 @@ module MarketTown::Checkout
     end
 
     context 'when processing checkout' do
-      context 'with valid billing address' do
+      context 'with valid addresses' do
         subject { steps.process(billing_address: mock_address,
                                 delivery_address: mock_address) }
 
@@ -29,6 +33,16 @@ module MarketTown::Checkout
           let(:fulfilment) { nil }
 
           it { is_expected.to include(:warnings) }
+        end
+      end
+
+      context 'and saving valid addresses' do
+        before { steps.process(billing_address: mock_address.merge(save: true),
+                               delivery_address: mock_address.merge(save: true)) }
+
+        context 'then the address storage' do
+          subject { address_storage }
+          it { is_expected.to have_received(:store).twice }
         end
       end
 

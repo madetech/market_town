@@ -23,7 +23,8 @@ module MarketTown
                     :locality,
                     :region,
                     :postal_code,
-                    :country
+                    :country,
+                    :save
 
       validates :name, presence: true
       validates :address_1, presence: true
