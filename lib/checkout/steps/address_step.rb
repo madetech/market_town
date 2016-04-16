@@ -4,7 +4,7 @@ module Checkout
 
     steps :validate_billing_address,
           :validate_delivery_address,
-          :update_step
+          :update_last_step
 
     private
 

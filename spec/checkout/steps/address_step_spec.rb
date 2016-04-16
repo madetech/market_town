@@ -10,36 +10,41 @@ describe Checkout::AddressStep do
 
   context 'when processing checkout' do
     context 'with valid billing address' do
-      subject { steps.process(step: :new, billing_address: mock_address,
-                                          delivery_address: mock_address) }
+      subject { steps.process(last_step: :new,
+                              billing_address: mock_address,
+                              delivery_address: mock_address) }
 
-      it { is_expected.to include(step: :address) }
+      it { is_expected.to include(last_step: :address) }
     end
 
     context 'with empty billing address' do
-      subject { steps.process(step: :new, billing_address: nil,
-                                          delivery_address: mock_address) }
+      subject { steps.process(last_step: :new,
+                              billing_address: nil,
+                              delivery_address: mock_address) }
 
       it { expect { subject }.to raise_error(Checkout::AddressStep::InvalidAddressError) }
     end
 
     context 'with empty billing address' do
-      subject { steps.process(step: :new, billing_address: nil,
-                                          delivery_address: mock_address) }
+      subject { steps.process(last_step: :new,
+                              billing_address: nil,
+                              delivery_address: mock_address) }
 
       it { expect { subject }.to raise_error(Checkout::AddressStep::InvalidAddressError) }
     end
 
     context 'with empty delivery address' do
-      subject { steps.process(step: :new, billing_address: mock_address,
-                                          delivery_address: nil) }
+      subject { steps.process(last_step: :new,
+                              billing_address: mock_address,
+                              delivery_address: nil) }
 
       it { expect { subject }.to raise_error(Checkout::AddressStep::InvalidAddressError) }
     end
 
     context 'with invalid country in billing address' do
-      subject { steps.process(step: :new, billing_address: mock_address.merge(country: 'invalid'),
-                                          delivery_address: mock_address) }
+      subject { steps.process(last_step: :new,
+                              billing_address: mock_address.merge(country: 'invalid'),
+                              delivery_address: mock_address) }
 
       it { expect { subject }.to raise_error(Checkout::AddressStep::InvalidAddressError) }
     end

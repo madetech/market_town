@@ -31,8 +31,8 @@ module Checkout
       meta.fetch(meta_key)
     end
 
-    def update_step(state)
-      state.merge(step: self[:name])
+    def update_last_step(state)
+      state.merge(last_step: self[:name])
     end
   end
 end

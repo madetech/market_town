@@ -3,12 +3,12 @@ module Checkout
     steps :ensure_incomplete,
           :set_completed_at,
           :send_order_complete_notice,
-          :update_step
+          :update_last_step
 
     private
 
     def ensure_incomplete(state)
-      if self[:name] == state[:step]
+      if self[:name] == state[:last_step]
         raise AlreadyCompleteError.new(state)
       end
     end
