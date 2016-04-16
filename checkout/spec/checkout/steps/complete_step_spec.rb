@@ -4,7 +4,7 @@ module MarketTown::Checkout
     let(:deps) { Dependencies.new(notifications: notifications, logger: double(warn: nil)) }
     let(:steps) { CompleteStep.new(deps) }
 
-    context 'when processing checkout' do
+    context 'when completing checkout' do
       context 'and order incomplete' do
         subject { steps.process({}) }
 
