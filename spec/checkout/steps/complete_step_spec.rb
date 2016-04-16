@@ -6,6 +6,7 @@ describe Checkout::CompleteStep do
   context 'when processing checkout' do
     context 'and order incomplete' do
       subject { steps.process(step: :new) }
+      it { is_expected.to include(step: :complete) }
       it { is_expected.to include(:completed_at) }
 
       context 'then notifications' do
