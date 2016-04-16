@@ -1,3 +1,10 @@
+PATH
+  remote: .
+  specs:
+    market_town-checkout (0.1.0)
+      activemodel
+      countries
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -30,7 +37,7 @@ GEM
     pry-byebug (3.3.0)
       byebug (~> 8.0)
       pry (~> 0.10)
-    rack (1.6.4)
+    rake (10.4.2)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -53,10 +60,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activemodel
-  countries
+  market_town-checkout!
   pry-byebug
-  rack
+  rake
   rspec
 
 BUNDLED WITH
