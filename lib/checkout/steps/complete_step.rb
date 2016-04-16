@@ -1,9 +1,7 @@
 module Checkout
   class CompleteStep < Step
-    def process(state)
-      ensure_incomplete(state)
-      update_step(state)
-    end
+    steps :ensure_incomplete,
+          :update_step
 
     private
 
