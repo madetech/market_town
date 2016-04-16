@@ -8,10 +8,11 @@ module Checkout
       end
     end
 
-    attr_reader :meta
+    attr_reader :meta, :deps
 
-    def initialize
+    def initialize(dependencies = {})
       @meta = { name: name_from_class }
+      @deps = dependencies
     end
 
     def process(state)
