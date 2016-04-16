@@ -4,7 +4,8 @@ module MarketTown::Checkout
     let(:address_storage) { double(store: nil) }
 
     let(:deps) { Dependencies.new(fulfilment: fulfilment,
-                                  address_storage: address_storage) }
+                                  address_storage: address_storage,
+                                  logger: double(warn: nil)) }
 
     let(:steps) { AddressStep.new(deps) }
 
