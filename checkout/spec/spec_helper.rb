@@ -1,2 +1,2 @@
 require 'pry-byebug'
-require_relative '../lib/checkout'
+require_relative '../lib/market_town/checkout'

@@ -1,3 +1,8 @@
+module MarketTown
+  module Checkout
+  end
+end
+
 require_relative './checkout/models/address'
 require_relative './checkout/steps'
 require_relative './checkout/steps/step'
