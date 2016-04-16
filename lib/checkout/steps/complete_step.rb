@@ -2,13 +2,12 @@ module Checkout
   class CompleteStep < Step
     steps :ensure_incomplete,
           :set_completed_at,
-          :send_order_complete_notice,
-          :update_last_step
+          :send_order_complete_notice
 
     private
 
     def ensure_incomplete(state)
-      if self[:name] == state[:last_step]
+      if state.has_key?(:completed_at)
         raise AlreadyCompleteError.new(state)
       end
     end

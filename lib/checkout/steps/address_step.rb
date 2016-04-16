@@ -3,8 +3,7 @@ module Checkout
     class InvalidAddressError < RuntimeError; end
 
     steps :validate_billing_address,
-          :validate_delivery_address,
-          :update_last_step
+          :validate_delivery_address
 
     private
 
