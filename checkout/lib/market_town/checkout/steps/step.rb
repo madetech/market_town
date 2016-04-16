@@ -11,7 +11,7 @@ module MarketTown
 
       attr_reader :meta, :deps
 
-      def initialize(dependencies = {})
+      def initialize(dependencies = Dependencies.new)
         @meta = { name: name_from_class }
         @deps = dependencies
       end
@@ -30,6 +30,11 @@ module MarketTown
 
       def [](meta_key)
         meta.fetch(meta_key)
+      end
+
+      def add_warning(state, warning)
+        deps.logger.warn(warning: warning, state: state)
+        state.merge(warnings: state.fetch(:warnings, []).push(warning))
       end
     end
   end

@@ -1,7 +1,7 @@
 module MarketTown::Checkout
   describe CompleteStep do
     let(:notifications) { double(notify: nil) }
-    let(:deps) { double(notifications: notifications) }
+    let(:deps) { Dependencies.new(notifications: notifications, logger: double(warn: nil)) }
     let(:steps) { CompleteStep.new(deps) }
 
     context 'when processing checkout' do
@@ -14,6 +14,11 @@ module MarketTown::Checkout
           subject { notifications }
           before { steps.process({}) }
           it { is_expected.to have_received(:notify).with(:order_complete, Hash) }
+        end
+
+        context 'and no notifications handled' do
+          let(:notifications) { nil }
+          it { is_expected.to include(:warnings) }
         end
       end
 
