@@ -57,7 +57,9 @@ class AddressStepController < ApplicationController
 
   def update
     @order = Ecom::Order.find_by(user: current_user)
-    MarketTown::Checkout.process_step(AppContainer.new, :address, order.to_h)
+    MarketTown::Checkout.process_step(step: :address,
+                                      dependencies: AppContainer.new,
+                                      state: order.to_h)
   rescue MarketTown::Checkout::Error => e
     flash.now[:errors] = [e.error]
     render :edit

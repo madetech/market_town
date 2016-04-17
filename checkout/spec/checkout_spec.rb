@@ -7,7 +7,9 @@ module MarketTown
 
       it 'should delegate to AddressStep' do
         expect(Checkout::AddressStep).to receive(:process).with(state)
-        Checkout.process_step(deps, step_name, state)
+        Checkout.process_step(step: step_name,
+                              dependencies: deps,
+                              state: state)
       end
     end
   end
