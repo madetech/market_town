@@ -1,5 +1,11 @@
 module MarketTown
   module Checkout
+    extend self
+
+    def process_step(deps, step_name, state)
+      step = const_get(step_name.to_s.capitalize << 'Step')
+      Process.new(deps).process(step, state)
+    end
   end
 end
 
