@@ -1,9 +1,9 @@
 module MarketTown::Checkout
   describe DeliveryStep do
-    let(:fulfilment) { double(can_fulfil_shipments?: true) }
+    let(:fulfilments) { double(can_fulfil_shipments?: true) }
     let(:promotions) { double(apply_delivery_promotions: nil) }
 
-    let(:deps) { Dependencies.new(fulfilment: fulfilment,
+    let(:deps) { Dependencies.new(fulfilments: fulfilments,
                                   promotions: promotions,
                                   logger: double(warn: nil)) }
 
@@ -24,23 +24,23 @@ module MarketTown::Checkout
         it { is_expected.to include(:delivery_address) }
 
         context 'and can fulfil' do
-          context 'then fulfilment' do
+          context 'then fulfilments' do
             before { steps.process(delivery_address: mock_address) }
 
-            subject { fulfilment }
+            subject { fulfilments }
 
             it { is_expected.to have_received(:can_fulfil_shipments?) }
           end
         end
 
-        context 'and fulfilment missing' do
-          let(:fulfilment) { nil }
+        context 'and fulfilments missing' do
+          let(:fulfilments) { nil }
 
           it { is_expected.to include(:warnings) }
         end
 
         context 'and cannot fulfil shipments' do
-          let(:fulfilment) { double(can_fulfil_shipments?: false) }
+          let(:fulfilments) { double(can_fulfil_shipments?: false) }
 
           it { expect { subject }.to raise_error(DeliveryStep::CannotFulfilShipmentsError) }
         end
@@ -56,7 +56,7 @@ module MarketTown::Checkout
         end
 
         context 'and promotions missing' do
-          let(:fulfilment) { nil }
+          let(:fulfilments) { nil }
 
           it { is_expected.to include(:warnings) }
         end

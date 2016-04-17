@@ -1,9 +1,9 @@
 module MarketTown::Checkout
   describe AddressStep do
-    let(:fulfilment) { double(can_fulfil_address?: true) }
+    let(:fulfilments) { double(can_fulfil_address?: true) }
     let(:address_storage) { double(store: nil) }
 
-    let(:deps) { Dependencies.new(fulfilment: fulfilment,
+    let(:deps) { Dependencies.new(fulfilments: fulfilments,
                                   address_storage: address_storage,
                                   logger: double(warn: nil)) }
 
@@ -25,13 +25,13 @@ module MarketTown::Checkout
         it { is_expected.to include(:billing_address, :delivery_address) }
 
         context 'and cannot fulfil delivery address' do
-          let(:fulfilment) { double(can_fulfil_address?: false) }
+          let(:fulfilments) { double(can_fulfil_address?: false) }
 
           it { expect { subject }.to raise_error(AddressStep::CannotFulfilAddressError) }
         end
 
-        context 'and no fulfilment' do
-          let(:fulfilment) { nil }
+        context 'and no fulfilments' do
+          let(:fulfilments) { nil }
 
           it { is_expected.to include(:warnings) }
         end

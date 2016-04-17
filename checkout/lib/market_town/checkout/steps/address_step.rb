@@ -21,7 +21,7 @@ module MarketTown
       end
 
       def ensure_delivery(state)
-        unless deps.fulfilment.can_fulfil_address?(state[:delivery_address])
+        unless deps.fulfilments.can_fulfil_address?(state[:delivery_address])
           raise CannotFulfilAddressError.new(state[:delivery_address])
         end
       rescue MissingDependency
