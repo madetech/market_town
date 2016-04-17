@@ -21,6 +21,16 @@ module MarketTown::Checkout
 
         it { is_expected.to include(:delivery_address) }
 
+        context 'and can fulfil' do
+          context 'then fulfilment' do
+            before { steps.process(delivery_address: mock_address) }
+
+            subject { fulfilment }
+
+            it { is_expected.to have_received(:can_fulfil_shipments?) }
+          end
+        end
+
         context 'and fulfilment missing' do
           let(:fulfilment) { nil }
 
