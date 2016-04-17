@@ -1,6 +1,6 @@
 module MarketTown
   module Checkout
-    class ProcessStep
+    class Process
       attr_reader :deps
 
       def initialize(dependencies)

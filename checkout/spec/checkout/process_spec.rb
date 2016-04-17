@@ -1,5 +1,5 @@
 module MarketTown::Checkout
-  describe ProcessStep do
+  describe Process do
     let(:logger) { double(error: nil) }
     let(:deps) { Dependencies.new(logger: logger) }
     let(:step) { double(process: {}) }
@@ -7,7 +7,7 @@ module MarketTown::Checkout
 
     context 'when processing checkout step' do
       context 'then the step' do
-        before { ProcessStep.new(deps).process(step, state) }
+        before { Process.new(deps).process(step, state) }
         subject { step }
         it { is_expected.to have_received(:process).with(state) }
       end
@@ -19,7 +19,7 @@ module MarketTown::Checkout
           end
 
           begin
-            ProcessStep.new(deps).process(step, state)
+            Process.new(deps).process(step, state)
           rescue
           end
         end
