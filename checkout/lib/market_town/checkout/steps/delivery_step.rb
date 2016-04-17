@@ -1,7 +1,7 @@
 module MarketTown
   module Checkout
     class DeliveryStep < Step
-      class InvalidDeliveryAddress < RuntimeError; end
+      class InvalidDeliveryAddressError < RuntimeError; end
       class CannotFulfilShipmentsError < RuntimeError; end
 
       steps :ensure_delivery_address,
@@ -12,7 +12,7 @@ module MarketTown
       def ensure_delivery_address(state)
         Address.validate!(state[:delivery_address])
       rescue Address::InvalidError => e
-        raise InvalidDeliveryAddress.new(e.data)
+        raise InvalidDeliveryAddressError.new(e.data)
       end
 
       def validate_shipments(state)

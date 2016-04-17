@@ -47,13 +47,13 @@ module MarketTown::Checkout
       context 'and delivery address missing' do
         subject { steps.process({}) }
 
-        it { expect { subject }.to raise_error(DeliveryStep::InvalidDeliveryAddress) }
+        it { expect { subject }.to raise_error(DeliveryStep::InvalidDeliveryAddressError) }
       end
 
       context 'and delivery address invalid' do
         subject { steps.process(delivery_address: mock_address.merge(name: nil)) }
 
-        it { expect { subject }.to raise_error(DeliveryStep::InvalidDeliveryAddress) }
+        it { expect { subject }.to raise_error(DeliveryStep::InvalidDeliveryAddressError) }
       end
     end
   end
