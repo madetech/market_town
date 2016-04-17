@@ -1,6 +1,6 @@
 module MarketTown::Checkout
   describe AddressStep do
-    let(:fulfilments) { double(can_fulfil_address?: true) }
+    let(:fulfilments) { double(can_fulfil_address?: true, propose_shipments: nil) }
     let(:address_storage) { double(store: nil) }
 
     let(:deps) { Dependencies.new(fulfilments: fulfilments,
@@ -28,28 +28,6 @@ module MarketTown::Checkout
           let(:fulfilments) { double(can_fulfil_address?: false) }
 
           it { expect { subject }.to raise_error(AddressStep::CannotFulfilAddressError) }
-        end
-
-        context 'and no fulfilments' do
-          let(:fulfilments) { nil }
-
-          it { is_expected.to include(:warnings) }
-        end
-      end
-
-      context 'and saving valid addresses' do
-        subject { steps.process(billing_address: mock_address.merge(save: true),
-                                delivery_address: mock_address.merge(save: true)) }
-
-        it { is_expected.to include(:billing_address, :delivery_address) }
-
-        context 'then the address storage' do
-          before { steps.process(billing_address: mock_address.merge(save: true),
-                                 delivery_address: mock_address.merge(save: true)) }
-
-          subject { address_storage }
-
-          it { is_expected.to have_received(:store).twice }
         end
       end
 
@@ -79,6 +57,54 @@ module MarketTown::Checkout
                                 delivery_address: mock_address) }
 
         it { expect { subject }.to raise_error(AddressStep::InvalidAddressError) }
+      end
+    end
+
+    context 'and saving valid addresses' do
+      subject { steps.process(billing_address: mock_address.merge(save: true),
+                              delivery_address: mock_address.merge(save: true)) }
+
+      it { is_expected.to include(:billing_address, :delivery_address) }
+
+      context 'then the address storage' do
+        before { steps.process(billing_address: mock_address.merge(save: true),
+                               delivery_address: mock_address.merge(save: true)) }
+
+        subject { address_storage }
+
+        it { is_expected.to have_received(:store).twice }
+      end
+    end
+
+    context 'when proposing shipments' do
+      subject { steps.process(billing_address: mock_address,
+                              delivery_address: mock_address) }
+
+      it { is_expected.to include(:billing_address, :delivery_address) }
+
+      context 'then fulfilments' do
+        before { steps.process(billing_address: mock_address,
+                               delivery_address: mock_address) }
+
+        subject { fulfilments }
+
+        it { is_expected.to have_received(:propose_shipments) }
+      end
+
+      context 'and cannot propose shipments' do
+        before do
+          expect(fulfilments).to receive(:propose_shipments) do |state|
+            raise 'Something went wrong proposing shipments'
+          end
+        end
+
+        it { expect { subject }.to raise_error(AddressStep::CannotProposeShipmentsError) }
+      end
+
+      context 'and no fulfilments' do
+        let(:fulfilments) { nil }
+
+        it { is_expected.to include(:warnings) }
       end
     end
   end
