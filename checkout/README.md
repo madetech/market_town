@@ -57,12 +57,9 @@ class AddressStepController < ApplicationController
 
   def update
     @order = Ecom::Order.find_by(user: current_user)
-    MarketTown::Checkout::AddressStep.new(AppContainer.new).process(order.to_h)
-  rescue MarketTown::Checkout::AddressStep::InvalidAddressError
-    flash.now[:errors] = [:invalid_address_error]
-    render :edit
-  rescue MarketTown::Checkout::AddressStep::CannotFulfilAddressError
-    flash.now[:errors] = [:cannot_fulfil_address_error]
+    MarketTown::Checkout.process_step(AppContainer.new, :address, order.to_h)
+  rescue MarketTown::Checkout::Error => e
+    flash.now[:errors] = [e.error]
     render :edit
   end
 end
