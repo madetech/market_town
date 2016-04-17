@@ -3,9 +3,11 @@ module MarketTown
     class DeliveryStep < Step
       class InvalidDeliveryAddressError < RuntimeError; end
       class CannotFulfilShipmentsError < RuntimeError; end
+      class CannotApplyPromotionsError < RuntimeError; end
 
       steps :ensure_delivery_address,
-            :validate_shipments
+            :validate_shipments,
+            :apply_delivery_promotions
 
       private
 
@@ -21,6 +23,14 @@ module MarketTown
         end
       rescue MissingDependency
         add_warning(state, :cannot_validate_shipments)
+      end
+
+      def apply_delivery_promotions(state)
+        deps.promotions.apply_delivery_promotions(state)
+      rescue MissingDependency
+        add_warning(state, :cannot_apply_delivery_promotions)
+      rescue RuntimeError => e
+        raise CannotApplyPromotionsError.new(e)
       end
     end
   end
