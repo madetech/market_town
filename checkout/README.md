@@ -24,7 +24,7 @@ use these steps in your checkout controllers. This example will be
 in Ruby on Rails but it could be any ruby framework or library,
 even Rack.
 
-First of all let's create a Dependency container for an imaginary
+First of all let's create a dependency container for an imaginary
 e-commerce framework.
 
 ``` ruby
