@@ -29,23 +29,41 @@ e-commerce framework.
 
 ``` ruby
 class AppContainer < MarketTown::Checkout::Dependencies
-  def fulfilments
-    Ecom::Fulfilments.new
+  class Fulfilments
+    def can_fulfil_address?(delivery_address)
+      Ecom::DistributionService.new.check_address(delivery_address)
+    end
+
+    def propose_shipments(state)
+      state[:shipments] << Ecom::Shipments.new.propose(state[:delivery_address])
+    end
   end
 
-  def notifications
-    AppMailer.new
+  class AddressStorage
+    def store(state)
+      case state[:address_type]
+      when :delivery
+        User.find_by(state[:user_id]).shipment_addresses << state[:delivery_address]
+      when :billing
+        User.find_by(state[:user_id]).billing_addresses << state[:billing_address]
+      end
+    end
+  end
+
+  def fulfilments
+    Fulfilments.new
   end
 
   def address_storage
-    Ecom::AddressStorage.new
-  end
-
-  def payment_gateway
-    Ecom::PaymentGateway.new
+    AddressStorage.new
   end
 end
 ```
+
+Inside this container we wrote some simple adapters to our e-commerce framework.
+You can of course keep these adapters in another file, we've kept them here to
+keep the example simple. The container exposes the adapters via methods that
+are used by MarketTown::Checkout steps.
 
 Now we can implement our checkout address step controller:
 
@@ -57,12 +75,27 @@ class AddressStepController < ApplicationController
 
   def update
     @order = Ecom::Order.find_by(user: current_user)
-    MarketTown::Checkout.process_step(step: :address,
-                                      dependencies: AppContainer.new,
-                                      state: order.to_h)
+    process_step
   rescue MarketTown::Checkout::Error => e
     flash.now[:errors] = [e.error]
     render :edit
+  end
+
+  private
+
+  def order_params
+    address_params = %i(name address_1 locality postal_code country save)
+
+    params.require(:order).permit(billing_address: address_params,
+                                  delivery_address: address_params)
+                          .merge(user_id: current_user.id,
+                                 shipments: @order.shipments)
+  end
+
+  def process_step
+    MarketTown::Checkout.process_step(step: :address,
+                                      dependencies: AppContainer.new,
+                                      state: order_params)
   end
 end
 ```
