@@ -1,7 +1,7 @@
 module MarketTown
   module Checkout
     class CompleteStep < Step
-      class AlreadyCompleteError < RuntimeError; end
+      class AlreadyCompleteError < Error; end
 
       steps :ensure_incomplete,
             :set_completed_at,

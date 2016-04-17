@@ -1,8 +1,8 @@
 module MarketTown
   module Checkout
     class AddressStep < Step
-      class InvalidAddressError < RuntimeError; end
-      class CannotFulfilAddressError < RuntimeError; end
+      class InvalidAddressError < Error; end
+      class CannotFulfilAddressError < Error; end
 
       steps :validate_billing_address,
             :validate_delivery_address,

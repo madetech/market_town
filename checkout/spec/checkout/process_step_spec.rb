@@ -1,17 +1,33 @@
 module MarketTown::Checkout
   describe ProcessStep do
-    context 'when processing single step checkout' do
-      let(:step) { double(process: { step: :step_just_completed}) }
-      subject { ProcessStep.new.process(step, state) }
+    let(:logger) { double(error: nil) }
+    let(:deps) { Dependencies.new(logger: logger) }
+    let(:step) { double(process: {}) }
+    let(:state) { {} }
 
-      context 'and checkout state is empty' do
-        let(:state) { {} }
-        it { is_expected.to include(step: :step_just_completed) }
+    context 'when processing checkout step' do
+      context 'then the step' do
+        before { ProcessStep.new(deps).process(step, state) }
+        subject { step }
+        it { is_expected.to have_received(:process).with(state) }
       end
 
-      context 'and checkout already at step' do
-        let(:state) { { step: :step_just_completed } }
-        it { is_expected.to include(step: :step_just_completed) }
+      context 'and the step raises an error' do
+        before do
+          expect(step).to receive(:process) do |state|
+            raise Error.new('Could not process step')
+          end
+
+          begin
+            ProcessStep.new(deps).process(step, state)
+          rescue
+          end
+        end
+
+        context 'then the logger' do
+          subject { logger }
+          it { is_expected.to have_received(:error) }
+        end
       end
     end
   end
