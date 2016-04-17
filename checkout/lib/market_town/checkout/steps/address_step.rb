@@ -6,7 +6,7 @@ module MarketTown
 
       steps :validate_billing_address,
             :validate_delivery_address,
-            :ensure_can_deliver,
+            :ensure_delivery,
             :store_billing_address,
             :store_delivery_address
 
@@ -20,12 +20,12 @@ module MarketTown
         validate_address(:delivery, state[:delivery_address])
       end
 
-      def ensure_can_deliver(state)
+      def ensure_delivery(state)
         unless deps.fulfilment.can_fulfil_address?(state[:delivery_address])
           raise CannotFulfilAddressError.new(state[:delivery_address])
         end
       rescue MissingDependency
-        add_warning(state, :could_not_ensure_delivery)
+        add_warning(state, :cannot_ensure_delivery)
       end
 
       def store_billing_address(state)

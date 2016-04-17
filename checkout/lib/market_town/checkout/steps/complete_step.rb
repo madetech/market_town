@@ -22,7 +22,7 @@ module MarketTown
       def send_order_complete_notice(state)
         deps.notifications.notify(:order_complete, state)
       rescue MissingDependency
-        add_warning(state, :unsent_order_complete_notice)
+        add_warning(state, :cannot_send_order_complete_notice)
       end
     end
   end
