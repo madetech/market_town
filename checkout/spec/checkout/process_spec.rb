@@ -20,7 +20,7 @@ module MarketTown::Checkout
 
           begin
             Process.new(deps).process(step, state)
-          rescue
+          rescue Error
           end
         end
 
