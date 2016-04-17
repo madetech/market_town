@@ -12,8 +12,6 @@ module MarketTown
       rescue Error => e
         deps.logger.error(e)
         raise e
-      rescue => e
-        binding.pry
       end
     end
   end
