@@ -38,11 +38,17 @@ module MarketTown::Checkout
       end
 
       context 'and saving valid addresses' do
-        before { steps.process(billing_address: mock_address.merge(save: true),
-                               delivery_address: mock_address.merge(save: true)) }
+        subject { steps.process(billing_address: mock_address.merge(save: true),
+                                delivery_address: mock_address.merge(save: true)) }
+
+        it { is_expected.to include(:billing_address, :delivery_address) }
 
         context 'then the address storage' do
+          before { steps.process(billing_address: mock_address.merge(save: true),
+                                 delivery_address: mock_address.merge(save: true)) }
+
           subject { address_storage }
+
           it { is_expected.to have_received(:store).twice }
         end
       end
