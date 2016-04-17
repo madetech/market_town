@@ -1,9 +1,9 @@
 module MarketTown
   module Checkout
     class DeliveryStep < Step
-      class InvalidDeliveryAddressError < RuntimeError; end
-      class CannotFulfilShipmentsError < RuntimeError; end
-      class CannotApplyPromotionsError < RuntimeError; end
+      class InvalidDeliveryAddressError < Error; end
+      class CannotFulfilShipmentsError < Error; end
+      class CannotApplyPromotionsError < Error; end
 
       steps :ensure_delivery_address,
             :validate_shipments,
