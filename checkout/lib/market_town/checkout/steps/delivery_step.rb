@@ -22,13 +22,13 @@ module MarketTown
           raise CannotFulfilShipmentsError.new(state[:shipments])
         end
       rescue MissingDependency
-        add_warning(state, :cannot_validate_shipments)
+        add_dependency_missing_warning(state, :cannot_validate_shipments)
       end
 
       def apply_delivery_promotions(state)
         deps.promotions.apply_delivery_promotions(state)
       rescue MissingDependency
-        add_warning(state, :cannot_apply_delivery_promotions)
+        add_dependency_missing_warning(state, :cannot_apply_delivery_promotions)
       end
 
       def finish_delivery_step(state)

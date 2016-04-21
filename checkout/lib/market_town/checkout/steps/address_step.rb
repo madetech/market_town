@@ -33,19 +33,19 @@ module MarketTown
           raise CannotFulfilAddressError.new(state[:delivery_address])
         end
       rescue MissingDependency
-        add_warning(state, :cannot_ensure_delivery)
+        add_dependency_missing_warning(state, :cannot_ensure_delivery)
       end
 
       def store_addresses(state)
         deps.address_storage.store(state)
       rescue MissingDependency
-        add_warning(state, :cannot_store_address)
+        add_dependency_missing_warning(state, :cannot_store_address)
       end
 
       def propose_shipments(state)
         deps.fulfilments.propose_shipments(state)
       rescue MissingDependency
-        add_warning(state, :cannot_propose_shipments)
+        add_dependency_missing_warning(state, :cannot_propose_shipments)
       end
 
       def finish_address_step(state)

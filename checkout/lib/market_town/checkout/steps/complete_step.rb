@@ -19,13 +19,13 @@ module MarketTown
       def fulfil_order(state)
         deps.fulfilments.fulfil(state)
       rescue MissingDependency
-        add_warning(state, :cannot_fulfil_order)
+        add_dependency_missing_warning(state, :cannot_fulfil_order)
       end
 
       def send_order_complete_notice(state)
         deps.notifications.notify(:order_complete, state)
       rescue MissingDependency
-        add_warning(state, :cannot_send_order_complete_notice)
+        add_dependency_missing_warning(state, :cannot_send_order_complete_notice)
       end
 
       def finish_complete_step(state)
