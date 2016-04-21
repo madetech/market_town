@@ -18,7 +18,7 @@ module MarketTown
       end
 
       def validate_shipments(state)
-        unless deps.fulfilments.can_fulfil_shipments?(state[:shipments])
+        unless deps.fulfilments.can_fulfil_shipments?(state)
           raise CannotFulfilShipmentsError.new(state[:shipments])
         end
       rescue MissingDependency
