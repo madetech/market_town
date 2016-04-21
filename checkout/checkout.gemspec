@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.summary  = 'Business logic for e-commerce checkouts'
   s.authors  = ['Luke Morton']
   s.email    = 'lukemorton.dev@gmail.com'
-  s.files    = Dir['lib/**/*.rb'] + ['README']
+  s.files    = Dir['lib/**/*.rb'] + ['README.md']
   s.homepage = 'https://github.com/lukemorton/market_town'
 
   s.add_dependency 'activemodel'
