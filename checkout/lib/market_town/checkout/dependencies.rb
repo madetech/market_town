@@ -90,7 +90,7 @@ module MarketTown
         raise MissingDependency.new(method)
       end
 
-      # Uses built-in ruby Logger if not overloaded
+      # Uses built-in ruby Logger if not provided
       #
       # @return [Logger or similar]
       #
