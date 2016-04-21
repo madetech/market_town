@@ -22,7 +22,7 @@ module MarketTown
       end
 
       def ensure_delivery(state)
-        unless deps.fulfilments.can_fulfil_address?(state[:delivery_address])
+        unless deps.fulfilments.can_fulfil_address?(state)
           raise CannotFulfilAddressError.new(state[:delivery_address])
         end
       rescue MissingDependency
@@ -34,7 +34,7 @@ module MarketTown
       end
 
       def propose_shipments(state)
-        deps.fulfilments.propose_shipments(state[:delivery_address])
+        deps.fulfilments.propose_shipments(state)
       rescue MissingDependency
         add_warning(state, :cannot_propose_shipments)
       rescue RuntimeError => e
