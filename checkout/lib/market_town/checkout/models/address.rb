@@ -3,7 +3,28 @@ require 'countries/iso3166'
 
 module MarketTown
   module Checkout
+    # An Address model for validating addresses. This class is for internal
+    # use only. You should validate addresses yourself before passing them
+    # into {MarketTown::Checkout}.
+    #
+    # @api private
+    #
     class Address
+      # Validates an address, throws {InvalidError} if invalid
+      #
+      # @param [Hash] address_attrs
+      # @option address_attrs [String] :name
+      # @option address_attrs [String] :company
+      # @option address_attrs [String] :address_1
+      # @option address_attrs [String] :address_2
+      # @option address_attrs [String] :address_3
+      # @option address_attrs [String] :locality
+      # @option address_attrs [String] :region
+      # @option address_attrs [String] :postal_code
+      # @option address_attrs [String] :country must be valid ISO3166 alpha 2
+      #
+      # @raise [InvalidError] if address invalid
+      #
       def self.validate!(address_attrs)
         address = new(address_attrs)
 
@@ -14,6 +35,8 @@ module MarketTown
       end
 
       include ActiveModel::Model
+
+      private
 
       attr_accessor :name,
                     :company,
@@ -34,14 +57,14 @@ module MarketTown
 
       validate :country_is_iso3166
 
-      private
-
       def country_is_iso3166
         if ISO3166::Country.find_country_by_alpha2(country).nil?
           errors.add(:country, 'Country was not valid ISO3166 alpha 2')
         end
       end
 
+      # Thrown when {Address} invalid
+      #
       class InvalidError < RuntimeError
         attr_reader :data
 

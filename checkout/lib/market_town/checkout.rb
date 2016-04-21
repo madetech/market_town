@@ -4,8 +4,8 @@
 # Maintained by Luke Morton. MIT Licensed.
 #
 module MarketTown
-  # MarketTown::Checkout provides a simple interface to perform a single step
-  # in a checkout process.
+  # {Checkout} provides a simple interface to perform a single step in a
+  # checkout process.
   #
   # ## Processing a step
   #
