@@ -2,9 +2,11 @@ module MarketTown::Checkout
   describe DeliveryStep do
     let(:fulfilments) { double(can_fulfil_shipments?: true) }
     let(:promotions) { double(apply_delivery_promotions: nil) }
+    let(:complete_step) { double(delivery: nil) }
 
     let(:deps) { Dependencies.new(fulfilments: fulfilments,
                                   promotions: promotions,
+                                  complete_step: complete_step,
                                   logger: double(warn: nil)) }
 
     let(:steps) { DeliveryStep.new(deps) }
@@ -91,6 +93,14 @@ module MarketTown::Checkout
 
         it { expect { subject }.to raise_error(DeliveryStep::CannotApplyPromotionsError) }
       end
+    end
+
+    context 'when completing step' do
+      before { steps.process(delivery_address: mock_address) }
+
+      subject { complete_step }
+
+      it { is_expected.to have_received(:delivery) }
     end
   end
 end

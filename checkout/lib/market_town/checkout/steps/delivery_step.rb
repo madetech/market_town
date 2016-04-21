@@ -7,7 +7,8 @@ module MarketTown
 
       steps :validate_delivery_address,
             :validate_shipments,
-            :apply_delivery_promotions
+            :apply_delivery_promotions,
+            :complete_delivery_step
 
       private
 
@@ -31,6 +32,10 @@ module MarketTown
         add_warning(state, :cannot_apply_delivery_promotions)
       rescue RuntimeError => e
         raise CannotApplyPromotionsError.new(e)
+      end
+
+      def complete_delivery_step(state)
+        deps.complete_step.delivery(state)
       end
     end
   end
