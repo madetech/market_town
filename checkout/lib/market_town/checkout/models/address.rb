@@ -36,8 +36,6 @@ module MarketTown
 
       include ActiveModel::Model
 
-      private
-
       attr_accessor :name,
                     :company,
                     :address_1,
@@ -56,6 +54,8 @@ module MarketTown
       validates :country, presence: true
 
       validate :country_is_iso3166
+
+      private
 
       def country_is_iso3166
         if ISO3166::Country.find_country_by_alpha2(country).nil?
