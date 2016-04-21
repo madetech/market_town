@@ -6,7 +6,7 @@ module MarketTown
       let(:state) { {} }
 
       it 'should delegate to AddressStep' do
-        expect(Checkout::AddressStep).to receive(:process).with(state)
+        expect_any_instance_of(Checkout::AddressStep).to receive(:process).with(state)
         Checkout.process_step(step: step_name,
                               dependencies: deps,
                               state: state)
