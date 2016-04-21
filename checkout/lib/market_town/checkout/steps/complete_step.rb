@@ -7,7 +7,7 @@ module MarketTown
             :set_completed_at,
             :send_order_complete_notice
 
-      private
+      protected
 
       def ensure_incomplete(state)
         if deps.complete_step.complete?(state)

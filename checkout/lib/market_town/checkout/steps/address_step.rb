@@ -12,7 +12,7 @@ module MarketTown
             :propose_shipments,
             :complete_address_step
 
-      private
+      protected
 
       def validate_billing_address(state)
         validate_address(:billing, state[:billing_address])
@@ -45,6 +45,8 @@ module MarketTown
       def complete_address_step(state)
         deps.complete_step.address(state)
       end
+
+      private
 
       def validate_address(type, address)
         Address.validate!(address)

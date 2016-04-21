@@ -10,7 +10,7 @@ module MarketTown
             :apply_delivery_promotions,
             :complete_delivery_step
 
-      private
+      protected
 
       def validate_delivery_address(state)
         Address.validate!(state[:delivery_address])
