@@ -2,9 +2,11 @@ module MarketTown::Checkout
   describe AddressStep do
     let(:fulfilments) { double(can_fulfil_address?: true, propose_shipments: nil) }
     let(:address_storage) { double(store: nil) }
+    let(:complete_step) { double(complete_address_step: nil) }
 
     let(:deps) { Dependencies.new(fulfilments: fulfilments,
                                   address_storage: address_storage,
+                                  complete_step: complete_step,
                                   logger: double(warn: nil)) }
 
     let(:steps) { AddressStep.new(deps) }
@@ -17,7 +19,7 @@ module MarketTown::Checkout
         country: 'GB' }
     end
 
-    context 'when processing checkout' do
+    context 'when processing address step' do
       context 'with valid addresses' do
         subject { steps.process(billing_address: mock_address,
                                 delivery_address: mock_address) }
@@ -60,7 +62,7 @@ module MarketTown::Checkout
       end
     end
 
-    context 'and saving valid addresses' do
+    context 'when saving valid addresses' do
       subject { steps.process(billing_address: mock_address.merge(save: true),
                               delivery_address: mock_address.merge(save: true)) }
 
