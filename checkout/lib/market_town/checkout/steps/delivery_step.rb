@@ -5,13 +5,13 @@ module MarketTown
       class CannotFulfilShipmentsError < Error; end
       class CannotApplyPromotionsError < Error; end
 
-      steps :ensure_delivery_address,
+      steps :validate_delivery_address,
             :validate_shipments,
             :apply_delivery_promotions
 
       private
 
-      def ensure_delivery_address(state)
+      def validate_delivery_address(state)
         Address.validate!(state[:delivery_address])
       rescue Address::InvalidError => e
         raise InvalidDeliveryAddressError.new(e.data)
