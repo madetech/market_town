@@ -62,6 +62,12 @@ module MarketTown::Checkout
       end
     end
 
+    context 'when using billing address as delivery address' do
+      subject { steps.process(billing_address: mock_address, use_billing_address: true) }
+
+      it { is_expected.to include(:billing_address, :delivery_address) }
+    end
+
     context 'when saving valid addresses' do
       subject { steps.process(billing_address: mock_address.merge(save: true),
                               delivery_address: mock_address.merge(save: true)) }

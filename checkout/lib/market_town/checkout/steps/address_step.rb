@@ -5,6 +5,7 @@ module MarketTown
       class CannotFulfilAddressError < Error; end
 
       steps :validate_billing_address,
+            :use_billing_address_as_delivery_address,
             :validate_delivery_address,
             :ensure_delivery,
             :store_addresses,
@@ -15,6 +16,12 @@ module MarketTown
 
       def validate_billing_address(state)
         validate_address(:billing, state[:billing_address])
+      end
+
+      def use_billing_address_as_delivery_address(state)
+        if state[:use_billing_address] == true
+          state.merge(delivery_address: state[:billing_address])
+        end
       end
 
       def validate_delivery_address(state)
