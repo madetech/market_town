@@ -1,9 +1,11 @@
 module MarketTown::Checkout
   describe CompleteStep do
+    let(:fulfilments) { double(fulfil: nil) }
     let(:notifications) { double(notify: nil) }
     let(:finish) { double(complete_step_finished?: false, complete_step: nil) }
 
-    let(:deps) { Dependencies.new(notifications: notifications,
+    let(:deps) { Dependencies.new(fulfilments: fulfilments,
+                                  notifications: notifications,
                                   finish: finish,
                                   logger: double(warn: nil)) }
 
@@ -25,11 +27,30 @@ module MarketTown::Checkout
       end
     end
 
+    context 'when fulfilling order' do
+      subject { steps.process({}) }
+
+      context 'and can fulfil' do
+        context 'then fulfilments' do
+          before { steps.process({}) }
+          subject { fulfilments }
+          it { is_expected.to have_received(:fulfil) }
+        end
+      end
+
+      context 'and fulfilments missing' do
+        let(:fulfilments) { nil }
+        it { is_expected.to include(:warnings) }
+      end
+    end
+
     context 'when notifying complete order' do
-      context 'then notifications' do
-        subject { notifications }
-        before { steps.process({}) }
-        it { is_expected.to have_received(:notify).with(:order_complete, Hash) }
+      context 'and can notify' do
+        context 'then notifications' do
+          subject { notifications }
+          before { steps.process({}) }
+          it { is_expected.to have_received(:notify).with(:order_complete, Hash) }
+        end
       end
 
       context 'and no notifications handled' do

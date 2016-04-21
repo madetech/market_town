@@ -4,6 +4,7 @@ module MarketTown
       class AlreadyCompleteError < Error; end
 
       steps :ensure_incomplete,
+            :fulfil_order,
             :send_order_complete_notice,
             :finish_complete_step
 
@@ -13,6 +14,12 @@ module MarketTown
         if deps.finish.complete_step_finished?(state)
           raise AlreadyCompleteError.new(state)
         end
+      end
+
+      def fulfil_order(state)
+        deps.fulfilments.fulfil(state)
+      rescue MissingDependency
+        add_warning(state, :cannot_fulfil_order)
       end
 
       def send_order_complete_notice(state)
