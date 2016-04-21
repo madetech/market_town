@@ -72,7 +72,7 @@ module MarketTown::Checkout
 
         subject { address_storage }
 
-        it { is_expected.to have_received(:store).twice }
+        it { is_expected.to have_received(:store) }
       end
     end
 

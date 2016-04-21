@@ -8,8 +8,7 @@ module MarketTown
       steps :validate_billing_address,
             :validate_delivery_address,
             :ensure_delivery,
-            :store_billing_address,
-            :store_delivery_address,
+            :store_addresses,
             :propose_shipments
 
       private
@@ -30,18 +29,8 @@ module MarketTown
         add_warning(state, :cannot_ensure_delivery)
       end
 
-      def store_billing_address(state)
-        if state[:billing_address][:save] == true
-          deps.address_storage.store(address_type: :billing,
-                                     address: state[:billing_address])
-        end
-      end
-
-      def store_delivery_address(state)
-        if state[:delivery_address][:save] == true
-          deps.address_storage.store(address_type: :delivery,
-                                     address: state[:delivery_address])
-        end
+      def store_addresses(state)
+        deps.address_storage.store(state)
       end
 
       def propose_shipments(state)
