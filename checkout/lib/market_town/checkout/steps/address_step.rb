@@ -10,7 +10,7 @@ module MarketTown
             :ensure_delivery,
             :store_addresses,
             :propose_shipments,
-            :complete_address_step
+            :finish_address_step
 
       protected
 
@@ -48,8 +48,8 @@ module MarketTown
         add_warning(state, :cannot_propose_shipments)
       end
 
-      def complete_address_step(state)
-        deps.complete_step.address(state)
+      def finish_address_step(state)
+        deps.finish.address_step(state)
       end
 
       private

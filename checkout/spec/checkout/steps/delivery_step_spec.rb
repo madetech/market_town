@@ -2,11 +2,11 @@ module MarketTown::Checkout
   describe DeliveryStep do
     let(:fulfilments) { double(can_fulfil_shipments?: true) }
     let(:promotions) { double(apply_delivery_promotions: nil) }
-    let(:complete_step) { double(delivery: nil) }
+    let(:finish) { double(delivery_step: nil) }
 
     let(:deps) { Dependencies.new(fulfilments: fulfilments,
                                   promotions: promotions,
-                                  complete_step: complete_step,
+                                  finish: finish,
                                   logger: double(warn: nil)) }
 
     let(:steps) { DeliveryStep.new(deps) }
@@ -88,9 +88,9 @@ module MarketTown::Checkout
     context 'when completing step' do
       before { steps.process(delivery_address: mock_address) }
 
-      subject { complete_step }
+      subject { finish }
 
-      it { is_expected.to have_received(:delivery) }
+      it { is_expected.to have_received(:delivery_step) }
     end
   end
 end

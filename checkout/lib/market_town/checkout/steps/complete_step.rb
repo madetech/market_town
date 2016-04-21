@@ -5,12 +5,12 @@ module MarketTown
 
       steps :ensure_incomplete,
             :send_order_complete_notice,
-            :complete_complete_step
+            :finish_complete_step
 
       protected
 
       def ensure_incomplete(state)
-        if deps.complete_step.complete?(state)
+        if deps.finish.complete_step_finished?(state)
           raise AlreadyCompleteError.new(state)
         end
       end
@@ -21,8 +21,8 @@ module MarketTown
         add_warning(state, :cannot_send_order_complete_notice)
       end
 
-      def complete_complete_step(state)
-        deps.complete_step.complete(state)
+      def finish_complete_step(state)
+        deps.finish.complete_step(state)
       end
     end
   end

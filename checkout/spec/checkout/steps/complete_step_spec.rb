@@ -1,10 +1,10 @@
 module MarketTown::Checkout
   describe CompleteStep do
     let(:notifications) { double(notify: nil) }
-    let(:complete_step) { double(complete?: false, complete: nil) }
+    let(:finish) { double(complete_step_finished?: false, complete_step: nil) }
 
     let(:deps) { Dependencies.new(notifications: notifications,
-                                  complete_step: complete_step,
+                                  finish: finish,
                                   logger: double(warn: nil)) }
 
     let(:steps) { CompleteStep.new(deps) }
@@ -26,7 +26,7 @@ module MarketTown::Checkout
       end
 
       context 'and order already completed' do
-        let(:complete_step) { double(complete?: true, complete: nil) }
+        let(:finish) { double(complete_step_finished?: true, complete_step: nil) }
 
         subject { steps.process({}) }
 
@@ -37,9 +37,9 @@ module MarketTown::Checkout
     context 'when completing complete step' do
       before { steps.process({}) }
 
-      subject { complete_step }
+      subject { finish }
 
-      it { is_expected.to have_received(:complete) }
+      it { is_expected.to have_received(:complete_step) }
     end
   end
 end

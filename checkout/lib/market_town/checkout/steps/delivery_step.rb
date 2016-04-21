@@ -7,7 +7,7 @@ module MarketTown
       steps :validate_delivery_address,
             :validate_shipments,
             :apply_delivery_promotions,
-            :complete_delivery_step
+            :finish_delivery_step
 
       protected
 
@@ -31,8 +31,8 @@ module MarketTown
         add_warning(state, :cannot_apply_delivery_promotions)
       end
 
-      def complete_delivery_step(state)
-        deps.complete_step.delivery(state)
+      def finish_delivery_step(state)
+        deps.finish.delivery_step(state)
       end
     end
   end
