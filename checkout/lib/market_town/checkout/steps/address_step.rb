@@ -39,7 +39,7 @@ module MarketTown
       def store_addresses(state)
         deps.address_storage.store(state)
       rescue MissingDependency
-        add_warning(state, :cannot_propose_shipments)
+        add_warning(state, :cannot_store_address)
       end
 
       def propose_shipments(state)
