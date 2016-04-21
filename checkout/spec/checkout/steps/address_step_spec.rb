@@ -2,7 +2,7 @@ module MarketTown::Checkout
   describe AddressStep do
     let(:fulfilments) { double(can_fulfil_address?: true, propose_shipments: nil) }
     let(:address_storage) { double(store: nil) }
-    let(:complete_step) { double(complete_address_step: nil) }
+    let(:complete_step) { double(address: nil) }
 
     let(:deps) { Dependencies.new(fulfilments: fulfilments,
                                   address_storage: address_storage,
@@ -108,6 +108,15 @@ module MarketTown::Checkout
 
         it { is_expected.to include(:warnings) }
       end
+    end
+
+    context 'when completing step' do
+      before { steps.process(billing_address: mock_address,
+                             delivery_address: mock_address) }
+
+      subject { complete_step }
+
+      it { is_expected.to have_received(:address) }
     end
   end
 end

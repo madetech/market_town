@@ -50,12 +50,22 @@ class AppContainer < MarketTown::Checkout::Dependencies
     end
   end
 
+  class CompleteStep
+    def address(state)
+      state[:order].update!(step: :delivery)
+    end
+  end
+
   def fulfilments
     Fulfilments.new
   end
 
   def address_storage
     AddressStorage.new
+  end
+
+  def complete_step
+    CompleteStep.new
   end
 end
 ```

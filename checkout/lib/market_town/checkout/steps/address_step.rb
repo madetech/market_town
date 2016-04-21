@@ -9,7 +9,8 @@ module MarketTown
             :validate_delivery_address,
             :ensure_delivery,
             :store_addresses,
-            :propose_shipments
+            :propose_shipments,
+            :complete_address_step
 
       private
 
@@ -39,6 +40,10 @@ module MarketTown
         add_warning(state, :cannot_propose_shipments)
       rescue RuntimeError => e
         raise CannotProposeShipmentsError.new(e)
+      end
+
+      def complete_address_step(state)
+        deps.complete_step.address(state)
       end
 
       def validate_address(type, address)
