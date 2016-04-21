@@ -1,6 +1,14 @@
 require 'bundler/gem_tasks'
+
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
+
+require 'yard'
+YARD::Rake::YardocTask.new do |t|
+  t.files = ['lib/**/*.rb']
+  t.options = %w(--title MarketTown::Checkout
+                 --markup markdown)
+end
 
 desc 'Run spec suite'
 task default: :spec
