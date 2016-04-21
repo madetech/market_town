@@ -1,31 +1,34 @@
 # Market Town: Checkout
 
-This gem provides Checkout business logic. The aim is to provide
-framework independent logic for handling the steps of e-commerce
-checkouts.
+Checkout business logic for your ruby e-commerce. This gem is framework
+independent but provides integration with Spree and Webhooks.
 
-Using dependency injection you can provide implementation specific
-logic for applying promotions, saving addresses, taking payments,
-etc. in your e-commerce store. Dependency containers can be written
-to support Spree, Webhooks and more.
+You can introduce MarketTown::Checkout as an interface between your application
+and your e-commerce backend. Using the power of dependency injection you can
+provide implementation specific logic for applying promotions, saving addresses,
+taking payments, etc. in your e-commerce store.
 
-## Aims
+If you've ever wanted to gradually replace Spree with your own system, or split
+Spree out into a number of different services then you're in the right place.
 
- - Handle common usecases of checkout behaviour
- - Provide a Spree dependency container for writing your own
-   checkout controllers that speak to Spree objects underneath
- - Provide a Webhook dependency container that will forward calls
-   onto a HTTPS interface of your choice
+## Mission
+
+ - Handle common use cases of checkout step behaviour
+ - Provide a Spree dependency container for writing your own checkout
+   controllers that speak to Spree objects underneath
+ - Provide a Webhook dependency container that will forward calls onto a HTTPS
+   interface of your choice
 
 ## Implementing a checkout
 
-This library provides logic for common steps in a checkout. You can
-use these steps in your checkout controllers. This example will be
-in Ruby on Rails but it could be any ruby framework or library,
-even Rack.
+This library provides logic for common steps in a checkout. You can use these
+steps in your checkout controllers. This example will be in Ruby on Rails but it
+could be any ruby framework or library, even Rack.
 
-First of all let's create a dependency container for an imaginary
-e-commerce framework.
+### Dependency container
+
+First of all let's create a dependency container for an imaginary e-commerce
+framework.
 
 ``` ruby
 class AppContainer < MarketTown::Checkout::Dependencies
@@ -35,7 +38,7 @@ class AppContainer < MarketTown::Checkout::Dependencies
     end
 
     def propose_shipments(state)
-      state[:shipments] << Ecom::Shipments.new.propose(state[:delivery_address])
+      state[:order].shipments << Ecom::Shipments.new.propose(state[:delivery_address])
     end
   end
 
@@ -43,9 +46,9 @@ class AppContainer < MarketTown::Checkout::Dependencies
     def store(state)
       case state[:address_type]
       when :delivery
-        User.find_by(state[:user_id]).shipment_addresses << state[:delivery_address]
+        state[:user].shipment_addresses << state[:delivery_address]
       when :billing
-        User.find_by(state[:user_id]).billing_addresses << state[:billing_address]
+        state[:user].billing_addresses << state[:billing_address]
       end
     end
   end
@@ -75,10 +78,12 @@ You can of course keep these adapters in another file, we've kept them here to
 keep the example simple. The container exposes the adapters via methods that
 are used by MarketTown::Checkout steps.
 
-Now we can implement our checkout address step controller:
+### Generic step controller
+
+Now we can implement our base step controller:
 
 ``` ruby
-class AddressStepController < ApplicationController
+class StepController < ApplicationController
   def edit
     @order = Ecom::Order.find_by(user: current_user)
   end
@@ -86,26 +91,48 @@ class AddressStepController < ApplicationController
   def update
     @order = Ecom::Order.find_by(user: current_user)
     process_step
+    redirect_to checkout_path(@order)
   rescue MarketTown::Checkout::Error => e
     flash.now[:errors] = [e.error]
+    render :edit
+  rescue ActiveRecord::RecordInvalid
     render :edit
   end
 
   private
 
-  def order_params
-    address_params = %i(name address_1 locality postal_code country save)
-
-    params.require(:order).permit(billing_address: address_params,
-                                  delivery_address: address_params)
-                          .merge(user_id: current_user.id,
-                                 shipments: @order.shipments)
+  def process_step
+    MarketTown::Checkout.process_step(step: step_name,
+                                      dependencies: AppContainer.new,
+                                      state: step_state)
   end
 
-  def process_step
-    MarketTown::Checkout.process_step(step: :address,
-                                      dependencies: AppContainer.new,
-                                      state: order_params)
+  def step_state
+    { user: current_user,
+      order: @order }
   end
 end
 ```
+
+### Address step controller
+
+And now let's create our address checkout step:
+
+``` ruby
+class AddressStepController < StepController
+  private
+
+  def step_name
+    :address
+  end
+
+  def step_state
+    address_params = %i(name address_1 locality postal_code country save)
+
+    super.merge(params.require(:order).permit(billing_address: address_params,
+                                              delivery_address: address_params))
+  end
+end
+```
+
+You could create a controller for each step in the same way.
