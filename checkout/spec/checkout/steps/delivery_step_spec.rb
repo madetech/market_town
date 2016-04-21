@@ -22,54 +22,6 @@ module MarketTown::Checkout
         subject { steps.process(delivery_address: mock_address) }
 
         it { is_expected.to include(:delivery_address) }
-
-        context 'and can fulfil' do
-          context 'then fulfilments' do
-            before { steps.process(delivery_address: mock_address) }
-
-            subject { fulfilments }
-
-            it { is_expected.to have_received(:can_fulfil_shipments?) }
-          end
-        end
-
-        context 'and fulfilments missing' do
-          let(:fulfilments) { nil }
-
-          it { is_expected.to include(:warnings) }
-        end
-
-        context 'and cannot fulfil shipments' do
-          let(:fulfilments) { double(can_fulfil_shipments?: false) }
-
-          it { expect { subject }.to raise_error(DeliveryStep::CannotFulfilShipmentsError) }
-        end
-
-        context 'and can apply delivery promotions' do
-          before do
-            expect(promotions).to receive(:apply_delivery_promotions) do |state|
-              state.merge(promotions: [:free_delivery])
-            end
-          end
-
-          it { is_expected.to include(:promotions) }
-        end
-
-        context 'and promotions missing' do
-          let(:fulfilments) { nil }
-
-          it { is_expected.to include(:warnings) }
-        end
-
-        context 'and cannot apply promotions' do
-          before do
-            expect(promotions).to receive(:apply_delivery_promotions) do |state|
-              raise 'Something went wrong applying promotion'
-            end
-          end
-
-          it { expect { subject }.to raise_error(DeliveryStep::CannotApplyPromotionsError) }
-        end
       end
 
       context 'and delivery address missing' do
@@ -82,6 +34,62 @@ module MarketTown::Checkout
         subject { steps.process(delivery_address: mock_address.merge(name: nil)) }
 
         it { expect { subject }.to raise_error(DeliveryStep::InvalidDeliveryAddressError) }
+      end
+    end
+
+    context 'when validating fulfilments' do
+      subject { steps.process(delivery_address: mock_address) }
+
+      context 'and can fulfil' do
+        context 'then fulfilments' do
+          before { steps.process(delivery_address: mock_address) }
+
+          subject { fulfilments }
+
+          it { is_expected.to have_received(:can_fulfil_shipments?) }
+        end
+      end
+
+      context 'and fulfilments missing' do
+        let(:fulfilments) { nil }
+
+        it { is_expected.to include(:warnings) }
+      end
+
+      context 'and cannot fulfil shipments' do
+        let(:fulfilments) { double(can_fulfil_shipments?: false) }
+
+        it { expect { subject }.to raise_error(DeliveryStep::CannotFulfilShipmentsError) }
+      end
+    end
+
+    context 'when applying delivery promotions' do
+      subject { steps.process(delivery_address: mock_address) }
+
+      context 'and can apply delivery promotions' do
+        before do
+          expect(promotions).to receive(:apply_delivery_promotions) do |state|
+            state.merge(promotions: [:free_delivery])
+          end
+        end
+
+        it { is_expected.to include(:promotions) }
+      end
+
+      context 'and promotions missing' do
+        let(:fulfilments) { nil }
+
+        it { is_expected.to include(:warnings) }
+      end
+
+      context 'and cannot apply promotions' do
+        before do
+          expect(promotions).to receive(:apply_delivery_promotions) do |state|
+            raise 'Something went wrong applying promotion'
+          end
+        end
+
+        it { expect { subject }.to raise_error(DeliveryStep::CannotApplyPromotionsError) }
       end
     end
   end
