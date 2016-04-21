@@ -13,8 +13,6 @@ module MarketTown::Checkout
       context 'and order incomplete' do
         subject { steps.process({}) }
 
-        it { is_expected.to include(:completed_at) }
-
         context 'then notifications' do
           subject { notifications }
           before { steps.process({}) }

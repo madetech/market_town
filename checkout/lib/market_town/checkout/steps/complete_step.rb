@@ -4,8 +4,8 @@ module MarketTown
       class AlreadyCompleteError < Error; end
 
       steps :ensure_incomplete,
-            :set_completed_at,
-            :send_order_complete_notice
+            :send_order_complete_notice,
+            :complete_complete_step
 
       protected
 
@@ -15,14 +15,14 @@ module MarketTown
         end
       end
 
-      def set_completed_at(state)
-        state.merge(completed_at: Time.now)
-      end
-
       def send_order_complete_notice(state)
         deps.notifications.notify(:order_complete, state)
       rescue MissingDependency
         add_warning(state, :cannot_send_order_complete_notice)
+      end
+
+      def complete_complete_step(state)
+        deps.complete_step.complete(state)
       end
     end
   end
