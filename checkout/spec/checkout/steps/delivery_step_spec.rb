@@ -83,16 +83,6 @@ module MarketTown::Checkout
 
         it { is_expected.to include(:warnings) }
       end
-
-      context 'and cannot apply promotions' do
-        before do
-          expect(promotions).to receive(:apply_delivery_promotions) do |state|
-            raise 'Something went wrong applying promotion'
-          end
-        end
-
-        it { expect { subject }.to raise_error(DeliveryStep::CannotApplyPromotionsError) }
-      end
     end
 
     context 'when completing step' do

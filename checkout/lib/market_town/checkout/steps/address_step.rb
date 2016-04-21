@@ -3,7 +3,6 @@ module MarketTown
     class AddressStep < Step
       class InvalidAddressError < Error; end
       class CannotFulfilAddressError < Error; end
-      class CannotProposeShipmentsError < Error; end
 
       steps :validate_billing_address,
             :validate_delivery_address,
@@ -32,14 +31,14 @@ module MarketTown
 
       def store_addresses(state)
         deps.address_storage.store(state)
+      rescue MissingDependency
+        add_warning(state, :cannot_propose_shipments)
       end
 
       def propose_shipments(state)
         deps.fulfilments.propose_shipments(state)
       rescue MissingDependency
         add_warning(state, :cannot_propose_shipments)
-      rescue RuntimeError => e
-        raise CannotProposeShipmentsError.new(e)
       end
 
       def complete_address_step(state)

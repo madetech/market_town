@@ -93,16 +93,6 @@ module MarketTown::Checkout
         it { is_expected.to have_received(:propose_shipments) }
       end
 
-      context 'and cannot propose shipments' do
-        before do
-          expect(fulfilments).to receive(:propose_shipments) do |state|
-            raise 'Something went wrong proposing shipments'
-          end
-        end
-
-        it { expect { subject }.to raise_error(AddressStep::CannotProposeShipmentsError) }
-      end
-
       context 'and no fulfilments' do
         let(:fulfilments) { nil }
 
