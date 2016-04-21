@@ -10,7 +10,7 @@ module MarketTown
       private
 
       def ensure_incomplete(state)
-        if state.has_key?(:completed_at)
+        if deps.complete_step.complete?(state)
           raise AlreadyCompleteError.new(state)
         end
       end
