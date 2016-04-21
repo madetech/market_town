@@ -13,16 +13,7 @@ module MarketTown::Checkout
       context 'and order incomplete' do
         subject { steps.process({}) }
 
-        context 'then notifications' do
-          subject { notifications }
-          before { steps.process({}) }
-          it { is_expected.to have_received(:notify).with(:order_complete, Hash) }
-        end
-
-        context 'and no notifications handled' do
-          let(:notifications) { nil }
-          it { is_expected.to include(:warnings) }
-        end
+        it { is_expected.to be_truthy }
       end
 
       context 'and order already completed' do
@@ -31,6 +22,20 @@ module MarketTown::Checkout
         subject { steps.process({}) }
 
         it { expect { subject }.to raise_error(CompleteStep::AlreadyCompleteError) }
+      end
+    end
+
+    context 'when notifying complete order' do
+      context 'then notifications' do
+        subject { notifications }
+        before { steps.process({}) }
+        it { is_expected.to have_received(:notify).with(:order_complete, Hash) }
+      end
+
+      context 'and no notifications handled' do
+        let(:notifications) { nil }
+        subject { steps.process({}) }
+        it { is_expected.to include(:warnings) }
       end
     end
 
