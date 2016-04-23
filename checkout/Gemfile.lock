@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    market_town-checkout (0.1.0)
+    market_town-checkout (0.1.1)
       activemodel
       countries
 
