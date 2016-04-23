@@ -30,6 +30,12 @@ module MarketTown
   #
   # To find out more about `AppContainer` please see {Dependencies}.
   #
+  # ## Available steps
+  #
+  #  - {AddressStep} – Handles the taking of billing and delivery addresses
+  #  - {DeliveryStep} – Handles the choosing of delivery method
+  #  - {CompleteStep} – Handles completion of order
+  #
   module Checkout
     extend self
 
