@@ -9,7 +9,7 @@ module MarketTown::Checkout
                                   finish: finish,
                                   logger: double(warn: nil)) }
 
-    let(:steps) { DeliveryStep.new(deps) }
+    let(:step) { DeliveryStep.new(deps) }
 
     let(:mock_address) do
       { name: 'Luke Morton',
@@ -21,30 +21,30 @@ module MarketTown::Checkout
 
     context 'when processing delivery method' do
       context 'and delivery address valid' do
-        subject { steps.process(delivery_address: mock_address) }
+        subject { step.process(delivery_address: mock_address) }
 
         it { is_expected.to include(:delivery_address) }
       end
 
       context 'and delivery address missing' do
-        subject { steps.process({}) }
+        subject { step.process({}) }
 
         it { expect { subject }.to raise_error(DeliveryStep::InvalidDeliveryAddressError) }
       end
 
       context 'and delivery address invalid' do
-        subject { steps.process(delivery_address: mock_address.merge(name: nil)) }
+        subject { step.process(delivery_address: mock_address.merge(name: nil)) }
 
         it { expect { subject }.to raise_error(DeliveryStep::InvalidDeliveryAddressError) }
       end
     end
 
     context 'when validating fulfilments' do
-      subject { steps.process(delivery_address: mock_address) }
+      subject { step.process(delivery_address: mock_address) }
 
       context 'and can fulfil' do
         context 'then fulfilments' do
-          before { steps.process(delivery_address: mock_address) }
+          before { step.process(delivery_address: mock_address) }
 
           subject { fulfilments }
 
@@ -66,7 +66,7 @@ module MarketTown::Checkout
     end
 
     context 'when applying delivery promotions' do
-      subject { steps.process(delivery_address: mock_address) }
+      subject { step.process(delivery_address: mock_address) }
 
       context 'and can apply delivery promotions' do
         before do
@@ -86,7 +86,7 @@ module MarketTown::Checkout
     end
 
     context 'when completing step' do
-      before { steps.process(delivery_address: mock_address) }
+      before { step.process(delivery_address: mock_address) }
 
       subject { finish }
 
