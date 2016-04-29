@@ -32,6 +32,7 @@ module MarketTown
   #
   # ## Available steps
   #
+  #  - {CartStep} – Handles the initialisation of the checkout process
   #  - {AddressStep} – Handles the taking of billing and delivery addresses
   #  - {DeliveryStep} – Handles the choosing of delivery method
   #  - {CompleteStep} – Handles completion of order
@@ -56,6 +57,7 @@ require_relative './checkout/missing_dependency'
 require_relative './checkout/dependencies'
 require_relative './checkout/error'
 require_relative './checkout/steps/step'
+require_relative './checkout/steps/cart_step'
 require_relative './checkout/steps/address_step'
 require_relative './checkout/steps/delivery_step'
 require_relative './checkout/steps/complete_step'
