@@ -10,7 +10,8 @@ module MarketTown::Checkout
                                   logger: double(warn: nil)) }
 
     let(:step) { AddressStep.new(deps) }
-     let(:mock_address) do
+
+    let(:mock_address) do
       { name: 'Luke Morton',
         address_1: '21 Cool St',
         locality: 'London',
