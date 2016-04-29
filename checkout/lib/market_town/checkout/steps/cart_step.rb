@@ -1,5 +1,13 @@
 module MarketTown
   module Checkout
+    # The place where a checkout process begins. This step represents the
+    # finalisation of a cart before the checkout process.
+    #
+    # Dependencies:
+    #  - order#has_line_items?
+    #  - address_storage#load_default
+    #  - finish#cart_step
+    #
     class CartStep < Step
       class NoLineItemsError < Error; end
 
@@ -9,18 +17,24 @@ module MarketTown
 
       protected
 
+      # @raise [NoLineItemsError] when no line items on order
+      #
       def ensure_line_items(state)
         unless deps.order.has_line_items?(state)
           raise NoLineItemsError.new(state)
         end
       end
 
+      # Tries to load default addresses
+      #
       def load_default_addresses(state)
         deps.address_storage.load_default(state)
       rescue MissingDependency
         add_dependency_missing_warning(state, :cannot_load_default_addresses)
       end
 
+      # Finishes cart step
+      #
       def finish_cart_step(state)
         deps.finish.cart_step(state)
       end
