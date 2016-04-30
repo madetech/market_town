@@ -19,6 +19,10 @@ Spree out into a number of different services then you're in the right place.
  - Provide a Webhook dependency container that will forward calls onto a HTTPS
    interface of your choice
 
+## Getting started
+
+ - [API documentation](http://lukemorton.github.io/market_town/checkout/)
+
 ## Implementing a checkout
 
 This library provides logic for common steps in a checkout. You can use these
