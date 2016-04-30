@@ -60,15 +60,13 @@
       <iframe id="search_frame" src="file_list.html"></iframe>
 
       <div id="content"><div id='filecontents'>
-<h1 id="label-Introduction">Introduction</h1>
-
-<h2 id="label-Implementing+a+checkout">Implementing a checkout</h2>
+<h1 id="label-Introduction+to+implementing+a+checkout">Introduction to implementing a checkout</h1>
 
 <p>This library provides logic for common steps in a checkout. You can use
 these steps in your checkout controllers. This example will be in Ruby on
 Rails but it could be any ruby framework or library, even Rack.</p>
 
-<h3 id="label-Dependency+container">Dependency container</h3>
+<h2 id="label-Dependency+container">Dependency container</h2>
 
 <p>First of all let&#39;s create a dependency container for an imaginary
 e-commerce framework.</p>
@@ -120,7 +118,7 @@ framework. You can of course keep these adapters in another file, we&#39;ve
 kept them here to keep the example simple. The container exposes the
 adapters via methods that are used by MarketTown::Checkout steps.</p>
 
-<h3 id="label-Generic+step+controller">Generic step controller</h3>
+<h2 id="label-Generic+step+controller">Generic step controller</h2>
 
 <p>Now we can implement our base step controller:</p>
 
@@ -155,7 +153,7 @@ adapters via methods that are used by MarketTown::Checkout steps.</p>
 <span class='kw'>end</span>
 </code></pre>
 
-<h3 id="label-Address+step+controller">Address step controller</h3>
+<h2 id="label-Address+step+controller">Address step controller</h2>
 
 <p>And now let&#39;s create our address checkout step:</p>
 
@@ -179,7 +177,7 @@ adapters via methods that are used by MarketTown::Checkout steps.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Sat Apr 30 19:56:25 2016 by
+  Generated on Sat Apr 30 19:58:00 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>
