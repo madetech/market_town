@@ -1,12 +1,10 @@
-# Introduction
-
-## Implementing a checkout
+# Introduction to implementing a checkout
 
 This library provides logic for common steps in a checkout. You can use these
 steps in your checkout controllers. This example will be in Ruby on Rails but it
 could be any ruby framework or library, even Rack.
 
-### Dependency container
+## Dependency container
 
 First of all let's create a dependency container for an imaginary e-commerce
 framework.
@@ -59,7 +57,7 @@ You can of course keep these adapters in another file, we've kept them here to
 keep the example simple. The container exposes the adapters via methods that
 are used by MarketTown::Checkout steps.
 
-### Generic step controller
+## Generic step controller
 
 Now we can implement our base step controller:
 
@@ -95,7 +93,7 @@ class StepController < ApplicationController
 end
 ```
 
-### Address step controller
+## Address step controller
 
 And now let's create our address checkout step:
 
