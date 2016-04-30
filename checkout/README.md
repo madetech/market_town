@@ -24,6 +24,11 @@ Spree out into a number of different services then you're in the right place.
  - [Introduction](INTRODUCTION.md)
  - [API documentation](http://lukemorton.github.io/market_town/checkout/)
 
+## Contributing
+
+ - Follow the [Code of Conduct](../CODE_OF_CONDUCT.md)
+ - Run tests with `bundle exec rake`
+
 ## Author
 
 Luke Morton at Made Tech
