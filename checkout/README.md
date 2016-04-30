@@ -21,12 +21,12 @@ Spree out into a number of different services then you're in the right place.
 
 ## Getting started
 
- - [Introduction](INTRODUCTION.md)
- - [API documentation](http://lukemorton.github.io/market_town/checkout/)
+ - [Introduction](https://github.com/madetech/market_town/blob/master/checkout/INTRODUCTION.md)
+ - [API documentation](http://madetech.github.io/market_town/checkout/)
 
 ## Contributing
 
- - Follow the [Code of Conduct](../CODE_OF_CONDUCT.md)
+ - Follow the [Code of Conduct](https://github.com/madetech/market_town/blob/master/CODE_OF_CONDUCT.md)
  - Run tests with `bundle exec rake`
 
 ## Author
