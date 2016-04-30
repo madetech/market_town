@@ -5,10 +5,10 @@ module MarketTown
     # request the fulfilment of the order and notify the customer.
     #
     # Dependencies:
-    #  - finish#complete_step_finished?
-    #  - fulfilments#fulfil
-    #  - notifications#notify
-    #  - finish#complete_step
+    # * finish#complete_step_finished?
+    # * fulfilments#fulfil
+    # * notifications#notify
+    # * finish#complete_step
     #
     class CompleteStep < Step
       class AlreadyCompleteError < Error; end

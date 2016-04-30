@@ -4,10 +4,10 @@ module MarketTown
     # finalisation of a cart before the checkout process.
     #
     # Dependencies:
-    #  - order#has_line_items?
-    #  - address_storage#load_default
-    #  - promotions#apply_cart_promotions
-    #  - finish#cart_step
+    # * order#has_line_items?
+    # * address_storage#load_default
+    # * promotions#apply_cart_promotions
+    # * finish#cart_step
     #
     class CartStep < Step
       class NoLineItemsError < Error; end

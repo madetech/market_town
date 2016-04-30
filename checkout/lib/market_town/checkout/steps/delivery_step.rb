@@ -3,9 +3,9 @@ module MarketTown
     # Handles delivery method and application of delivery promotions.
     #
     # Dependencies:
-    #  - fulfilments#can_fulfil_shipments?
-    #  - promotions#apply_delivery_promotions
-    #  - finish#delivery_step
+    # * fulfilments#can_fulfil_shipments?
+    # * promotions#apply_delivery_promotions
+    # * finish#delivery_step
     #
     class DeliveryStep < Step
       class InvalidDeliveryAddressError < Error; end
