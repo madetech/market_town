@@ -99,7 +99,7 @@ module MarketTown
 
       # Setup step meta object.
       #
-      # @param [Dependencies]
+      # @param [Dependencies] dependencies used by step
       #
       def initialize(dependencies = Dependencies.new)
         @meta = { name: name_from_class }
@@ -107,6 +107,8 @@ module MarketTown
       end
 
       # Process each sub-step that makes up step.
+      #
+      # @param [Hash] state
       #
       def process(state)
         self.class.steps.reduce(state) do |state, step|
