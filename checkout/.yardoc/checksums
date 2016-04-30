@@ -1,0 +1,11 @@
+lib/market_town/checkout.rb 4e10dec54af5a9151634e1bf5978d67a5f410bdd
+lib/market_town/checkout/error.rb 17b0c25530810e0e426bf4a4376abc8deaab8dea
+lib/market_town/checkout/version.rb f09b2df811c4b8db1c1da5de6f335ac44681af2d
+lib/market_town/checkout/steps/step.rb dbbfe6757014a4b6ab127a25ac5fe9ea8f6f68d7
+lib/market_town/checkout/dependencies.rb 056388e779b4efaa70c69a5696304f6780d2b0c2
+lib/market_town/checkout/models/address.rb 319135e66b1a865e7970e3f71ac7260287cd2327
+lib/market_town/checkout/steps/cart_step.rb 43badc6dc471a4074f9337c4052587eab2044000
+lib/market_town/checkout/steps/address_step.rb 66e087b7da3a0468e6bf636958cd7b8f56909e14
+lib/market_town/checkout/missing_dependency.rb 6ab7270140e2d22db947b10851f0a1fd38c085de
+lib/market_town/checkout/steps/complete_step.rb f61ee74d72bb43677f511ab2deb6ac25c778bce0
+lib/market_town/checkout/steps/delivery_step.rb d7be73f9a41dae95386178217c3bb8f1ccaedb80

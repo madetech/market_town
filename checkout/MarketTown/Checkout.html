@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: MarketTown::Checkout
+  
+    &mdash; MarketTown::Checkout
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!MarketTown/Checkout.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (C)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../MarketTown.html" title="MarketTown (module)">MarketTown</a></span></span>
+     &raquo; 
+    <span class="title">Checkout</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: MarketTown::Checkout
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+      <dt class="r1">Extended by:</dt>
+      <dd class="r1"><span class='object_link'><a href="" title="MarketTown::Checkout (module)">Checkout</a></span></dd>
+      
+    
+  
+    
+  
+  
+    <dt class="r2">Included in:</dt>
+    <dd class="r2"><span class='object_link'><a href="" title="MarketTown::Checkout (module)">Checkout</a></span></dd>
+    
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/market_town/checkout.rb<span class="defines">,<br />
+  lib/market_town/checkout/error.rb,<br /> lib/market_town/checkout/version.rb,<br /> lib/market_town/checkout/steps/step.rb,<br /> lib/market_town/checkout/dependencies.rb,<br /> lib/market_town/checkout/models/address.rb,<br /> lib/market_town/checkout/steps/cart_step.rb,<br /> lib/market_town/checkout/steps/address_step.rb,<br /> lib/market_town/checkout/missing_dependency.rb,<br /> lib/market_town/checkout/steps/complete_step.rb,<br /> lib/market_town/checkout/steps/delivery_step.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p><span class='object_link'><a href="" title="MarketTown::Checkout (module)">Checkout</a></span> provides a simple interface to perform a single step in a
+checkout process.</p>
+
+<h2 id="label-Processing+a+step">Processing a step</h2>
+
+<p>If we wanted to process the delivery step of an order we would do something
+like this:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_order'>order</span> <span class='op'>=</span> <span class='const'>Order</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_delivery_address'>delivery_address</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Luke Morton</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+                     <span class='label'>address_1:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>21 Cool St</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+                     <span class='label'>locality:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>London</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+                     <span class='label'>postal_code:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N1 1PQ</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+                     <span class='label'>country:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>GB</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+
+<span class='const'>MarketTown</span><span class='op'>::</span><span class='const'>Checkout</span><span class='period'>.</span><span class='id identifier rubyid_process_step'>process_step</span><span class='lparen'>(</span><span class='label'>step:</span> <span class='symbol'>:delivery</span><span class='comma'>,</span>
+                                  <span class='label'>dependencies:</span> <span class='const'>AppContainer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='comma'>,</span>
+                                  <span class='label'>state:</span> <span class='lbrace'>{</span> <span class='label'>order:</span> <span class='id identifier rubyid_order'>order</span><span class='comma'>,</span>
+                                           <span class='label'>delivery_address:</span> <span class='id identifier rubyid_delivery_address'>delivery_address</span><span class='comma'>,</span>
+                                           <span class='label'>delivery_method:</span> <span class='symbol'>:next_day</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>To find out more about <code>AppContainer</code> please see <span class='object_link'><a href="Checkout/Dependencies.html" title="MarketTown::Checkout::Dependencies (class)">Dependencies</a></span>.</p>
+
+<h2 id="label-Available+steps">Available steps</h2>
+<ul><li>
+<p><span class='object_link'><a href="Checkout/CartStep.html" title="MarketTown::Checkout::CartStep (class)">CartStep</a></span> – Handles the initialisation of the checkout process</p>
+</li><li>
+<p><span class='object_link'><a href="Checkout/AddressStep.html" title="MarketTown::Checkout::AddressStep (class)">AddressStep</a></span> – Handles the taking of billing and delivery addresses</p>
+</li><li>
+<p><span class='object_link'><a href="Checkout/DeliveryStep.html" title="MarketTown::Checkout::DeliveryStep (class)">DeliveryStep</a></span> – Handles the choosing of delivery method</p>
+</li><li>
+<p><span class='object_link'><a href="Checkout/CompleteStep.html" title="MarketTown::Checkout::CompleteStep (class)">CompleteStep</a></span> – Handles completion of order</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Checkout/Address.html" title="MarketTown::Checkout::Address (class)">Address</a></span>, <span class='object_link'><a href="Checkout/AddressStep.html" title="MarketTown::Checkout::AddressStep (class)">AddressStep</a></span>, <span class='object_link'><a href="Checkout/CartStep.html" title="MarketTown::Checkout::CartStep (class)">CartStep</a></span>, <span class='object_link'><a href="Checkout/CompleteStep.html" title="MarketTown::Checkout::CompleteStep (class)">CompleteStep</a></span>, <span class='object_link'><a href="Checkout/DeliveryStep.html" title="MarketTown::Checkout::DeliveryStep (class)">DeliveryStep</a></span>, <span class='object_link'><a href="Checkout/Dependencies.html" title="MarketTown::Checkout::Dependencies (class)">Dependencies</a></span>, <span class='object_link'><a href="Checkout/Error.html" title="MarketTown::Checkout::Error (class)">Error</a></span>, <span class='object_link'><a href="Checkout/MissingDependency.html" title="MarketTown::Checkout::MissingDependency (class)">MissingDependency</a></span>, <span class='object_link'><a href="Checkout/Step.html" title="MarketTown::Checkout::Step (class)">Step</a></span>
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="VERSION-constant" class="">VERSION =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.1.2</span><span class='tstring_end'>&#39;</span></span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#process_step-instance_method" title="#process_step (instance method)">- (Object) <strong>process_step</strong>(options) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="process_step-instance_method">
+  
+    - (<tt>Object</tt>) <strong>process_step</strong>(options) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:step</span>
+          <span class="type">(<tt>Symbol</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>One of <code>:address</code>, <code>:delivery</code>,
+<code>:complete</code></p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:dependencies</span>
+          <span class="type">(<tt><span class='object_link'><a href="Checkout/Dependencies.html" title="MarketTown::Checkout::Dependencies (class)">Dependencies</a></span></tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+        </li>
+      
+        <li>
+          <span class="name">:state</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>A step dependant Hash</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+48
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/market_town/checkout.rb', line 48</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_process_step'>process_step</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_step'>step</span> <span class='op'>=</span> <span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:step</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_capitalize'>capitalize</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Step</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_step'>step</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:dependencies</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_process'>process</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:state</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Sat Apr 30 18:29:11 2016 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.3.0).
+</div>
+
+  </body>
+</html>
