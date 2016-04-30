@@ -30,6 +30,10 @@ Spree out into a number of different services then you're in the right place.
  - Follow the [Code of Conduct](https://github.com/madetech/market_town/blob/master/CODE_OF_CONDUCT.md)
  - Run tests with `bundle exec rake`
 
+## License
+
+MIT
+
 ## Author
 
 Luke Morton at [Made Tech](https://madetech.com)
