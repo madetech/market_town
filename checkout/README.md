@@ -32,4 +32,4 @@ Spree out into a number of different services then you're in the right place.
 
 ## Author
 
-Luke Morton at Made Tech
+Luke Morton at [Made Tech](https://madetech.com)
