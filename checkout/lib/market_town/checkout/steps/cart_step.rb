@@ -6,6 +6,7 @@ module MarketTown
     # Dependencies:
     #  - order#has_line_items?
     #  - address_storage#load_default
+    #  - promotions#apply_cart_promotions
     #  - finish#cart_step
     #
     class CartStep < Step
@@ -31,6 +32,11 @@ module MarketTown
         deps.address_storage.load_default(state)
       rescue MissingDependency
         add_dependency_missing_warning(state, :cannot_load_default_addresses)
+      end
+
+      # Tries to apply cart promotions
+      #
+      def apply_cart_promotions(state)
       end
 
       # Finishes cart step
