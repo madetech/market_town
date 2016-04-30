@@ -3,10 +3,11 @@ module MarketTown
     # Handles addresses by validating them and optionally storing them.
     #
     # Dependencies:
-    # * fulfilments#can_fulfil_address?
-    # * address_storage#store
-    # * fulfilments#propose_shipments
-    # * finish#address_step
+    #
+    # - fulfilments#can_fulfil_address?
+    # - address_storage#store
+    # - fulfilments#propose_shipments
+    # - finish#address_step
     #
     class AddressStep < Step
       class InvalidAddressError < Error; end
