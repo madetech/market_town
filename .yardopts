@@ -4,7 +4,7 @@
 --no-private
 */lib/**/*.rb
 -
-README
-CODE_OF_CONDUCT
-checkout/README
-checkout/INTRODUCTION
+README.md
+CODE_OF_CONDUCT.md
+checkout/README.md
+checkout/INTRODUCTION.md
