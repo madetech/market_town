@@ -1,0 +1,10 @@
+--title MarketTown
+--markup markdown
+--protected
+--no-private
+*/lib/**/*.rb
+-
+README
+CODE_OF_CONDUCT
+checkout/README
+checkout/INTRODUCTION
