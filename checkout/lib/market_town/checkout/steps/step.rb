@@ -127,7 +127,7 @@ module MarketTown
       end
 
       def add_dependency_missing_warning(state, warning)
-        deps.logger.warn("MissingDependency so #{warning.to_s.gsub('_', ' ')}")
+        deps.logger.warn("MissingDependency so #{warning.to_s.tr('_', ' ')}")
         state.merge(warnings: state.fetch(:warnings, []).push(warning))
       end
     end
