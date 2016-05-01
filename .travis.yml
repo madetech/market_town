@@ -1,0 +1,9 @@
+rvm:
+  - 2.2
+  - 2.3
+
+install:
+  - cd checkout && bundle install
+
+script:
+  - cd checkout && bundle exec rake
