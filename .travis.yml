@@ -7,7 +7,12 @@ install:
   - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile bundle install && popd
 
 script:
-  - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile bundle exec rake && popd
+  - pushd checkout
+  - >
+      BUNDLE_GEMFILE=$PWD/Gemfile
+      CODECLIMATE_REPO_TOKEN=4480889d2d024a574015b8309cb4fc58776e29dda76de9642cdca80ee94110b0
+      bundle exec rake
+  - popd
 
 notifications:
   slack: madetechteam:be3g1qE6so2p2UcqQiOGBRUs
