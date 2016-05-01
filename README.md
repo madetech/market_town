@@ -1,5 +1,7 @@
 # MarketTown
 
+[![Build Status](https://travis-ci.org/madetech/market_town.svg?branch=master)](https://travis-ci.org/madetech/market_town)
+
 Collection of business logic gems for e-commerce.
 
 Currently just experimentation. Potential aim is to provide framework and
