@@ -3,6 +3,7 @@ rvm:
   - 2.3
 
 install:
+  - ls .
   - cd checkout && bundle install
 
 script:
