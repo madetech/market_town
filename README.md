@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/madetech/market_town.svg?branch=master)](https://travis-ci.org/madetech/market_town)
 [![Code Climate](https://codeclimate.com/github/madetech/market_town/badges/gpa.svg)](https://codeclimate.com/github/madetech/market_town)
+[![Code Coverage](https://img.shields.io/codecov/c/github/madetech/market_town.svg)](https://codecov.io/gh/madetech/market_town)
 
 Collection of business logic gems for e-commerce.
 
