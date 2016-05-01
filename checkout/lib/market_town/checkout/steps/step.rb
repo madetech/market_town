@@ -111,15 +111,17 @@ module MarketTown
       # @param [Hash] state
       #
       def process(state)
-        self.class.steps.reduce(state) do |state, step|
-          send(step, state) || state
-        end
+        self.class.steps.reduce(state, &method(:process_step))
       end
 
       private
 
       def name_from_class
         self.class.name.split('::').last.sub('Step', '').downcase.to_sym
+      end
+
+      def process_step(state, step)
+        send(step, state) || state
       end
 
       def [](meta_key)
