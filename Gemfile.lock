@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/lsegal/yard.git
+  remote: https://github.com/lsegal/yard.git
   revision: 13d9939df94acb7dcbe325ebed040f5d88b02373
   branch: frameless
   specs:
