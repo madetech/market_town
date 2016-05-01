@@ -19,15 +19,12 @@ GEM
       tzinfo (~> 1.1)
     builder (3.2.2)
     byebug (8.2.4)
-    codeclimate-test-reporter (0.5.0)
-      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
     countries (1.2.5)
       currencies (~> 0.4.2)
       i18n_data (~> 0.7.0)
     currencies (0.4.2)
     diff-lcs (1.2.5)
-    docile (1.1.5)
     i18n (0.7.0)
     i18n_data (0.7.0)
     json (1.8.3)
@@ -54,11 +51,6 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
-    simplecov (0.11.2)
-      docile (~> 1.1.0)
-      json (~> 1.8)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.0)
     slop (3.6.0)
     thread_safe (0.3.5)
     tzinfo (1.2.2)
@@ -68,7 +60,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  codeclimate-test-reporter
   market_town-checkout!
   pry-byebug
   rake
