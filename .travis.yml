@@ -4,10 +4,9 @@ rvm:
   - ruby-head
 
 install:
-  - pushd checkout && bundle install && popd
+  - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile bundle install && popd
 
 script:
-  - pushd checkout && echo $PWD/Gemfile && popd
   - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile bundle exec rake && popd
 
 notifications:
