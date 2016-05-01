@@ -7,7 +7,7 @@ install:
   - pushd checkout && bundle install && popd
 
 script:
-  - pushd checkout && bundle exec rake && popd
+  - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile bundle exec rake && popd
 
 notifications:
   slack: madetechteam:be3g1qE6so2p2UcqQiOGBRUs
