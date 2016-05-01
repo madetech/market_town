@@ -3,10 +3,10 @@ rvm:
   - 2.3
 
 install:
-  - cd checkout && bundle install
+  - pushd checkout && bundle install && popd
 
 script:
-  - cd checkout && bundle exec rake
+  - pushd checkout && bundle exec rake && popd
 
 notifications:
   slack: madetechteam:be3g1qE6so2p2UcqQiOGBRUs
