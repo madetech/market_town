@@ -22,7 +22,7 @@ Spree out into a number of different services then you're in the right place.
 ## Getting started
 
  - [Introduction](https://github.com/madetech/market_town/blob/master/checkout/INTRODUCTION.md)
- - [API documentation](http://madetech.github.io/market_town/checkout/)
+ - [API documentation](http://madetech.github.io/market_town/MarketTown/Checkout.html)
  - [Read the code](https://github.com/madetech/market_town/tree/master/checkout/)
 
 ## Contributing
