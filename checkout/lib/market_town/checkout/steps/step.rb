@@ -124,10 +124,6 @@ module MarketTown
         send(step, state) || state
       end
 
-      def [](meta_key)
-        meta.fetch(meta_key)
-      end
-
       def add_dependency_missing_warning(state, warning)
         deps.logger.warn("MissingDependency so #{warning.to_s.tr('_', ' ')}")
         state.merge(warnings: state.fetch(:warnings, []).push(warning))
