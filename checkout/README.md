@@ -1,22 +1,24 @@
 # Market Town: Checkout
 
-Checkout business logic for your ruby e-commerce. This gem is framework
-independent but provides integration with Spree and Webhooks.
+Checkout logic for your online store. With Spree and webhook integrations.
 
-You can introduce MarketTown::Checkout as an interface between your application
-and your e-commerce backend. Using the power of dependency injection you can
-provide implementation specific logic for applying promotions, saving addresses,
-taking payments, etc. in your e-commerce store.
+MarketTown::Checkout is an interface for building checkouts that does not rely
+on state machines and is easily customisable.
 
 If you've ever wanted to gradually replace Spree with your own system, or split
 Spree out into a number of different services then you're in the right place.
 
 ## Mission
 
- - Handle common use cases of checkout step behaviour
- - Provide a Spree dependency container for writing your own checkout
-   controllers that speak to Spree objects underneath
- - Provide a Webhook dependency container that will forward calls onto a HTTPS
+ - Handle common use cases of checkout step behaviour including:
+    - Cart
+    - Address
+    - Delivery
+    - Payment
+    - Complete
+ - Provide a Spree integration for writing your own checkout controllers and
+   flows that speak to Spree objects underneath
+ - Provide a Webhook integration that will forward calls onto a HTTPS
    interface of your choice
 
 ## Getting started
