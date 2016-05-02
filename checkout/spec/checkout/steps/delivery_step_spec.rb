@@ -2,10 +2,12 @@ module MarketTown::Checkout
   describe DeliveryStep do
     let(:fulfilments) { double(can_fulfil_shipments?: true) }
     let(:promotions) { double(apply_delivery_promotions: nil) }
+    let(:payments) { double(load_default_payment_method: nil) }
     let(:finish) { double(delivery_step: nil) }
 
     let(:deps) { Dependencies.new(fulfilments: fulfilments,
                                   promotions: promotions,
+                                  payments: payments,
                                   finish: finish,
                                   logger: double(warn: nil)) }
 
@@ -80,6 +82,26 @@ module MarketTown::Checkout
 
       context 'and promotions missing' do
         let(:fulfilments) { nil }
+
+        it { is_expected.to include(:warnings) }
+      end
+    end
+
+    context 'when loading default payment method' do
+      subject { step.process(delivery_address: mock_address) }
+
+      context 'and can load method' do
+        before do
+          expect(payments).to receive(:load_default_payment_method) do |state|
+            state.merge(payment_method: :check)
+          end
+        end
+
+        it { is_expected.to include(:payment_method) }
+      end
+
+      context 'and promotions missing' do
+        let(:payments) { nil }
 
         it { is_expected.to include(:warnings) }
       end

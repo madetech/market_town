@@ -15,6 +15,7 @@ module MarketTown
       steps :validate_delivery_address,
             :validate_shipments,
             :apply_delivery_promotions,
+            :load_default_payment_method,
             :finish_delivery_step
 
       protected
@@ -45,6 +46,14 @@ module MarketTown
         deps.promotions.apply_delivery_promotions(state)
       rescue MissingDependency
         add_dependency_missing_warning(state, :cannot_apply_delivery_promotions)
+      end
+
+      # Tries to load default payment method
+      #
+      def load_default_payment_method(state)
+        deps.payments.load_default_payment_method(state)
+      rescue MissingDependency
+        add_dependency_missing_warning(state, :cannot_load_default_payment_method)
       end
 
       # Finish delivery step
