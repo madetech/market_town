@@ -1,5 +1,9 @@
 # Market Town: Checkout
 
+[![Build Status](https://travis-ci.org/madetech/market_town.svg?branch=master)](https://travis-ci.org/madetech/market_town)
+[![Code Climate](https://codeclimate.com/github/madetech/market_town/badges/gpa.svg)](https://codeclimate.com/github/madetech/market_town)
+[![Code Coverage](https://img.shields.io/codecov/c/github/madetech/market_town.svg)](https://codecov.io/gh/madetech/market_town)
+
 Checkout logic for your online store. With Spree and webhook integrations.
 
 MarketTown::Checkout is an interface for building checkouts that does not rely
