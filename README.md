@@ -4,14 +4,13 @@
 [![Code Climate](https://codeclimate.com/github/madetech/market_town/badges/gpa.svg)](https://codeclimate.com/github/madetech/market_town)
 [![Code Coverage](https://img.shields.io/codecov/c/github/madetech/market_town.svg)](https://codecov.io/gh/madetech/market_town)
 
-Collection of business logic gems for e-commerce.
-
-Currently just experimentation. Potential aim is to provide framework and
-database agnostic logic for e-commerce actions like checkout.
+A collection of open source libraries for e-commerce. Each provide sensible
+solutions to a single problem rather than being an e-commerce framework.
 
 ## The collection
 
- - [MarketTown::Checkout](https://github.com/madetech/market_town/tree/master/checkout/)
+ - [**MarketTown::Checkout**](https://github.com/madetech/market_town/tree/master/checkout/)
+   Checkout logic for your online store.
 
 ## Contributing
 
