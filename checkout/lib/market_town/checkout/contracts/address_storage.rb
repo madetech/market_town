@@ -9,8 +9,8 @@ module MarketTown
         end
 
         # @param [Hash] state
-        # @option state [Hash] :billing_address as per {Address#validate!}
-        # @option state [Hash] :delivery_address as per {Address#validate!}
+        # @option state [Hash] :billing_address as per {Address.validate!}
+        # @option state [Hash] :delivery_address as per {Address.validate!}
         #
         def store(state)
         end
