@@ -4,9 +4,9 @@ module MarketTown
     #
     # Dependencies:
     #
-    # - fulfilments#can_fulfil_shipments?
-    # - promotions#apply_delivery_promotions
-    # - finish#delivery_step
+    # - {Contracts::Fulfilments#can_fulfil_shipments?}
+    # - {Contracts::Promotions#apply_delivery_promotions}
+    # - {Contracts::Finish#delivery_step}
     #
     class DeliveryStep < Step
       class InvalidDeliveryAddressError < Error; end

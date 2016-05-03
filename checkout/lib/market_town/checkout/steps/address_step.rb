@@ -4,10 +4,10 @@ module MarketTown
     #
     # Dependencies:
     #
-    # - fulfilments#can_fulfil_address?
-    # - address_storage#store
-    # - fulfilments#propose_shipments
-    # - finish#address_step
+    # - {Contracts::Fulfilments#can_fulfil_address?}
+    # - {Contracts::AddressStore#store}
+    # - {Contracts::Fulfilments#propose_shipments}
+    # - {Contracts::Finish#address_step}
     #
     class AddressStep < Step
       class InvalidAddressError < Error; end

@@ -5,10 +5,10 @@ module MarketTown
     #
     # Dependencies:
     #
-    # - order#has_line_items?
-    # - address_storage#load_default
-    # - promotions#apply_cart_promotions
-    # - finish#cart_step
+    # - {Contracts::Order#has_line_items?}
+    # - {Contracts::AddressStorage#load_default}
+    # - {Contracts::Promotions#apply_cart_promotions}
+    # - {Contracts::Finish#cart_step}
     #
     class CartStep < Step
       class NoLineItemsError < Error; end

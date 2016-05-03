@@ -7,13 +7,12 @@ module MarketTown
     #
     # Dependencies:
     #
-    # - payments#valid_method?
-    # - payments#valid_method?
-    # - fulfilments#apply_shipment_costs
-    # - tax#apply_tax
-    # - credit#apply_credit
-    # - payments#begin_transaction
-    # - finish#begin_payment_step
+    # - {Contracts::Payments#valid_method?}
+    # - {Contracts::Fulfilments#apply_shipment_costs}
+    # - {Contracts::Tax#apply_tax}
+    # - {Contracts::Credit#apply_credit}
+    # - {Contracts::Payments#begin_transaction}
+    # - {Contracts::Finish#begin_payment_step}
     #
     class BeginPaymentStep < Step
       step :validate_payment_method,

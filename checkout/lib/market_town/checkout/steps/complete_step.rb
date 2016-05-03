@@ -6,10 +6,10 @@ module MarketTown
     #
     # Dependencies:
     #
-    # - finish#complete_step_finished?
-    # - fulfilments#fulfil
-    # - notifications#notify
-    # - finish#complete_step
+    # - {Contracts::Finish#complete_step_finished?}
+    # - {Contracts::Fulfilments#fulfil}
+    # - {Contracts::Notifications#notify}
+    # - {Contracts::Finish#complete_step}
     #
     class CompleteStep < Step
       class AlreadyCompleteError < Error; end

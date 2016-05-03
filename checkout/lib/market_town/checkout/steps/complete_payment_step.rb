@@ -6,9 +6,9 @@ module MarketTown
     #
     # Dependencies:
     #
-    # - payments#processing?
-    # - payments#complete_transaction
-    # - payments#persist_method
+    # - {Contracts::Payments#processing?}
+    # - {Contracts::Payments#complete_transaction}
+    # - {Contracts::Payments#persist_method}
     #
     class CompletePaymentStep < Step
       step :ensure_processing_payment,
