@@ -40,13 +40,6 @@ module MarketTown::Checkout
         it { expect { subject }.to raise_error(AddressStep::InvalidAddressError) }
       end
 
-      context 'with empty billing address' do
-        subject { step.process(billing_address: nil,
-                               delivery_address: mock_address) }
-
-        it { expect { subject }.to raise_error(AddressStep::InvalidAddressError) }
-      end
-
       context 'with empty delivery address' do
         subject { step.process(billing_address: mock_address,
                                delivery_address: nil) }
