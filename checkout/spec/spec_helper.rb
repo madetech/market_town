@@ -19,4 +19,5 @@ end
 
 require 'pry-byebug'
 require 'market_town/checkout'
+require 'market_town/checkout/integrations/spree'
 Dir[File.dirname(__FILE__) + '/../lib/market_town/checkout/contracts/**/*.rb'].map(&method(:require))
