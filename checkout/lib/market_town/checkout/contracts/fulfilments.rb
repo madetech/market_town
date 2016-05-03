@@ -11,10 +11,10 @@ module MarketTown
         def can_fulfil_shipments?(state)
         end
 
-        def apply_shipment_costs
+        def apply_shipment_costs(state)
         end
 
-        def fulfil
+        def fulfil(state)
         end
       end
     end
