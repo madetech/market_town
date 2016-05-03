@@ -15,7 +15,7 @@ solutions to a single problem rather than being an e-commerce framework.
 ## Contributing
 
  - Follow the [Code of Conduct](https://github.com/madetech/market_town/blob/master/CODE_OF_CONDUCT.md)
-- Update API documentation with `bundle exec rake yard:publish`
+ - Update API documentation with `bundle exec rake yard:publish`
 
 ## License
 
