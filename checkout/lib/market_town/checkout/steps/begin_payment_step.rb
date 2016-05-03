@@ -9,7 +9,7 @@ module MarketTown
     #
     # - {Contracts::Payments#valid_method?}
     # - {Contracts::Fulfilments#apply_shipment_costs}
-    # - {Contracts::Tax#apply_tax}
+    # - {Contracts::Tax#apply_order_tax}
     # - {Contracts::Credit#apply_credit}
     # - {Contracts::Payments#begin_transaction}
     # - {Contracts::Finish#begin_payment_step}

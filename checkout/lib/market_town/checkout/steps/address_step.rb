@@ -5,7 +5,7 @@ module MarketTown
     # Dependencies:
     #
     # - {Contracts::Fulfilments#can_fulfil_address?}
-    # - {Contracts::AddressStore#store}
+    # - {Contracts::AddressStorage#store}
     # - {Contracts::Fulfilments#propose_shipments}
     # - {Contracts::Finish#address_step}
     #
