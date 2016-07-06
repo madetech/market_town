@@ -30,7 +30,7 @@ module MarketTown::Checkout::Contracts
   describe Promotions do
     it_behaves_like 'Promotions'
   end
-  
+
   describe Tax do
     it_behaves_like 'Tax'
   end
