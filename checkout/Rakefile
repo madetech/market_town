@@ -5,3 +5,6 @@ RSpec::Core::RakeTask.new(:spec)
 
 desc 'Run spec suite'
 task default: :spec
+
+ENV['LIB_NAME'] = 'spree/core'
+require 'spree/testing_support/common_rake'
