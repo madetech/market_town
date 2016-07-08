@@ -3,12 +3,47 @@ require 'rspec/core/rake_task'
 require 'generators/spree/install/install_generator'
 require 'market_town/checkout/generators/dummy_generator'
 
+desc 'Run full spec suite'
+task default: [:common_spec, :spree_spec, :solidus_spec]
+
+desc 'Run common specs'
 RSpec::Core::RakeTask.new(:common_spec) do |spec|
   spec.exclude_pattern = 'spec/checkout/integrations/**/*_spec.rb'
 end
 
-desc "Generates a dummy app for testing"
-task :test_app do
+desc 'Run spree specs, creating test app if it does not exist'
+RSpec::Core::RakeTask.new(:spree_spec) do |spec|
+  ENV['BUNDLE_GEMFILE'] = File.expand_path('../Gemfile.spree.rb', __FILE__)
+  spec.pattern = integration_pattern(:spree)
+  system 'bundle exec rake create_spree_test_app'
+end
+
+desc 'Run solidus specs, creating test app if it does not exist'
+RSpec::Core::RakeTask.new(:solidus_spec) do |spec|
+  ENV['BUNDLE_GEMFILE'] = File.expand_path('../Gemfile.solidus.rb', __FILE__)
+  spec.pattern = integration_pattern(:solidus)
+  system 'bundle exec rake create_solidus_test_app'
+end
+
+desc 'Remove dummy applications'
+task :cleanup do
+  system 'rm -rf spec/fixtures/*/dummy/'
+end
+
+desc 'Create test spree app'
+task :create_spree_test_app do
+  ENV['DUMMY_PATH'] = 'spec/fixtures/spree/dummy/'
+  build_test_app
+end
+
+desc 'Create test solidus app'
+task :create_solidus_test_app do
+  ENV['DUMMY_PATH'] = 'spec/fixtures/solidus/dummy/'
+  build_test_app
+end
+
+def build_test_app
+  return if File.exist?(ENV['DUMMY_PATH'])
   require 'spree/core'
 
   ENV['RAILS_ENV'] = 'test'
@@ -36,32 +71,3 @@ def integration_pattern(integration)
   path = "../spec/checkout/integrations/#{integration}/{,**/}*_spec.rb"
   Dir[File.expand_path(path, __FILE__)]
 end
-
-task :create_spree_test_app do
-  ENV['DUMMY_PATH'] = 'spec/fixtures/spree/dummy/'
-  Rake::Task['test_app'].invoke unless File.exist?(ENV['DUMMY_PATH'])
-end
-
-RSpec::Core::RakeTask.new(:spree_spec) do |spec|
-  ENV['BUNDLE_GEMFILE'] = File.expand_path('../Gemfile.spree.rb', __FILE__)
-  spec.pattern = integration_pattern(:spree)
-  system 'bundle exec rake create_spree_test_app'
-end
-
-task :create_solidus_test_app do
-  ENV['DUMMY_PATH'] = 'spec/fixtures/solidus/dummy/'
-  Rake::Task['test_app'].invoke unless File.exist?(ENV['DUMMY_PATH'])
-end
-
-RSpec::Core::RakeTask.new(:solidus_spec) do |spec|
-  ENV['BUNDLE_GEMFILE'] = File.expand_path('../Gemfile.solidus.rb', __FILE__)
-  spec.pattern = integration_pattern(:solidus)
-  system 'bundle exec rake create_solidus_test_app'
-end
-
-task :cleanup do
-  system 'rm -rf spec/fixtures/*/dummy/'
-end
-
-desc 'Run spec suite'
-task default: [:common_spec, :spree_spec, :solidus_spec]
