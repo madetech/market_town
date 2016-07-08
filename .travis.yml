@@ -3,6 +3,10 @@ rvm:
   - 2.3.0
   - ruby-head
 
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+
 install:
   - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile bundle install && popd
   - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile.solidus.rb bundle install && popd
