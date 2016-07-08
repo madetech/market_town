@@ -1,10 +1,67 @@
 require 'bundler/gem_tasks'
-
 require 'rspec/core/rake_task'
-RSpec::Core::RakeTask.new(:spec)
+require 'generators/spree/install/install_generator'
+require 'market_town/checkout/generators/dummy_generator'
+
+RSpec::Core::RakeTask.new(:common_spec) do |spec|
+  spec.exclude_pattern = 'spec/checkout/integrations/**/*_spec.rb'
+end
+
+desc "Generates a dummy app for testing"
+task :test_app do
+  require 'spree/core'
+
+  ENV['RAILS_ENV'] = 'test'
+
+  MarketTown::Checkout::DummyGenerator.start(%w(--lib_name=market_town/checkout
+                                                --quiet))
+
+  Spree::InstallGenerator.start(%w(--lib_name=market_town/checkout
+                                   --auto-accept
+                                   --migrate=false
+                                   --seed=false
+                                   --sample=false
+                                   --quiet
+                                   --user_class=Spree::User
+                                   --skip-sprockets))
+
+  puts 'Setting up dummy database...'
+
+  silence_stream(STDOUT) do
+    sh 'bundle exec rake db:drop db:create db:migrate'
+  end
+end
+
+def integration_pattern(integration)
+  path = "../spec/checkout/integrations/#{integration}/{,**/}*_spec.rb"
+  Dir[File.expand_path(path, __FILE__)]
+end
+
+task :create_spree_test_app do
+  ENV['DUMMY_PATH'] = 'spec/fixtures/spree/dummy/'
+  Rake::Task['test_app'].invoke unless File.exist?(ENV['DUMMY_PATH'])
+end
+
+RSpec::Core::RakeTask.new(:spree_spec) do |spec|
+  ENV['BUNDLE_GEMFILE'] = File.expand_path('../Gemfile.spree.rb', __FILE__)
+  spec.pattern = integration_pattern(:spree)
+  system 'bundle exec rake create_spree_test_app'
+end
+
+task :create_solidus_test_app do
+  ENV['DUMMY_PATH'] = 'spec/fixtures/solidus/dummy/'
+  Rake::Task['test_app'].invoke unless File.exist?(ENV['DUMMY_PATH'])
+end
+
+RSpec::Core::RakeTask.new(:solidus_spec) do |spec|
+  ENV['BUNDLE_GEMFILE'] = File.expand_path('../Gemfile.solidus.rb', __FILE__)
+  spec.pattern = integration_pattern(:solidus)
+  system 'bundle exec rake create_solidus_test_app'
+end
+
+task :cleanup do
+  system 'rm -rf spec/fixtures/*/dummy/'
+end
 
 desc 'Run spec suite'
-task default: :spec
-
-ENV['LIB_NAME'] = 'spree/core'
-require 'spree/testing_support/common_rake'
+task default: [:common_spec, :spree_spec, :solidus_spec]

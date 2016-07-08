@@ -1,5 +1,5 @@
-require 'rails_helper'
-require 'checkout/integrations/spree_like/cart_step'
+require_relative './spec_helper'
+require_relative '../spree_like/cart_step'
 
 module MarketTown::Checkout
   describe CartStep do
