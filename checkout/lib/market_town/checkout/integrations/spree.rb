@@ -8,5 +8,6 @@ module MarketTown
 end
 
 require 'market_town/checkout/integrations/spree/order'
+require 'market_town/checkout/integrations/spree/address_storage'
 require 'market_town/checkout/integrations/spree/finish'
 require 'market_town/checkout/integrations/spree/container'
