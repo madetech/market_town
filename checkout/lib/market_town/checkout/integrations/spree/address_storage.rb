@@ -10,12 +10,6 @@ module MarketTown
           end
         end
 
-        def set_order_addresses(state)
-          state[:order].build_bill_address(transform_address(state[:billing_address]))
-          state[:order].build_ship_address(transform_address(state[:delivery_address]))
-          nil
-        end
-
         def store_user_billing_address(state)
           if state[:order].user_id?
             state[:order].user.bill_address_attributes = transform_address(state[:billing_address])

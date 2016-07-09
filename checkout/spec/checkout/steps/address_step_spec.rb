@@ -2,8 +2,7 @@ module MarketTown::Checkout
   describe AddressStep do
     let(:fulfilments) { double(can_fulfil_address?: true, propose_shipments: nil) }
 
-    let(:address_storage) { double(set_order_addresses: nil,
-                                   store_user_billing_address: nil,
+    let(:address_storage) { double(store_user_billing_address: nil,
                                    store_user_delivery_address: nil) }
 
     let(:finish) { double(address_step: nil) }

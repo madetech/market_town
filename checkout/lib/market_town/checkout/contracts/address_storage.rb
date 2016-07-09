@@ -11,13 +11,6 @@ module MarketTown
 
         # @param [Hash] state
         # @option state [Hash] :billing_address as per {Address.validate!}
-        # @option state [Hash] :delivery_address as per {Address.validate!}
-        #
-        def set_order_addresses(state)
-        end
-
-        # @param [Hash] state
-        # @option state [Hash] :billing_address as per {Address.validate!}
         #
         def store_user_billing_address(state)
         end
@@ -32,11 +25,6 @@ module MarketTown
           context '#load_user_defaults' do
             subject { described_class.new.load_user_defaults({}) }
             it_behaves_like 'a query method'
-          end
-
-          context '#set_order_addresses' do
-            subject { described_class.new.set_order_addresses({}) }
-            it_behaves_like 'a command method'
           end
 
           context '#store_user_billing_address' do
