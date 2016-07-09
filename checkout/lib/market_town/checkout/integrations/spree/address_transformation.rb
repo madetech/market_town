@@ -2,11 +2,10 @@ module MarketTown
   module Checkout
     module Spree
       class AddressTransformation
-        class CannotTransformFieldError < Error; end
+        class RegionNotFoundInSpreeError < Error; end
+        class CountryNotFoundInSpreeError < Error; end
 
         def transform(address)
-          validate_fields!(address)
-
           { first_name: 'See #last_name',
             last_name: address[:name],
             company: address[:company],
@@ -22,20 +21,18 @@ module MarketTown
 
         private
 
-        def validate_fields!(address)
-          unless address[:address_3].nil?
-            raise CannotTransformField.new(:address_3)
-          end
-        end
-
         def find_state(region)
           if region
             ::Spree::State.find_by!(name: region)
           end
+        rescue ActiveRecord::RecordNotFound
+          raise RegionNotFoundInSpreeError.new(region)
         end
 
         def find_country(country)
           ::Spree::Country.find_by!(iso: country)
+        rescue ActiveRecord::RecordNotFound
+          raise CountryNotFoundInSpreeError.new(country)
         end
       end
     end

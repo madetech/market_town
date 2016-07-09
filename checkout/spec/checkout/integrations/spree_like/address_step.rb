@@ -50,6 +50,49 @@ module MarketTown::Checkout
           it { is_expected.to eq(order.shipping_address.address1) }
         end
       end
+
+      context 'and address has region populated' do
+        let(:order) { create(:order_with_totals) }
+        let(:address_with_region) { mock_address.merge(region: 'Essex') }
+
+        before(:each) do
+          create(:state, name: 'Essex')
+          AddressStep.new(deps).process(order: order,
+                                        billing_address: address_with_region,
+                                        delivery_address: address_with_region)
+        end
+
+        context 'then the order state' do
+          subject { order.state }
+          it { is_expected.to be_present }
+        end
+      end
+
+      context 'and address has non-existant region populated' do
+        let(:order) { create(:order_with_totals) }
+        let(:address_with_region) { mock_address.merge(region: 'Meh') }
+
+        subject do
+          AddressStep.new(deps).process(order: order,
+                                        billing_address: address_with_region,
+                                        delivery_address: address_with_region)
+        end
+
+        it { expect { subject }.to raise_error(Spree::AddressTransformation::RegionNotFoundInSpreeError) }
+      end
+
+      context 'and address has non-existant country' do
+        let(:order) { create(:order_with_totals) }
+        let(:address_with_country) { mock_address.merge(country: 'DE') }
+
+        subject do
+          AddressStep.new(deps).process(order: order,
+                                        billing_address: address_with_country,
+                                        delivery_address: address_with_country)
+        end
+
+        it { expect { subject }.to raise_error(Spree::AddressTransformation::CountryNotFoundInSpreeError) }
+      end
     end
   end
 end
