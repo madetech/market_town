@@ -22,6 +22,7 @@ module MarketTown
       # @option address_attrs [String] :region
       # @option address_attrs [String] :postal_code
       # @option address_attrs [String] :country must be valid ISO3166 alpha 2
+      # @option address_attrs [String] :phone_number
       #
       # @raise [InvalidError] if address invalid
       #
@@ -45,6 +46,7 @@ module MarketTown
                     :region,
                     :postal_code,
                     :country,
+                    :phone_number,
                     :save
 
       validates :name, presence: true
