@@ -1,7 +1,7 @@
 module MarketTown
   module Checkout
     module Spree
-      class AddressStorage
+      class UserAddressStorage
         def load_default_addresses(state)
           if state[:order].user_id?
             state[:order].bill_address = state[:order].user.bill_address.try(:clone)

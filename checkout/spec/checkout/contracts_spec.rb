@@ -1,6 +1,6 @@
 module MarketTown::Checkout::Contracts
-  describe AddressStorage do
-    it_behaves_like 'AddressStorage'
+  describe UserAddressStorage do
+    it_behaves_like 'UserAddressStorage'
   end
 
   describe Credit do

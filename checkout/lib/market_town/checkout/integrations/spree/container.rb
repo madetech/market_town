@@ -6,8 +6,8 @@ module MarketTown
           Order.new
         end
 
-        def address_storage
-          AddressStorage.new
+        def user_address_storage
+          UserAddressStorage.new
         end
 
         def finish

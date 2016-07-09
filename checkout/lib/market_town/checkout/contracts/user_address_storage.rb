@@ -1,7 +1,7 @@
 module MarketTown
   module Checkout
     module Contracts
-      class AddressStorage
+      class UserAddressStorage
         # @param [Hash] state
         # @option state [Hash] :order object by which to find addresses
         #
@@ -21,7 +21,7 @@ module MarketTown
         def store_delivery_address(state)
         end
 
-        shared_examples_for 'AddressStorage' do
+        shared_examples_for 'UserAddressStorage' do
           context '#load_default_addresses' do
             subject { described_class.new.load_default_addresses({}) }
             it_behaves_like 'a query method'

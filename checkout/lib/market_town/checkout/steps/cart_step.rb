@@ -30,7 +30,7 @@ module MarketTown
       # Tries to load default addresses
       #
       def load_default_addresses(state)
-        deps.address_storage.load_default_addresses(state)
+        deps.user_address_storage.load_default_addresses(state)
       rescue MissingDependency
         add_dependency_missing_warning(state, :cannot_load_default_addresses)
       end
