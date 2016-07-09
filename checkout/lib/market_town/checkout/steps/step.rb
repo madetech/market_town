@@ -42,7 +42,7 @@ module MarketTown
     # easily by extending the class.
     #
     # In the example below we'll replace the behaviour of {AddressStep} to
-    # allow the use of delivery address as billing address instead of the
+    # allow the use of delivery address as billing address instead of the
     # default behaviour that does the opposite.
     #
     # ``` ruby

@@ -4,9 +4,11 @@ module MarketTown::Checkout
     let(:user_address_storage) { double(load_default_addresses: nil) }
     let(:finish) { double(cart_step: nil) }
 
-    let(:deps) { Dependencies.new(order: order,
-                                  user_address_storage: user_address_storage,
-                                  finish: finish) }
+    let(:deps) do
+      Dependencies.new(order: order,
+                       user_address_storage: user_address_storage,
+                       finish: finish)
+    end
 
     let(:step) { CartStep.new(deps) }
 

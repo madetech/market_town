@@ -4,10 +4,12 @@ module MarketTown::Checkout
     let(:notifications) { double(notify: nil) }
     let(:finish) { double(complete_step_finished?: false, complete_step: nil) }
 
-    let(:deps) { Dependencies.new(fulfilments: fulfilments,
-                                  notifications: notifications,
-                                  finish: finish,
-                                  logger: double(warn: nil)) }
+    let(:deps) do
+      Dependencies.new(fulfilments: fulfilments,
+                       notifications: notifications,
+                       finish: finish,
+                       logger: double(warn: nil))
+    end
 
     let(:step) { CompleteStep.new(deps) }
 

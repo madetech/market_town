@@ -11,7 +11,7 @@ module MarketTown
     #
     # Since {Dependencies} extends the ruby Hash object you can treat it as
     # such. We provide {#method_missing} to provide a way of accessing keys
-    # of the hash with methods.
+    # of the hash with methods.
     #
     # First let's create a dependency for sending notifications.
     #
@@ -74,7 +74,7 @@ module MarketTown
     #
     class Dependencies < Hash
       def initialize(deps = {})
-        merge!(deps.delete_if { |k, v| v.nil? })
+        merge!(deps.delete_if { |_, v| v.nil? })
       end
 
       # Used to fetch a dependency

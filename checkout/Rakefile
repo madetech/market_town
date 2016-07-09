@@ -1,10 +1,13 @@
 require 'bundler/gem_tasks'
+require 'rubocop/rake_task'
 require 'rspec/core/rake_task'
 require 'generators/spree/install/install_generator'
 require 'market_town/checkout/generators/dummy_generator'
 
 desc 'Run full spec suite'
-task default: [:common_spec, :spree_spec, :solidus_spec]
+task default: [:rubocop, :common_spec, :spree_spec, :solidus_spec]
+
+RuboCop::RakeTask.new
 
 desc 'Run common specs'
 RSpec::Core::RakeTask.new(:common_spec) do |spec|
