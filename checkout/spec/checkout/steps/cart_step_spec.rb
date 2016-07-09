@@ -1,7 +1,7 @@
 module MarketTown::Checkout
   describe CartStep do
     let(:order) { double(has_line_items?: true) }
-    let(:address_storage) { double(load_default: nil) }
+    let(:address_storage) { double(load_default_addresses: nil) }
     let(:finish) { double(cart_step: nil) }
 
     let(:deps) { Dependencies.new(order: order,
@@ -25,13 +25,13 @@ module MarketTown::Checkout
 
     context 'when loading default addresses' do
       context 'and has default address' do
-        let(:address_storage) { double(load_default: { delivery_address: mock_address }) }
+        let(:address_storage) { double(load_default_addresses: { delivery_address: mock_address }) }
         subject { step.process({}) }
         it { is_expected.to include(delivery_address: mock_address) }
       end
 
       context 'and does not have default address' do
-        let(:address_storage) { double(load_default: nil) }
+        let(:address_storage) { double(load_default_addresses: nil) }
         subject { step.process({}) }
         it { is_expected.to be_truthy }
       end
