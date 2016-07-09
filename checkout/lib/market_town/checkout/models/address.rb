@@ -17,7 +17,6 @@ module MarketTown
       # @option address_attrs [String] :company
       # @option address_attrs [String] :address_1
       # @option address_attrs [String] :address_2
-      # @option address_attrs [String] :address_3
       # @option address_attrs [String] :locality
       # @option address_attrs [String] :region
       # @option address_attrs [String] :postal_code
@@ -41,7 +40,6 @@ module MarketTown
                     :company,
                     :address_1,
                     :address_2,
-                    :address_3,
                     :locality,
                     :region,
                     :postal_code,
