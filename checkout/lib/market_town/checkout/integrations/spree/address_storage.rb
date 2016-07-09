@@ -9,6 +9,18 @@ module MarketTown
             nil
           end
         end
+
+        def set_order_addresses(state)
+          state[:order].build_bill_address(transform_address(state[:billing_address]))
+          state[:order].build_ship_address(transform_address(state[:delivery_address]))
+          nil
+        end
+
+        private
+
+        def transform_address(address)
+          AddressTransformation.new.transform(address)
+        end
       end
     end
   end
