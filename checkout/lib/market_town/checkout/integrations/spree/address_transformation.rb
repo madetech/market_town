@@ -2,6 +2,8 @@ module MarketTown
   module Checkout
     module Spree
       class AddressTransformation
+        class RegionNotFoundInSpreeError < Error; end
+        class CountryNotFoundInSpreeError < Error; end
 
         def transform(address)
           { first_name: 'See #last_name',
@@ -23,10 +25,14 @@ module MarketTown
           if region
             ::Spree::State.find_by!(name: region)
           end
+        rescue ActiveRecord::RecordNotFound
+          raise RegionNotFoundInSpreeError.new(region)
         end
 
         def find_country(country)
           ::Spree::Country.find_by!(iso: country)
+        rescue ActiveRecord::RecordNotFound
+          raise CountryNotFoundInSpreeError.new(country)
         end
       end
     end
