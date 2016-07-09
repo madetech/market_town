@@ -60,11 +60,11 @@ module MarketTown
       #
       def store_user_addresses(state)
         if state[:billing_address][:save]
-          deps.address_storage.store_user_billing_address(state)
+          deps.user_address_storage.store_billing_address(state)
         end
 
         if state[:delivery_address][:save]
-          deps.address_storage.store_user_delivery_address(state)
+          deps.user_address_storage.store_delivery_address(state)
         end
       rescue MissingDependency
         add_dependency_missing_warning(state, :cannot_store_user_addresses)

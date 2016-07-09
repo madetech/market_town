@@ -1,11 +1,11 @@
 module MarketTown::Checkout
   describe CartStep do
     let(:order) { double(has_line_items?: true) }
-    let(:address_storage) { double(load_default: nil) }
+    let(:user_address_storage) { double(load_default_addresses: nil) }
     let(:finish) { double(cart_step: nil) }
 
     let(:deps) { Dependencies.new(order: order,
-                                  address_storage: address_storage,
+                                  user_address_storage: user_address_storage,
                                   finish: finish) }
 
     let(:step) { CartStep.new(deps) }
@@ -25,19 +25,19 @@ module MarketTown::Checkout
 
     context 'when loading default addresses' do
       context 'and has default address' do
-        let(:address_storage) { double(load_default: { delivery_address: mock_address }) }
+        let(:user_address_storage) { double(load_default_addresses: { delivery_address: mock_address }) }
         subject { step.process({}) }
         it { is_expected.to include(delivery_address: mock_address) }
       end
 
       context 'and does not have default address' do
-        let(:address_storage) { double(load_default: nil) }
+        let(:user_address_storage) { double(load_default_addresses: nil) }
         subject { step.process({}) }
         it { is_expected.to be_truthy }
       end
 
       context 'and address storage missing' do
-        let(:address_storage) { nil }
+        let(:user_address_storage) { nil }
         subject { step.process({}) }
         it { is_expected.to include(:warnings) }
       end
