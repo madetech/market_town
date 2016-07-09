@@ -5,7 +5,8 @@ module MarketTown
     # Dependencies:
     #
     # - {Contracts::Fulfilments#can_fulfil_address?}
-    # - {Contracts::AddressStorage#store}
+    # - {Contracts::AddressStorage#store_billing_address}
+    # - {Contracts::AddressStorage#store_delivery_address}
     # - {Contracts::Fulfilments#propose_shipments}
     # - {Contracts::Finish#address_step}
     #
@@ -58,7 +59,13 @@ module MarketTown
       # Tries to store addresses
       #
       def store_addresses(state)
-        deps.address_storage.store(state)
+        if state[:billing_address][:save]
+          deps.address_storage.store_billing_address(state)
+        end
+
+        if state[:delivery_address][:save]
+          deps.address_storage.store_delivery_address(state)
+        end
       rescue MissingDependency
         add_dependency_missing_warning(state, :cannot_store_address)
       end
