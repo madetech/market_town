@@ -17,8 +17,10 @@ module MarketTown::Checkout
       context 'and the customer has a saved address' do
         let(:customer_address) { create(:address) }
 
-        let(:user) { create(:user, bill_address: customer_address,
-                                   ship_address: customer_address) }
+        let(:user) do
+          create(:user, bill_address: customer_address,
+                        ship_address: customer_address)
+        end
 
         before(:each) do
           CartStep.new(deps).process(order: order)
@@ -31,9 +33,12 @@ module MarketTown::Checkout
         end
 
         context 'to an order that does not have addresses associated' do
-          let(:order) { create(:order_with_totals, user: user,
-                        bill_address: nil,
-                        ship_address: nil) }
+          let(:order) do
+            create(:order_with_totals, user: user,
+                                       bill_address: nil,
+                                       ship_address: nil)
+          end
+
           subject { order.billing_address }
           it { is_expected.to eq(customer_address) }
         end

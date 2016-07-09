@@ -2,22 +2,28 @@ module MarketTown::Checkout
   describe AddressStep do
     let(:fulfilments) { double(can_fulfil_address?: true, propose_shipments: nil) }
 
-    let(:user_address_storage) { double(store_billing_address: nil,
-                                   store_delivery_address: nil) }
+    let(:user_address_storage) do
+      double(store_billing_address: nil,
+             store_delivery_address: nil)
+    end
 
     let(:finish) { double(address_step: nil) }
 
-    let(:deps) { Dependencies.new(fulfilments: fulfilments,
-                                  user_address_storage: user_address_storage,
-                                  finish: finish,
-                                  logger: double(warn: nil)) }
+    let(:deps) do
+      Dependencies.new(fulfilments: fulfilments,
+                       user_address_storage: user_address_storage,
+                       finish: finish,
+                       logger: double(warn: nil))
+    end
 
     let(:step) { AddressStep.new(deps) }
 
     context 'when processing address step' do
       context 'with valid addresses' do
-        subject { step.process(billing_address: mock_address,
-                               delivery_address: mock_address) }
+        subject do
+          step.process(billing_address: mock_address,
+                       delivery_address: mock_address)
+        end
 
         it { is_expected.to include(:billing_address, :delivery_address) }
 
@@ -29,22 +35,28 @@ module MarketTown::Checkout
       end
 
       context 'with empty billing address' do
-        subject { step.process(billing_address: nil,
-                               delivery_address: mock_address) }
+        subject do
+          step.process(billing_address: nil,
+                       delivery_address: mock_address)
+        end
 
         it { expect { subject }.to raise_error(AddressStep::InvalidAddressError) }
       end
 
       context 'with empty delivery address' do
-        subject { step.process(billing_address: mock_address,
-                               delivery_address: nil) }
+        subject do
+          step.process(billing_address: mock_address,
+                       delivery_address: nil)
+        end
 
         it { expect { subject }.to raise_error(AddressStep::InvalidAddressError) }
       end
 
       context 'with invalid country in billing address' do
-        subject { step.process(billing_address: mock_address.merge(country: 'invalid'),
-                               delivery_address: mock_address) }
+        subject do
+          step.process(billing_address: mock_address.merge(country: 'invalid'),
+                       delivery_address: mock_address)
+        end
 
         it { expect { subject }.to raise_error(AddressStep::InvalidAddressError) }
       end
@@ -52,18 +64,22 @@ module MarketTown::Checkout
 
     context 'when using billing address as delivery address' do
       subject { step.process(billing_address: mock_address, use_billing_address: true) }
-       it { is_expected.to include(:billing_address, :delivery_address) }
+      it { is_expected.to include(:billing_address, :delivery_address) }
     end
 
     context 'when saving valid addresses' do
-      subject { step.process(billing_address: mock_address.merge(save: true),
-                             delivery_address: mock_address.merge(save: true)) }
+      subject do
+        step.process(billing_address: mock_address.merge(save: true),
+                     delivery_address: mock_address.merge(save: true))
+      end
 
       it { is_expected.to include(:billing_address, :delivery_address) }
 
       context 'then the address storage' do
-        before { step.process(billing_address: mock_address.merge(save: true),
-                              delivery_address: mock_address.merge(save: true)) }
+        before do
+          step.process(billing_address: mock_address.merge(save: true),
+                       delivery_address: mock_address.merge(save: true))
+        end
 
         subject { user_address_storage }
 
@@ -73,14 +89,18 @@ module MarketTown::Checkout
     end
 
     context 'when proposing shipments' do
-      subject { step.process(billing_address: mock_address,
-                             delivery_address: mock_address) }
+      subject do
+        step.process(billing_address: mock_address,
+                     delivery_address: mock_address)
+      end
 
       it { is_expected.to include(:billing_address, :delivery_address) }
 
       context 'then fulfilments' do
-        before { step.process(billing_address: mock_address,
-                              delivery_address: mock_address) }
+        before do
+          step.process(billing_address: mock_address,
+                       delivery_address: mock_address)
+        end
 
         subject { fulfilments }
 
@@ -95,8 +115,10 @@ module MarketTown::Checkout
     end
 
     context 'when completing step' do
-      before { step.process(billing_address: mock_address,
-                            delivery_address: mock_address) }
+      before do
+        step.process(billing_address: mock_address,
+                     delivery_address: mock_address)
+      end
 
       subject { finish }
 

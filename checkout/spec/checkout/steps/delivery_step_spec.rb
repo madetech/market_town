@@ -5,11 +5,13 @@ module MarketTown::Checkout
     let(:payments) { double(load_default_payment_method: nil) }
     let(:finish) { double(delivery_step: nil) }
 
-    let(:deps) { Dependencies.new(fulfilments: fulfilments,
-                                  promotions: promotions,
-                                  payments: payments,
-                                  finish: finish,
-                                  logger: double(warn: nil)) }
+    let(:deps) do
+      Dependencies.new(fulfilments: fulfilments,
+                       promotions: promotions,
+                       payments: payments,
+                       finish: finish,
+                       logger: double(warn: nil))
+    end
 
     let(:step) { DeliveryStep.new(deps) }
 

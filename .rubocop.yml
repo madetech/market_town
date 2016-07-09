@@ -2,8 +2,8 @@
 
 AllCops:
   Exclude:
-    - '*Gemfile*'
-    - '*/spec/dummy/**/*'
+    - '**/Gemfile*'
+    - '**/spec/fixtures/**/*'
   TargetRubyVersion: 2.3
 
 # Sometimes I believe this reads better
@@ -80,6 +80,15 @@ Style/IndentHash:
   Enabled: false
 
 Style/AlignHash:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Style/AndOr:
   Enabled: false
 
 # From http://relaxed.ruby.style/

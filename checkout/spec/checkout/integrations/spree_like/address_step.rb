@@ -30,9 +30,12 @@ module MarketTown::Checkout
 
       context 'and user wishes to save addresses' do
         let(:user) { create(:user) }
-        let(:order) { create(:order_with_totals, user: user,
-                                                 bill_address: nil,
-                                                 ship_address: nil) }
+
+        let(:order) do
+          create(:order_with_totals, user: user,
+                                     bill_address: nil,
+                                     ship_address: nil)
+        end
 
         before(:each) do
           AddressStep.new(deps).process(order: order,
