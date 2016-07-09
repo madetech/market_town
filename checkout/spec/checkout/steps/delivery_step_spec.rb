@@ -13,14 +13,6 @@ module MarketTown::Checkout
 
     let(:step) { DeliveryStep.new(deps) }
 
-    let(:mock_address) do
-      { name: 'Luke Morton',
-        address_1: '21 Cool St',
-        locality: 'London',
-        postal_code: 'N1 1PQ',
-        country: 'GB' }
-    end
-
     context 'when processing delivery method' do
       context 'and delivery address valid' do
         subject { step.process(delivery_address: mock_address) }

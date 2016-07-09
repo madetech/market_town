@@ -11,14 +11,6 @@ module MarketTown::Checkout
 
     let(:step) { AddressStep.new(deps) }
 
-    let(:mock_address) do
-      { name: 'Luke Morton',
-        address_1: '21 Cool St',
-        locality: 'London',
-        postal_code: 'N1 1PQ',
-        country: 'GB' }
-    end
-
     context 'when processing address step' do
       context 'with valid addresses' do
         subject { step.process(billing_address: mock_address,

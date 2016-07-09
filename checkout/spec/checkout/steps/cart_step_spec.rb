@@ -25,14 +25,6 @@ module MarketTown::Checkout
 
     context 'when loading default addresses' do
       context 'and has default address' do
-        let(:mock_address) do
-          { name: 'Luke Morton',
-            address_1: '21 Cool St',
-            locality: 'London',
-            postal_code: 'N1 1PQ',
-            country: 'GB' }
-        end
-
         let(:address_storage) { double(load_default: { delivery_address: mock_address }) }
         subject { step.process({}) }
         it { is_expected.to include(delivery_address: mock_address) }
