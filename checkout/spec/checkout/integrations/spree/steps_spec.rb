@@ -2,8 +2,11 @@ require_relative './spec_helper'
 require_relative '../spree_like/cart_step'
 
 module MarketTown::Checkout
-  describe CartStep do
+  describe 'Steps with Spree integration' do
     let(:deps) { Spree::Container.new }
-    it_behaves_like 'spree-like container during cart step'
+
+    describe CartStep do
+      it_behaves_like 'cart step using spree-like container'
+    end
   end
 end

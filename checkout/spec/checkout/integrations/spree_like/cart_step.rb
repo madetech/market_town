@@ -1,5 +1,5 @@
 module MarketTown::Checkout
-  shared_examples_for 'spree-like container during cart step' do
+  shared_examples_for 'cart step using spree-like container' do
     context 'when processing cart step' do
       context 'and the order has line items' do
         let(:order) { create(:order_with_totals) }
