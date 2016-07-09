@@ -19,8 +19,8 @@ module MarketTown
             :use_billing_address_as_delivery_address,
             :validate_delivery_address,
             :ensure_delivery,
-            :store_addresses,
             :set_order_addresses,
+            :store_user_addresses,
             :propose_shipments,
             :finish_address_step
 
@@ -66,18 +66,18 @@ module MarketTown
         add_dependency_missing_warning(state, :cannot_ensure_delivery)
       end
 
-      # Tries to store addresses
+      # Tries to store user addresses
       #
-      def store_addresses(state)
+      def store_user_addresses(state)
         if state[:billing_address][:save]
-          deps.address_storage.store_billing_address(state)
+          deps.address_storage.store_user_billing_address(state)
         end
 
         if state[:delivery_address][:save]
-          deps.address_storage.store_delivery_address(state)
+          deps.address_storage.store_user_delivery_address(state)
         end
       rescue MissingDependency
-        add_dependency_missing_warning(state, :cannot_store_address)
+        add_dependency_missing_warning(state, :cannot_store_user_addresses)
       end
 
       # Tries to proposes shipments to delivery address ready to be confirmed at

@@ -7,7 +7,6 @@ module MarketTown
         end
 
         def address_step(state)
-          state[:order].user.save! if state[:order].user.changed?
           state[:order].update_attributes!(state: :delivery)
         end
       end
