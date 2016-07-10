@@ -6,7 +6,7 @@ module MarketTown
     # Dependencies:
     #
     # - {Contracts::Order#has_line_items?}
-    # - {Contracts::AddressStorage#load_default}
+    # - {Contracts::UserAddressStorage#load_default_addresses}
     # - {Contracts::Promotions#apply_cart_promotions}
     # - {Contracts::Finish#cart_step}
     #
