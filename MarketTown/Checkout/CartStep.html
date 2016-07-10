@@ -113,7 +113,7 @@ finalisation of a cart before the checkout process.</p>
 <ul><li>
 <p><span class='object_link'><a href="Contracts/Order.html#has_line_items%3F-instance_method" title="MarketTown::Checkout::Contracts::Order#has_line_items? (method)">MarketTown::Checkout::Contracts::Order#has_line_items?</a></span></p>
 </li><li>
-<p><span class='object_link'><a href="Contracts/AddressStorage.html#load_default-instance_method" title="MarketTown::Checkout::Contracts::AddressStorage#load_default (method)">MarketTown::Checkout::Contracts::AddressStorage#load_default</a></span></p>
+<p>Contracts::AddressStorage#load_default_addresses</p>
 </li><li>
 <p><span class='object_link'><a href="Contracts/Promotions.html#apply_cart_promotions-instance_method" title="MarketTown::Checkout::Contracts::Promotions#apply_cart_promotions (method)">MarketTown::Checkout::Contracts::Promotions#apply_cart_promotions</a></span></p>
 </li><li>
@@ -453,7 +453,7 @@ finalisation of a cart before the checkout process.</p>
       <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/cart_step.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_default_addresses'>load_default_addresses</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_address_storage'>address_storage</span><span class='period'>.</span><span class='id identifier rubyid_load_default'>load_default</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_user_address_storage'>user_address_storage</span><span class='period'>.</span><span class='id identifier rubyid_load_default_addresses'>load_default_addresses</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
 <span class='kw'>rescue</span> <span class='const'>MissingDependency</span>
   <span class='id identifier rubyid_add_dependency_missing_warning'>add_dependency_missing_warning</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='symbol'>:cannot_load_default_addresses</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -467,7 +467,7 @@ finalisation of a cart before the checkout process.</p>
 </div>
 
       <div id="footer">
-  Generated on Tue May  3 14:43:14 2016 by
+  Generated on Sun Jul 10 09:40:57 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>

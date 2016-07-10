@@ -112,7 +112,9 @@
 <ul><li>
 <p><span class='object_link'><a href="Contracts/Fulfilments.html#can_fulfil_address%3F-instance_method" title="MarketTown::Checkout::Contracts::Fulfilments#can_fulfil_address? (method)">Contracts::Fulfilments#can_fulfil_address?</a></span></p>
 </li><li>
-<p><span class='object_link'><a href="Contracts/AddressStorage.html#store-instance_method" title="MarketTown::Checkout::Contracts::AddressStorage#store (method)">Contracts::AddressStorage#store</a></span></p>
+<p>Contracts::AddressStorage#store_billing_address</p>
+</li><li>
+<p>Contracts::AddressStorage#store_delivery_address</p>
 </li><li>
 <p><span class='object_link'><a href="Contracts/Fulfilments.html#propose_shipments-instance_method" title="MarketTown::Checkout::Contracts::Fulfilments#propose_shipments (method)">Contracts::Fulfilments#propose_shipments</a></span></p>
 </li><li>
@@ -231,7 +233,7 @@ delivery step.</p>
         <li class="protected ">
   <span class="summary_signature">
     
-      <a href="#store_addresses-instance_method" title="#store_addresses (instance method)">#<strong>store_addresses</strong>(state)  &#x21d2; Object </a>
+      <a href="#store_user_addresses-instance_method" title="#store_user_addresses (instance method)">#<strong>store_user_addresses</strong>(state)  &#x21d2; Object </a>
     
 
     
@@ -246,7 +248,7 @@ delivery step.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Tries to store addresses.</p>
+<p>Tries to store user addresses.</p>
 </div></span>
   
 </li>
@@ -385,16 +387,16 @@ delivery step.</p>
       <pre class="lines">
 
 
-50
 51
 52
 53
 54
 55
-56</pre>
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_delivery'>ensure_delivery</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
   <span class='kw'>unless</span> <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_fulfilments'>fulfilments</span><span class='period'>.</span><span class='id identifier rubyid_can_fulfil_address?'>can_fulfil_address?</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
@@ -434,12 +436,12 @@ delivery step.</p>
       <pre class="lines">
 
 
-77
-78
-79</pre>
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_finish_address_step'>finish_address_step</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_finish'>finish</span><span class='period'>.</span><span class='id identifier rubyid_address_step'>address_step</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
@@ -476,14 +478,14 @@ delivery step.</p>
       <pre class="lines">
 
 
-69
-70
-71
-72
-73</pre>
+76
+77
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_propose_shipments'>propose_shipments</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_fulfilments'>fulfilments</span><span class='period'>.</span><span class='id identifier rubyid_propose_shipments'>propose_shipments</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
@@ -496,9 +498,9 @@ delivery step.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="store_addresses-instance_method">
+  <h3 class="signature " id="store_user_addresses-instance_method">
   
-    #<strong>store_addresses</strong>(state)  &#x21d2; <tt>Object</tt>  <span class="extras">(protected)</span>
+    #<strong>store_user_addresses</strong>(state)  &#x21d2; <tt>Object</tt>  <span class="extras">(protected)</span>
   
 
   
@@ -507,7 +509,7 @@ delivery step.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Tries to store addresses</p>
+<p>Tries to store user addresses</p>
 
 
   </div>
@@ -521,19 +523,31 @@ delivery step.</p>
       <pre class="lines">
 
 
-60
 61
 62
 63
-64</pre>
+64
+65
+66
+67
+68
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 61</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_store_addresses'>store_addresses</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_address_storage'>address_storage</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_store_user_addresses'>store_user_addresses</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:billing_address</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:save</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_user_address_storage'>user_address_storage</span><span class='period'>.</span><span class='id identifier rubyid_store_billing_address'>store_billing_address</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:delivery_address</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:save</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_user_address_storage'>user_address_storage</span><span class='period'>.</span><span class='id identifier rubyid_store_delivery_address'>store_delivery_address</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>rescue</span> <span class='const'>MissingDependency</span>
-  <span class='id identifier rubyid_add_dependency_missing_warning'>add_dependency_missing_warning</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='symbol'>:cannot_store_address</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_add_dependency_missing_warning'>add_dependency_missing_warning</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='symbol'>:cannot_store_user_addresses</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -566,14 +580,14 @@ delivery step.</p>
       <pre class="lines">
 
 
-34
 35
 36
 37
-38</pre>
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_use_billing_address_as_delivery_address'>use_billing_address_as_delivery_address</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:use_billing_address</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='kw'>true</span>
@@ -622,12 +636,12 @@ delivery step.</p>
       <pre class="lines">
 
 
-28
 29
-30</pre>
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_validate_billing_address'>validate_billing_address</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_address'>validate_address</span><span class='lparen'>(</span><span class='symbol'>:billing</span><span class='comma'>,</span> <span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:billing_address</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -674,12 +688,12 @@ delivery step.</p>
       <pre class="lines">
 
 
-42
 43
-44</pre>
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_validate_delivery_address'>validate_delivery_address</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_address'>validate_address</span><span class='lparen'>(</span><span class='symbol'>:delivery</span><span class='comma'>,</span> <span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:delivery_address</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -694,7 +708,7 @@ delivery step.</p>
 </div>
 
       <div id="footer">
-  Generated on Tue May  3 14:43:14 2016 by
+  Generated on Sun Jul 10 09:40:58 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>
