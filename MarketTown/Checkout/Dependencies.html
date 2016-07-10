@@ -116,8 +116,8 @@ via <span class='object_link'><a href="" title="MarketTown::Checkout::Dependenci
 <h2 id="label-Using+-7BDependencies-7D">Using <span class='object_link'><a href="" title="MarketTown::Checkout::Dependencies (class)">Dependencies</a></span></h2>
 
 <p>Since <span class='object_link'><a href="" title="MarketTown::Checkout::Dependencies (class)">Dependencies</a></span> extends the ruby Hash object you can treat it as such.
-We provide <span class='object_link'><a href="#method_missing-instance_method" title="MarketTown::Checkout::Dependencies#method_missing (method)">#method_missing</a></span> to provide a way of accessing keys  of the
-hash with methods.</p>
+We provide <span class='object_link'><a href="#method_missing-instance_method" title="MarketTown::Checkout::Dependencies#method_missing (method)">#method_missing</a></span> to provide a way of accessing keys of the hash
+with methods.</p>
 
 <p>First let&#39;s create a dependency for sending notifications.</p>
 
@@ -313,7 +313,7 @@ needs you do not actually need to extend <span class='object_link'><a href="" ti
       <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/dependencies.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_deps'>deps</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_delete_if'>delete_if</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_delete_if'>delete_if</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -471,7 +471,7 @@ needs you do not actually need to extend <span class='object_link'><a href="" ti
 </div>
 
       <div id="footer">
-  Generated on Sun Jul 10 09:40:57 2016 by
+  Generated on Sun Jul 10 09:42:33 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>
