@@ -371,6 +371,7 @@ DEPENDENCIES
   factory_girl (~> 4.7.0)
   market_town-checkout!
   pry-byebug (~> 3.4.0)
+  rack
   rake (~> 11.2.0)
   rspec (~> 3.5.0)
   rspec-rails (~> 3.5.0)
