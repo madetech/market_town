@@ -375,7 +375,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  codecov
+  codecov (~> 0.1.5)
   factory_girl (~> 4.7.0)
   market_town-checkout!
   pry-byebug (~> 3.4.0)

@@ -366,7 +366,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  codecov
+  codecov (~> 0.1.5)
   coffee-script
   factory_girl (~> 4.7.0)
   market_town-checkout!
