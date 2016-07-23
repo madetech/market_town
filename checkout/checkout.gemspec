@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'countries'
 
   s.add_development_dependency 'codecov'
-  s.add_development_dependency 'factory_girl'
+  s.add_development_dependency 'factory_girl', '~> 4.7.0'
   s.add_development_dependency 'pry-byebug', '~> 3.4.0'
   s.add_development_dependency 'rake', '~> 11.2.0'
   s.add_development_dependency 'rspec-rails', '~> 3.5.0'

@@ -368,7 +368,7 @@ PLATFORMS
 DEPENDENCIES
   codecov
   coffee-script
-  factory_girl
+  factory_girl (~> 4.7.0)
   market_town-checkout!
   pry-byebug (~> 3.4.0)
   rake (~> 11.2.0)
