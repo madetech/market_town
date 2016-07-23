@@ -4,13 +4,11 @@
 [![Code Climate](https://codeclimate.com/github/madetech/market_town/badges/gpa.svg)](https://codeclimate.com/github/madetech/market_town)
 [![Code Coverage](https://img.shields.io/codecov/c/github/madetech/market_town.svg)](https://codecov.io/gh/madetech/market_town)
 
-Checkout logic for your online store. With Spree and webhook integrations.
+Checkout logic for your online store. With Spree, Solidus and webhook integrations.
 
-MarketTown::Checkout is an interface for building checkouts that does not rely
-on state machines and is easily customisable.
+MarketTown::Checkout is an interface for building checkouts that does not rely on state machines and is easily customisable.
 
-If you've ever wanted to gradually replace Spree with your own system, or split
-Spree out into a number of different services then you're in the right place.
+If you've ever wanted to gradually replace Spree/Solidus with your own system, or split your e-commerce app out into a number of different services then you're in the right place.
 
 ## Mission
 
