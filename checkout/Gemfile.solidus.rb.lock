@@ -380,9 +380,9 @@ DEPENDENCIES
   market_town-checkout!
   pry-byebug
   rake
-  rspec
-  rspec-rails
   rubocop (= 0.37.2)
+  rspec (~> 3.5.0)
+  rspec-rails (~> 3.5.0)
   rubocop-rspec (= 1.4.0)
   simplecov
   solidus!
