@@ -283,7 +283,7 @@ DEPENDENCIES
   codecov
   factory_girl
   market_town-checkout!
-  pry-byebug
+  pry-byebug (~> 3.4.0)
   rake (~> 11.2.0)
   rspec (~> 3.5.0)
   rspec-rails (~> 3.5.0)
