@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'codecov'
   s.add_development_dependency 'factory_girl'
   s.add_development_dependency 'pry-byebug'
-  s.add_development_dependency 'rake'
+  s.add_development_dependency 'rake', '~> 11.2.0'
   s.add_development_dependency 'rspec-rails', '~> 3.5.0'
   s.add_development_dependency 'rspec', '~> 3.5.0'
   s.add_development_dependency 'rubocop-rspec', '1.4.0'

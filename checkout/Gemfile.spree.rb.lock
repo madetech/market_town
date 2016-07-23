@@ -371,7 +371,7 @@ DEPENDENCIES
   factory_girl
   market_town-checkout!
   pry-byebug
-  rake
+  rake (~> 11.2.0)
   rspec (~> 3.5.0)
   rspec-rails (~> 3.5.0)
   rubocop (~> 0.41.0)
