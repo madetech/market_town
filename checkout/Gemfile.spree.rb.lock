@@ -376,7 +376,7 @@ DEPENDENCIES
   rspec-rails (~> 3.5.0)
   rubocop (~> 0.41.0)
   rubocop-rspec (= 1.4.0)
-  simplecov
+  simplecov (~> 0.12.0)
   spree!
   spree_auth_devise!
   sqlite3
