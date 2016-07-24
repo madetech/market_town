@@ -4,7 +4,6 @@ module MarketTown
     #
     # Dependencies:
     #
-    # - {Contracts::Fulfilments#propose_shipments}
     # - {Contracts::Fulfilments#can_fulfil_shipments?}
     # - {Contracts::Promotions#apply_delivery_promotions}
     # - {Contracts::Finish#delivery_step}
@@ -14,7 +13,6 @@ module MarketTown
       class CannotFulfilShipmentsError < Error; end
 
       steps :validate_delivery_address,
-            :propose_shipments,
             :validate_shipments,
             :apply_delivery_promotions,
             :load_default_payment_method,
@@ -28,15 +26,6 @@ module MarketTown
         Address.validate!(state[:delivery_address])
       rescue Address::InvalidError => e
         raise InvalidDeliveryAddressError.new(e.data)
-      end
-
-      # Tries to proposes shipments to delivery address ready to be confirmed at
-      # delivery step.
-      #
-      def propose_shipments(state)
-        deps.fulfilments.propose_shipments(state)
-      rescue MissingDependency
-        add_dependency_missing_warning(state, :cannot_propose_shipments)
       end
 
       # Tries to validate shipments
