@@ -10,7 +10,7 @@ solutions to a single problem rather than being an e-commerce framework.
 ## The collection
 
  - [**MarketTown::Checkout**](https://github.com/madetech/market_town/tree/master/checkout/)<br />
-   Checkout logic for your online store. With Spree and webhook integrations.
+   Checkout logic for your online store. With Spree, Solidus and webhook integrations.
 
 ## Contributing
 
