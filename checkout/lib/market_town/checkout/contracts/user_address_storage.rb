@@ -6,7 +6,6 @@ module MarketTown
         # @option state [Hash] :order object by which to find addresses
         #
         def load_default_addresses(state)
-          {}
         end
 
         # @param [Hash] state
@@ -23,17 +22,17 @@ module MarketTown
 
         shared_examples_for 'UserAddressStorage' do
           context '#load_default_addresses' do
-            subject { described_class.new.load_default_addresses({}) }
-            it_behaves_like 'a query method'
+            subject { described_class.new.load_default_addresses(state) }
+            it_behaves_like 'a command method'
           end
 
           context '#store_billing_address' do
-            subject { described_class.new.store_billing_address({}) }
+            subject { described_class.new.store_billing_address(state) }
             it_behaves_like 'a command method'
           end
 
           context '#store_delivery_address' do
-            subject { described_class.new.store_delivery_address({}) }
+            subject { described_class.new.store_delivery_address(state) }
             it_behaves_like 'a command method'
           end
         end

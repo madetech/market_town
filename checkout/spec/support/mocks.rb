@@ -3,8 +3,8 @@ module Mocks
     { name: 'Luke Morton',
       address_1: '21 Cool St',
       locality: 'London',
-      postal_code: 'N1 1PQ',
-      country: 'GB',
+      postal_code: '35005',
+      country: 'US',
       phone_number: '111' }
   end
 end
