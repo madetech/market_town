@@ -17,22 +17,22 @@ module MarketTown
 
         shared_examples_for 'Fulfilments' do
           context '#propose_shipments' do
-            subject { described_class.new.propose_shipments({}) }
+            subject { described_class.new.propose_shipments(state) }
             it_behaves_like 'a command method'
           end
 
           context '#can_fulfil_shipments?' do
-            subject { described_class.new.can_fulfil_shipments?({}) }
+            subject { described_class.new.can_fulfil_shipments?(state) }
             it_behaves_like 'a boolean query method'
           end
 
           context '#apply_shipment_costs' do
-            subject { described_class.new.apply_shipment_costs({}) }
+            subject { described_class.new.apply_shipment_costs(state) }
             it_behaves_like 'a command method'
           end
 
           context '#fulfil' do
-            subject { described_class.new.fulfil({}) }
+            subject { described_class.new.fulfil(state) }
             it_behaves_like 'a command method'
           end
         end

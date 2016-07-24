@@ -26,6 +26,11 @@ module MarketTown::Checkout
           subject { order.shipping_address.address1 }
           it { is_expected.to include(mock_address[:address_1]) }
         end
+
+        context 'then the orders shipments' do
+          subject { order.shipments.count }
+          it { is_expected.to_not be_zero }
+        end
       end
 
       context 'and user wishes to save addresses' do

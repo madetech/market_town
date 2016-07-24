@@ -13,5 +13,9 @@ module MarketTown::Checkout
 
       it_behaves_like 'UserAddressStorage'
     end
+
+    describe Spree::Fulfilments do
+      it_behaves_like 'Fulfilments'
+    end
   end
 end
