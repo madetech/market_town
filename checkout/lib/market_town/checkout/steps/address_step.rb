@@ -4,7 +4,6 @@ module MarketTown
     #
     # Dependencies:
     #
-    # - {Contracts::Fulfilments#can_fulfil_address?}
     # - {Contracts::UserAddressStorage#store_billing_address}
     # - {Contracts::UserAddressStorage#store_delivery_address}
     # - {Contracts::Fulfilments#propose_shipments}
@@ -17,7 +16,6 @@ module MarketTown
       steps :validate_billing_address,
             :use_billing_address_as_delivery_address,
             :validate_delivery_address,
-            :ensure_delivery,
             :store_user_addresses,
             :propose_shipments,
             :finish_address_step
@@ -42,18 +40,6 @@ module MarketTown
       #
       def validate_delivery_address(state)
         validate_address(:delivery, state[:delivery_address])
-      end
-
-      # Tries to ensure delivery can be made to address
-      #
-      # @raise [CannotFulfilAddressError]
-      #
-      def ensure_delivery(state)
-        unless deps.fulfilments.can_fulfil_address?(state)
-          raise CannotFulfilAddressError.new(state[:delivery_address])
-        end
-      rescue MissingDependency
-        add_dependency_missing_warning(state, :cannot_ensure_delivery)
       end
 
       # Tries to store user addresses
