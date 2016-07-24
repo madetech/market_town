@@ -308,12 +308,12 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
-    rubocop (0.37.2)
-      parser (>= 2.3.0.4, < 3.0)
+    rubocop (0.41.2)
+      parser (>= 2.3.1.1, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (~> 0.3)
+      unicode-display_width (~> 1.0, >= 1.0.1)
     rubocop-rspec (1.4.0)
     ruby-progressbar (1.8.1)
     sass (3.4.22)
@@ -352,7 +352,7 @@ GEM
       tzinfo
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    unicode-display_width (0.3.1)
+    unicode-display_width (1.1.0)
     url (0.3.2)
     versioncake (2.3.1)
       actionpack (>= 3.2)
@@ -366,17 +366,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  codecov
+  codecov (~> 0.1.5)
   coffee-script
-  factory_girl
+  factory_girl (~> 4.7.0)
   market_town-checkout!
-  pry-byebug
-  rake
-  rspec
-  rspec-rails
-  rubocop (= 0.37.2)
+  pry-byebug (~> 3.4.0)
+  rake (~> 11.2.0)
+  rspec (~> 3.5.0)
+  rspec-rails (~> 3.5.0)
+  rubocop (~> 0.41.0)
   rubocop-rspec (= 1.4.0)
-  simplecov
+  simplecov (~> 0.12.0)
   spree!
   spree_auth_devise!
   sqlite3
