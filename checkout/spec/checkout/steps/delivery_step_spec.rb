@@ -1,6 +1,10 @@
 module MarketTown::Checkout
   describe DeliveryStep do
-    let(:fulfilments) { double(can_fulfil_shipments?: true) }
+    let(:fulfilments) do
+      double(can_fulfil_shipments?: true,
+             apply_shipment_costs: nil)
+    end
+
     let(:promotions) { double(apply_delivery_promotions: nil) }
     let(:payments) { double(load_default_payment_method: nil) }
     let(:finish) { double(delivery_step: nil) }
@@ -32,6 +36,32 @@ module MarketTown::Checkout
         subject { step.process(delivery_address: mock_address.merge(name: nil)) }
 
         it { expect { subject }.to raise_error(DeliveryStep::InvalidDeliveryAddressError) }
+      end
+    end
+
+    context 'when validating shipments' do
+      subject { step.process(delivery_address: mock_address) }
+
+      context 'and can fulfil' do
+        context 'then fulfilments' do
+          before { step.process(delivery_address: mock_address) }
+
+          subject { fulfilments }
+
+          it { is_expected.to have_received(:can_fulfil_shipments?) }
+        end
+      end
+
+      context 'and fulfilments missing' do
+        let(:fulfilments) { nil }
+
+        it { is_expected.to include(:warnings) }
+      end
+
+      context 'and cannot fulfil shipments' do
+        let(:fulfilments) { double(propose_shipments: nil, can_fulfil_shipments?: false) }
+
+        it { expect { subject }.to raise_error(DeliveryStep::CannotFulfilShipmentsError) }
       end
     end
 
