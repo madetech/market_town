@@ -35,32 +35,6 @@ module MarketTown::Checkout
       end
     end
 
-    context 'when validating fulfilments' do
-      subject { step.process(delivery_address: mock_address) }
-
-      context 'and can fulfil' do
-        context 'then fulfilments' do
-          before { step.process(delivery_address: mock_address) }
-
-          subject { fulfilments }
-
-          it { is_expected.to have_received(:can_fulfil_shipments?) }
-        end
-      end
-
-      context 'and fulfilments missing' do
-        let(:fulfilments) { nil }
-
-        it { is_expected.to include(:warnings) }
-      end
-
-      context 'and cannot fulfil shipments' do
-        let(:fulfilments) { double(can_fulfil_shipments?: false) }
-
-        it { expect { subject }.to raise_error(DeliveryStep::CannotFulfilShipmentsError) }
-      end
-    end
-
     context 'when applying delivery promotions' do
       subject { step.process(delivery_address: mock_address) }
 
@@ -75,7 +49,7 @@ module MarketTown::Checkout
       end
 
       context 'and promotions missing' do
-        let(:fulfilments) { nil }
+        let(:promotions) { nil }
 
         it { is_expected.to include(:warnings) }
       end

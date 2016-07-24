@@ -7,17 +7,19 @@ module MarketTown
     # - {Contracts::UserAddressStorage#store_billing_address}
     # - {Contracts::UserAddressStorage#store_delivery_address}
     # - {Contracts::Fulfilments#propose_shipments}
+    # - {Contracts::Fulfilments#can_fulfil_shipments?}
     # - {Contracts::Finish#address_step}
     #
     class AddressStep < Step
       class InvalidAddressError < Error; end
-      class CannotFulfilAddressError < Error; end
+      class CannotFulfilShipmentsError < Error; end
 
       steps :validate_billing_address,
             :use_billing_address_as_delivery_address,
             :validate_delivery_address,
             :store_user_addresses,
             :propose_shipments,
+            :validate_shipments,
             :finish_address_step
 
       protected
@@ -63,6 +65,18 @@ module MarketTown
         deps.fulfilments.propose_shipments(state)
       rescue MissingDependency
         add_dependency_missing_warning(state, :cannot_propose_shipments)
+      end
+
+      # Tries to validate shipments
+      #
+      # @raise [CannotFulfilShipmentsError]
+      #
+      def validate_shipments(state)
+        unless deps.fulfilments.can_fulfil_shipments?(state)
+          raise CannotFulfilShipmentsError.new(state[:shipments])
+        end
+      rescue MissingDependency
+        add_dependency_missing_warning(state, :cannot_validate_shipments)
       end
 
       # Finishes address step
