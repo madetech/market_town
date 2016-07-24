@@ -2,10 +2,6 @@ module MarketTown
   module Checkout
     module Contracts
       class Fulfilments
-        def can_fulfil_address?(state)
-          true
-        end
-
         def propose_shipments(state)
         end
 
@@ -20,11 +16,6 @@ module MarketTown
         end
 
         shared_examples_for 'Fulfilments' do
-          context '#can_fulfil_address?' do
-            subject { described_class.new.can_fulfil_address?({}) }
-            it_behaves_like 'a boolean query method'
-          end
-
           context '#can_fulfil_shipments?' do
             subject { described_class.new.can_fulfil_shipments?({}) }
             it_behaves_like 'a boolean query method'

@@ -26,12 +26,6 @@ module MarketTown::Checkout
         end
 
         it { is_expected.to include(:billing_address, :delivery_address) }
-
-        context 'and cannot fulfil delivery address' do
-          let(:fulfilments) { double(can_fulfil_address?: false) }
-
-          it { expect { subject }.to raise_error(AddressStep::CannotFulfilAddressError) }
-        end
       end
 
       context 'with empty billing address' do
