@@ -1,6 +1,6 @@
 module MarketTown::Checkout
   describe DeliveryStep do
-    let(:fulfilments) { double(propose_shipments: nil, can_fulfil_shipments?: true) }
+    let(:fulfilments) { double(can_fulfil_shipments?: true) }
     let(:promotions) { double(apply_delivery_promotions: nil) }
     let(:payments) { double(load_default_payment_method: nil) }
     let(:finish) { double(delivery_step: nil) }
@@ -35,32 +35,6 @@ module MarketTown::Checkout
       end
     end
 
-    context 'when proposing shipments' do
-      subject do
-        step.process(billing_address: mock_address,
-                     delivery_address: mock_address)
-      end
-
-      it { is_expected.to include(:billing_address, :delivery_address) }
-
-      context 'then fulfilments' do
-        before do
-          step.process(billing_address: mock_address,
-                       delivery_address: mock_address)
-        end
-
-        subject { fulfilments }
-
-        it { is_expected.to have_received(:propose_shipments) }
-      end
-
-      context 'and no fulfilments' do
-        let(:fulfilments) { nil }
-
-        it { is_expected.to include(:warnings) }
-      end
-    end
-
     context 'when validating fulfilments' do
       subject { step.process(delivery_address: mock_address) }
 
@@ -81,7 +55,7 @@ module MarketTown::Checkout
       end
 
       context 'and cannot fulfil shipments' do
-        let(:fulfilments) { double(propose_shipments: nil, can_fulfil_shipments?: false) }
+        let(:fulfilments) { double(can_fulfil_shipments?: false) }
 
         it { expect { subject }.to raise_error(DeliveryStep::CannotFulfilShipmentsError) }
       end

@@ -1,5 +1,7 @@
 module MarketTown::Checkout
   describe AddressStep do
+    let(:fulfilments) { double(can_fulfil_address?: true, propose_shipments: nil) }
+
     let(:user_address_storage) do
       double(store_billing_address: nil,
              store_delivery_address: nil)
@@ -8,7 +10,8 @@ module MarketTown::Checkout
     let(:finish) { double(address_step: nil) }
 
     let(:deps) do
-      Dependencies.new(user_address_storage: user_address_storage,
+      Dependencies.new(fulfilments: fulfilments,
+                       user_address_storage: user_address_storage,
                        finish: finish,
                        logger: double(warn: nil))
     end
@@ -80,6 +83,32 @@ module MarketTown::Checkout
 
       context 'and no user address storage' do
         let(:user_address_storage) { nil }
+
+        it { is_expected.to include(:warnings) }
+      end
+    end
+
+    context 'when proposing shipments' do
+      subject do
+        step.process(billing_address: mock_address,
+                     delivery_address: mock_address)
+      end
+
+      it { is_expected.to include(:billing_address, :delivery_address) }
+
+      context 'then fulfilments' do
+        before do
+          step.process(billing_address: mock_address,
+                       delivery_address: mock_address)
+        end
+
+        subject { fulfilments }
+
+        it { is_expected.to have_received(:propose_shipments) }
+      end
+
+      context 'and no fulfilments' do
+        let(:fulfilments) { nil }
 
         it { is_expected.to include(:warnings) }
       end
