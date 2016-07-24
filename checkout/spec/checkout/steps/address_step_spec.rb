@@ -1,7 +1,9 @@
 module MarketTown::Checkout
   describe AddressStep do
     let(:fulfilments) do
-      double(propose_shipments: nil, can_fulfil_shipments?: true)
+      double(propose_shipments: nil,
+             can_fulfil_shipments?: true,
+             apply_shipment_costs: nil)
     end
 
     let(:user_address_storage) do
@@ -116,7 +118,7 @@ module MarketTown::Checkout
       end
     end
 
-    context 'when validating fulfilments' do
+    context 'when validating shipments' do
       subject do
         step.process(billing_address: mock_address,
                      delivery_address: mock_address)
@@ -145,6 +147,32 @@ module MarketTown::Checkout
         let(:fulfilments) { double(propose_shipments: nil, can_fulfil_shipments?: false) }
 
         it { expect { subject }.to raise_error(AddressStep::CannotFulfilShipmentsError) }
+      end
+    end
+
+    context 'when applying shipment costs' do
+      subject do
+        step.process(billing_address: mock_address,
+                     delivery_address: mock_address)
+      end
+
+      context 'and can apply them' do
+        context 'then fulfilments' do
+          before do
+            step.process(billing_address: mock_address,
+                         delivery_address: mock_address)
+          end
+
+          subject { fulfilments }
+
+          it { is_expected.to have_received(:apply_shipment_costs) }
+        end
+      end
+
+      context 'and fulfilments missing' do
+        let(:fulfilments) { nil }
+
+        it { is_expected.to include(:warnings) }
       end
     end
 

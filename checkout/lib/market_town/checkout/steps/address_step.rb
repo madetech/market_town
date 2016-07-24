@@ -8,6 +8,7 @@ module MarketTown
     # - {Contracts::UserAddressStorage#store_delivery_address}
     # - {Contracts::Fulfilments#propose_shipments}
     # - {Contracts::Fulfilments#can_fulfil_shipments?}
+    # - {Contracts::Fulfilments#apply_shipment_costs}
     # - {Contracts::Finish#address_step}
     #
     class AddressStep < Step
@@ -20,6 +21,7 @@ module MarketTown
             :store_user_addresses,
             :propose_shipments,
             :validate_shipments,
+            :apply_shipment_costs,
             :finish_address_step
 
       protected
@@ -77,6 +79,15 @@ module MarketTown
         end
       rescue MissingDependency
         add_dependency_missing_warning(state, :cannot_validate_shipments)
+      end
+
+      # Tries to apply shipment costs to delivery address ready to be confirmed at
+      # delivery step.
+      #
+      def apply_shipment_costs(state)
+        deps.fulfilments.apply_shipment_costs(state)
+      rescue MissingDependency
+        add_dependency_missing_warning(state, :cannot_apply_shipment_costs)
       end
 
       # Finishes address step

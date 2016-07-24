@@ -5,6 +5,7 @@ module MarketTown
     # Dependencies:
     #
     # - {Contracts::Fulfilments#can_fulfil_shipments?}
+    # - {Contracts::Fulfilments#apply_shipment_costs}
     # - {Contracts::Promotions#apply_delivery_promotions}
     # - {Contracts::Finish#delivery_step}
     #
@@ -14,6 +15,7 @@ module MarketTown
 
       steps :validate_delivery_address,
             :validate_shipments,
+            :apply_shipment_costs,
             :apply_delivery_promotions,
             :load_default_payment_method,
             :finish_delivery_step
@@ -38,6 +40,15 @@ module MarketTown
         end
       rescue MissingDependency
         add_dependency_missing_warning(state, :cannot_validate_shipments)
+      end
+
+      # Tries to apply shipment costs to delivery address ready to be confirmed at
+      # payment step.
+      #
+      def apply_shipment_costs(state)
+        deps.fulfilments.apply_shipment_costs(state)
+      rescue MissingDependency
+        add_dependency_missing_warning(state, :cannot_apply_shipment_costs)
       end
 
       # Tries to apply delivery promotions

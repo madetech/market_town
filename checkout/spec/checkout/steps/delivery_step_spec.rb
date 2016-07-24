@@ -65,6 +65,26 @@ module MarketTown::Checkout
       end
     end
 
+    context 'when applying shipment costs' do
+      subject { step.process(delivery_address: mock_address) }
+
+      context 'and can apply them' do
+        context 'then fulfilments' do
+          before { step.process(delivery_address: mock_address) }
+
+          subject { fulfilments }
+
+          it { is_expected.to have_received(:apply_shipment_costs) }
+        end
+      end
+
+      context 'and fulfilments missing' do
+        let(:fulfilments) { nil }
+
+        it { is_expected.to include(:warnings) }
+      end
+    end
+
     context 'when applying delivery promotions' do
       subject { step.process(delivery_address: mock_address) }
 
