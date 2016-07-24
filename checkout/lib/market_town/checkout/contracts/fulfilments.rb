@@ -16,14 +16,14 @@ module MarketTown
         end
 
         shared_examples_for 'Fulfilments' do
-          context '#can_fulfil_shipments?' do
-            subject { described_class.new.can_fulfil_shipments?({}) }
-            it_behaves_like 'a boolean query method'
-          end
-
           context '#propose_shipments' do
             subject { described_class.new.propose_shipments({}) }
             it_behaves_like 'a command method'
+          end
+
+          context '#can_fulfil_shipments?' do
+            subject { described_class.new.can_fulfil_shipments?({}) }
+            it_behaves_like 'a boolean query method'
           end
 
           context '#apply_shipment_costs' do
