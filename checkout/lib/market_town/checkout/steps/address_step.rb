@@ -6,7 +6,6 @@ module MarketTown
     #
     # - {Contracts::UserAddressStorage#store_billing_address}
     # - {Contracts::UserAddressStorage#store_delivery_address}
-    # - {Contracts::Fulfilments#propose_shipments}
     # - {Contracts::Finish#address_step}
     #
     class AddressStep < Step
@@ -17,7 +16,6 @@ module MarketTown
             :use_billing_address_as_delivery_address,
             :validate_delivery_address,
             :store_user_addresses,
-            :propose_shipments,
             :finish_address_step
 
       protected
@@ -54,15 +52,6 @@ module MarketTown
         end
       rescue MissingDependency
         add_dependency_missing_warning(state, :cannot_store_user_addresses)
-      end
-
-      # Tries to proposes shipments to delivery address ready to be confirmed at
-      # delivery step.
-      #
-      def propose_shipments(state)
-        deps.fulfilments.propose_shipments(state)
-      rescue MissingDependency
-        add_dependency_missing_warning(state, :cannot_propose_shipments)
       end
 
       # Finishes address step
