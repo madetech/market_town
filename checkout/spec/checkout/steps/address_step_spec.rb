@@ -77,6 +77,12 @@ module MarketTown::Checkout
         it { is_expected.to have_received(:store_billing_address) }
         it { is_expected.to have_received(:store_delivery_address) }
       end
+
+      context 'and no user address storage' do
+        let(:user_address_storage) { nil }
+
+        it { is_expected.to include(:warnings) }
+      end
     end
 
     context 'when completing step' do
