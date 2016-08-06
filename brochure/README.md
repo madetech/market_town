@@ -1,10 +1,8 @@
 # Market Town: Brochure
 
-Content scheduling for your products and editorials.
+Content scheduling for your products and editorials. Publish articles and pages to your site, products to your store, all at the same and synchronised with your marketing campaigns.
 
-Ever wanted to release editorial and product content at the same time? How about previewing that content on your site as if it were live?
-
-Brochure is a batteries included Rails engine for indexing content and managing releases. It is comprised of the enterprise features most open source CMS's and PIM's are missing.
+Brochure is a batteries included Rails engine for indexing content such as products, promotions, articles, and then managing the release of that content. It is comprised of the enterprise features most open source CMS's and PIM's are missing.
 
 ## Mission
 
