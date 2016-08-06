@@ -9,6 +9,10 @@ Brochure is a batteries included Rails engine for indexing content such as produ
  - Provide a webhook for indexing editorial and product content
  - Provide an interface for managing the release indexed content
 
+## Getting started
+
+ - [Introduction](INTRODUCTION.md)
+
 ## License
 
 MIT
