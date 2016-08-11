@@ -9,6 +9,9 @@ solutions to a single problem rather than being an e-commerce framework.
 
 ## The collection
 
+ - :blue_book:　[**MarketTown::Brochure**](https://github.com/madetech/market_town/tree/master/brochure/)<br />
+   Deliver e-commerce content such as products and articles to your customers.
+
  - 🛍　[**MarketTown::Checkout**](https://github.com/madetech/market_town/tree/master/checkout/)<br />
    Checkout logic for your online store. With Spree, Solidus and webhook integrations.
 
