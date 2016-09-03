@@ -1,17 +1,13 @@
-# Market Town: PrintHouse
+# Market Town: Brochure
 
-PrintHouse provides content scheduling and release management for your products and editorials. Publish articles and pages to your site, products to your store, all at the same and synchronised with your marketing campaigns.
+Deliver e-commerce content such as products and editorials to your customers.
 
-Brochure is a batteries included Rails engine for indexing content such as products, promotions, articles, and then managing the release of that content. It is comprised of the enterprise features most open source CMS's and PIM's are missing.
+Brochure is a Go app that wraps ElasticSearch with specific functionality for indexing pages and content. Brochure of course provides a way of querying the indexed pages and content too.
 
 ## Mission
 
- - Provide a webhook for versioning editorial and product content
- - Provide an user interface for managing the release of content
-
-## Getting started
-
- - [Introduction](INTRODUCTION.md)
+ - Provide a indexing for pages and content
+ - Provide search API to pages and content
 
 ## License
 
