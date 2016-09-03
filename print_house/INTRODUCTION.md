@@ -1,6 +1,6 @@
 # Introduction to releasing content
 
-Brochure provides the logic for receiving **Content** such as an article, promotion block or product and storing it in a database. The Content can contain translations for various locales. The Content is received as an object and stored as a revision in a database.
+PrintHouse provides the logic for receiving **Content** such as an article, promotion block or product and storing it in a database. The Content can contain translations for various locales. The Content is received as an object and stored as a revision in a database.
 
 Once Content has been received it can then be attributed to one or more **Resources**. You can think of a Resource as a web page. A Resource can belong to one or more **Sites**.
 

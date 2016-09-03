@@ -9,8 +9,8 @@ solutions to a single problem rather than being an e-commerce framework.
 
 ## The collection
 
- - :blue_book:　[**MarketTown::Brochure**](/brochure/)<br />
-   Deliver e-commerce content such as products and articles to your customers.
+ - 🖨　[**MarketTown::PrintHouse**](/print_house/)<br />
+   Content scheduling and release management for your products and editorials.
 
  - 🛍　[**MarketTown::Checkout**](/checkout/)<br />
    Checkout logic for your online store. With Spree, Solidus and webhook integrations.
