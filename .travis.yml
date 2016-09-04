@@ -9,12 +9,18 @@ matrix:
   allow_failures:
     - rvm: ruby-head
 
+env:
+  - GOPATH=$PWD/gopath
+
 install:
+  - gimme 1.7
+  - mkdir -p $GOPATH/src && cp -r brochure/ $GOPATH/src/brochure/ && pushd $GOPATH/src/brochure && go get -t ./... && popd
   - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile bundle install && popd
   - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile.solidus.rb bundle install && popd
   - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile.spree.rb bundle install && popd
 
 script:
+  - pushd $GOPATH/src/brochure && go test -v && popd
   - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile bundle exec rake && popd
 
 notifications:
