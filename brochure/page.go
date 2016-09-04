@@ -1,6 +1,7 @@
 package brochure
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 )
@@ -16,6 +17,25 @@ type pageID struct {
 	Path   string `json:"path"`
 	Locale string `json:"locale"`
 	URI    string `json:"uri"`
+}
+
+func (pageID *pageID) UnmarshalJSON(data []byte) error {
+	var pageIDFromJSON map[string]string
+	err := json.Unmarshal(data, &pageIDFromJSON)
+	if err != nil {
+		return err
+	}
+
+	newPageID, err := PageIDFromURI(pageIDFromJSON["uri"])
+	if err != nil {
+		return err
+	}
+
+	pageID.Host = newPageID.Host
+	pageID.Path = newPageID.Path
+	pageID.Locale = newPageID.Locale
+	pageID.URI = newPageID.URI
+	return nil
 }
 
 func PageID(host string, path string, locale string) *pageID {
