@@ -5,6 +5,12 @@ import (
 	"net/url"
 )
 
+type Page struct {
+	Id       *pageID       `json:"id"`
+	Release  PageRelease   `json:"release"`
+	Contents []PageContent `json:"contents"`
+}
+
 type pageID struct {
 	Host   string `json:"host"`
 	Path   string `json:"path"`
@@ -26,3 +32,10 @@ func PageIDFromURI(uri string) (*pageID, error) {
 
 	return &pageID{u.Host, u.Path, u.Query().Get("locale"), uri}, nil
 }
+
+type PageRelease struct {
+	Timestamp int    `json:"timestamp"`
+	UUID      string `json:"uuid"`
+}
+
+type PageContent map[string]interface{}
