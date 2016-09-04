@@ -30,6 +30,17 @@ type pageID struct {
 	URI    string `json:"uri"`
 }
 
+func (pageID *pageID) UnmarshalJSON(data []byte) error {
+	var pageIDFromJSON map[string]string
+	err := json.Unmarshal(data, &pageIDFromJSON)
+	newPageID := PageIDFromURI(pageIDFromJSON["uri"])
+	pageID.Host = newPageID.Host
+	pageID.Path = newPageID.Path
+	pageID.Locale = newPageID.Locale
+	pageID.URI = newPageID.URI
+	return err
+}
+
 func PageID(host string, path string, locale string) pageID {
 	uri := fmt.Sprintf("//%s%s?locale=%s", host, path, locale)
 	return pageID{host, path, locale, uri}
