@@ -1,30 +1,53 @@
 package brochure
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"net/url"
 )
 
-type PageID struct {
-	host   string
-	path   string
-	locale string
+type Page struct {
+	Id       pageID        `json:"id"`
+	Release  PageRelease   `json:"release"`
+	Contents []PageContent `json:"contents"`
 }
 
-func (pageID PageID) Host() string   { return pageID.host }
-func (pageID PageID) Path() string   { return pageID.path }
-func (pageID PageID) Locale() string { return pageID.locale }
+func (page Page) JSON() []byte {
+	pageJSON, err := json.Marshal(page)
 
-func PageIDFromURI(uri string) PageID {
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return pageJSON
+}
+
+type pageID struct {
+	Host   string `json:"host"`
+	Path   string `json:"path"`
+	Locale string `json:"locale"`
+	URI    string `json:"uri"`
+}
+
+func PageID(host string, path string, locale string) pageID {
+	uri := fmt.Sprintf("//%s%s?locale=%s", host, path, locale)
+	return pageID{host, path, locale, uri}
+}
+
+func PageIDFromURI(uri string) pageID {
 	u, err := url.Parse(uri)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	return PageID{
-		host:   u.Host,
-		path:   u.Path,
-		locale: u.Query().Get("locale"),
-	}
+	return pageID{u.Host, u.Path, u.Query().Get("locale"), uri}
 }
+
+type PageRelease struct {
+	Timestamp int    `json:"timestamp"`
+	UUID      string `json:"uuid"`
+}
+
+type PageContent map[string]interface{}
