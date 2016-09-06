@@ -10,7 +10,7 @@ import (
 type Page struct {
 	Id       pageID        `json:"id"`
 	Release  PageRelease   `json:"release"`
-	Contents []PageContent `json:"contents"`
+	Contents []PageContent `json:"contents" valid:"optional"`
 }
 
 func (page Page) JSON() []byte {
@@ -58,7 +58,7 @@ func PageIDFromURI(uri string) pageID {
 
 type PageRelease struct {
 	Timestamp int    `json:"timestamp"`
-	UUID      string `json:"uuid"`
+	UUID      string `json:"uuid" valid:"uuid"`
 }
 
 type PageContent map[string]interface{}
