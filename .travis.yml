@@ -3,6 +3,8 @@ rvm:
   - 2.3.0
   - ruby-head
 
+cache: bundler
+
 matrix:
   allow_failures:
     - rvm: ruby-head
