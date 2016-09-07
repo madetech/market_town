@@ -11,6 +11,10 @@ Brochure is a Go app that wraps ElasticSearch with specific functionality for in
  - Provide a indexing for pages and content
  - Provide search API to pages and content
 
+## Getting started
+
+ - [Introduction](INTRODUCTION.md)
+
 ## License
 
 MIT
