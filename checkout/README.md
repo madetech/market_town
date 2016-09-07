@@ -6,7 +6,7 @@
 
 Checkout logic for your online store. With Spree, Solidus and webhook integrations.
 
-MarketTown::Checkout is an interface for building checkouts that does not rely on state machines and is easily customisable.
+MarketTown::Checkout provides ruby code that you can call from your Rails controllers or Sinatra block. It provides logic for handling all the steps you might want in a checkout, leaving it up to you to stitch them together whilst giving sensible defaults.
 
 If you've ever wanted to gradually replace Spree/Solidus with your own system, or split your e-commerce app out into a number of different services then you're in the right place.
 
