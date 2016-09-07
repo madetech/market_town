@@ -1,21 +1,41 @@
 package brochure
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 )
 
 type Page struct {
-	Id       *pageID       `json:"id"`
-	Release  PageRelease   `json:"release"`
-	Contents []PageContent `json:"contents"`
+	Id       *pageID       `json:"id"       valid:"required"`
+	Release  PageRelease   `json:"release"  valid:"required"`
+	Contents []PageContent `json:"contents" valid:"optional"`
 }
 
 type pageID struct {
-	Host   string `json:"host"`
-	Path   string `json:"path"`
-	Locale string `json:"locale"`
-	URI    string `json:"uri"`
+	Host   string `json:"host"    valid:"required,host"`
+	Path   string `json:"path"    valid:"required"`
+	Locale string `json:"locale"  valid:"required"`
+	URI    string `json:"uri"     valid:"required"`
+}
+
+func (pageID *pageID) UnmarshalJSON(data []byte) error {
+	var pageIDFromJSON map[string]string
+	err := json.Unmarshal(data, &pageIDFromJSON)
+	if err != nil {
+		return err
+	}
+
+	newPageID, err := PageIDFromURI(pageIDFromJSON["uri"])
+	if err != nil {
+		return err
+	}
+
+	pageID.Host = newPageID.Host
+	pageID.Path = newPageID.Path
+	pageID.Locale = newPageID.Locale
+	pageID.URI = newPageID.URI
+	return nil
 }
 
 func PageID(host string, path string, locale string) *pageID {
@@ -34,8 +54,8 @@ func PageIDFromURI(uri string) (*pageID, error) {
 }
 
 type PageRelease struct {
-	Timestamp int    `json:"timestamp"`
-	UUID      string `json:"uuid"`
+	Timestamp int    `json:"timestamp" valid:"required"`
+	UUID      string `json:"uuid"      valid:"required,uuid"`
 }
 
 type PageContent map[string]interface{}
