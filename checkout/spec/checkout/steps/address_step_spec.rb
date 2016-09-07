@@ -1,5 +1,11 @@
 module MarketTown::Checkout
   describe AddressStep do
+    let(:fulfilments) do
+      double(propose_shipments: nil,
+             can_fulfil_shipments?: true,
+             apply_shipment_costs: nil)
+    end
+
     let(:user_address_storage) do
       double(store_billing_address: nil,
              store_delivery_address: nil)
@@ -8,7 +14,8 @@ module MarketTown::Checkout
     let(:finish) { double(address_step: nil) }
 
     let(:deps) do
-      Dependencies.new(user_address_storage: user_address_storage,
+      Dependencies.new(fulfilments: fulfilments,
+                       user_address_storage: user_address_storage,
                        finish: finish,
                        logger: double(warn: nil))
     end
@@ -80,6 +87,90 @@ module MarketTown::Checkout
 
       context 'and no user address storage' do
         let(:user_address_storage) { nil }
+
+        it { is_expected.to include(:warnings) }
+      end
+    end
+
+    context 'when proposing shipments' do
+      subject do
+        step.process(billing_address: mock_address,
+                     delivery_address: mock_address)
+      end
+
+      it { is_expected.to include(:billing_address, :delivery_address) }
+
+      context 'then fulfilments' do
+        before do
+          step.process(billing_address: mock_address,
+                       delivery_address: mock_address)
+        end
+
+        subject { fulfilments }
+
+        it { is_expected.to have_received(:propose_shipments) }
+      end
+
+      context 'and no fulfilments' do
+        let(:fulfilments) { nil }
+
+        it { is_expected.to include(:warnings) }
+      end
+    end
+
+    context 'when validating shipments' do
+      subject do
+        step.process(billing_address: mock_address,
+                     delivery_address: mock_address)
+      end
+
+      context 'and can fulfil' do
+        context 'then fulfilments' do
+          before do
+            step.process(billing_address: mock_address,
+                         delivery_address: mock_address)
+          end
+
+          subject { fulfilments }
+
+          it { is_expected.to have_received(:can_fulfil_shipments?) }
+        end
+      end
+
+      context 'and fulfilments missing' do
+        let(:fulfilments) { nil }
+
+        it { is_expected.to include(:warnings) }
+      end
+
+      context 'and cannot fulfil shipments' do
+        let(:fulfilments) { double(propose_shipments: nil, can_fulfil_shipments?: false) }
+
+        it { expect { subject }.to raise_error(AddressStep::CannotFulfilShipmentsError) }
+      end
+    end
+
+    context 'when applying shipment costs' do
+      subject do
+        step.process(billing_address: mock_address,
+                     delivery_address: mock_address)
+      end
+
+      context 'and can apply them' do
+        context 'then fulfilments' do
+          before do
+            step.process(billing_address: mock_address,
+                         delivery_address: mock_address)
+          end
+
+          subject { fulfilments }
+
+          it { is_expected.to have_received(:apply_shipment_costs) }
+        end
+      end
+
+      context 'and fulfilments missing' do
+        let(:fulfilments) { nil }
 
         it { is_expected.to include(:warnings) }
       end
