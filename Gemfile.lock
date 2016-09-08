@@ -8,13 +8,13 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    rake (10.4.2)
+    rake (11.2.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  rake
+  rake (~> 11.2.0)
   yard!
 
 BUNDLED WITH

@@ -1,7 +1,4 @@
-rvm:
-  - 2.2
-  - 2.3.0
-  - ruby-head
+rvm: 2.3.0
 
 cache: bundler
 
@@ -10,18 +7,17 @@ matrix:
     - rvm: ruby-head
 
 env:
-  - GOPATH=$PWD/gopath
+  - MARKET_TOWN=brochure GOPATH=$PWD/gopath
+  - MARKET_TOWN=checkout RAKE_TASK=rubocop
+  - MARKET_TOWN=checkout RAKE_TASK=common_spec
+  - MARKET_TOWN=checkout RAKE_TASK=spree_spec
+  - MARKET_TOWN=checkout RAKE_TASK=solidus_spec
 
 install:
-  - gimme 1.7
-  - mkdir -p $GOPATH/src && cp -r brochure/ $GOPATH/src/brochure/ && pushd $GOPATH/src/brochure && go get -t ./... && popd
-  - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile bundle install && popd
-  - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile.solidus.rb bundle install && popd
-  - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile.spree.rb bundle install && popd
+  - bundle install
+  - bundle exec rake travis:install
 
-script:
-  - pushd $GOPATH/src/brochure && go test -v && popd
-  - pushd checkout && BUNDLE_GEMFILE=$PWD/Gemfile bundle exec rake && popd
+script: bundle exec rake travis:script
 
 notifications:
   slack: madetechteam:be3g1qE6so2p2UcqQiOGBRUs
