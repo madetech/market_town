@@ -14,6 +14,7 @@ Brochure is a Go app that wraps ElasticSearch with specific functionality for in
 ## Getting started
 
  - [Introduction](INTRODUCTION.md)
+ - [API documentation](https://godoc.org/github.com/madetech/market_town/brochure)
 
 ## License
 
