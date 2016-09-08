@@ -15,6 +15,17 @@ namespace :yard do
   end
 end
 
+def set_gemfile_based_on_rake_task
+  case ENV['RAKE_TASK']
+  when 'rubocop', 'common_spec'
+    ENV['BUNDLE_GEMFILE'] = "#{ENV['PWD']}/checkout/Gemfile"
+  when 'spree_spec'
+    ENV['BUNDLE_GEMFILE'] = "#{ENV['PWD']}/checkout/Gemfile.spree.rb"
+  when 'solidus_spec'
+    ENV['BUNDLE_GEMFILE'] = "#{ENV['PWD']}/checkout/Gemfile.solidus.rb"
+  end
+end
+
 namespace :travis do
   task :install do
     case ENV['MARKET_TOWN']
@@ -23,24 +34,22 @@ namespace :travis do
       system 'mkdir -p $GOPATH/src && cp -r brochure/ $GOPATH/src/brochure/'
       system 'go get -t ./...', chdir: "#{ENV['GOPATH']}/src/brochure"
     when 'checkout'
-      env = case ENV['RAKE_TASK']
-            when 'rubocop', 'common_spec'
-              { 'BUNDLE_GEMFILE' => './Gemfile' }
-            when 'spree_spec'
-              { 'BUNDLE_GEMFILE' => './Gemfile.spree.rb' }
-            when 'solidus_spec'
-              { 'BUNDLE_GEMFILE' => './Gemfile.solidus.rb' }
-            end
-      system env, 'bundle install', chdir: 'checkout'
+      Bundler.with_clean_env do
+        set_gemfile_based_on_rake_task
+        system 'bundle install', chdir: 'checkout' or throw 'Could not install'
+      end
     end
   end
 
   task :script do
     case ENV['MARKET_TOWN']
     when 'brochure'
-      system 'go test -v', chdir: "#{ENV['GOPATH']}/src/brochure"
+      system 'go test -v', chdir: "#{ENV['GOPATH']}/src/brochure" or throw 'Tests failed'
     when 'checkout'
-      system("bundle exec rake #{ENV['RAKE_TASK']}", chdir: 'checkout')
+      Bundler.with_clean_env do
+        set_gemfile_based_on_rake_task
+        system("bundle exec rake #{ENV['RAKE_TASK']}", chdir: 'checkout') or throw 'Tests failed'
+      end
     end
   end
 end
