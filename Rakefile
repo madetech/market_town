@@ -36,7 +36,7 @@ namespace :travis do
     when 'checkout'
       Bundler.with_clean_env do
         set_gemfile_based_on_rake_task
-        system 'bundle install', chdir: 'checkout' or throw 'Could not install'
+        system 'bundle install --path vendor', chdir: 'checkout' or throw 'Could not install'
       end
     end
   end
