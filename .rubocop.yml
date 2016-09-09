@@ -4,6 +4,7 @@ AllCops:
   Exclude:
     - '**/Gemfile*'
     - '**/spec/fixtures/**/*'
+    - '**/vendor/**/*'
   TargetRubyVersion: 2.3
 
 # Sometimes I believe this reads better

@@ -1,10 +1,8 @@
 rvm: 2.3.0
 
-cache: bundler
-
-matrix:
-  allow_failures:
-    - rvm: ruby-head
+cache:
+  directories:
+    - checkout/vendor
 
 env:
   - MARKET_TOWN=brochure GOPATH=$PWD/gopath
@@ -17,7 +15,8 @@ install:
   - bundle install
   - bundle exec rake travis:install
 
-script: bundle exec rake travis:script
+script:
+  - bundle exec rake travis:script
 
 notifications:
   slack: madetechteam:be3g1qE6so2p2UcqQiOGBRUs
