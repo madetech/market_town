@@ -3,6 +3,7 @@ rvm: 2.2
 cache:
   directories:
     - checkout/vendor
+    - checkout/spec/fixtures
 
 env:
   - MARKET_TOWN=brochure GOPATH=$PWD/gopath
