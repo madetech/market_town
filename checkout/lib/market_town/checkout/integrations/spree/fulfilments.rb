@@ -8,7 +8,11 @@ module MarketTown
         end
 
         def can_fulfil_shipments?(state)
-          true
+          if state[:order].send(:ensure_available_shipping_rates) == false
+            false
+          else
+            true
+          end
         end
 
         def apply_shipment_costs(state)

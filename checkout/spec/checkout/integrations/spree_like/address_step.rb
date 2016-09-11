@@ -1,8 +1,6 @@
 module MarketTown::Checkout
   shared_examples_for 'address step using spree-like container' do
     context 'when processing address step' do
-      before(:each) { create(:country, iso: 'US', iso3: 'USA') }
-
       context 'and addresses valid' do
         let(:order) { order_upto_address }
 
