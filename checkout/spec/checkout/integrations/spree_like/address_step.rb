@@ -4,7 +4,7 @@ module MarketTown::Checkout
       before(:each) { create(:country, iso: 'US', iso3: 'USA') }
 
       context 'and addresses valid' do
-        let(:order) { create(:order_with_totals) }
+        let(:order) { order_upto_address }
 
         before(:each) do
           AddressStep.new(deps).process(order: order,
