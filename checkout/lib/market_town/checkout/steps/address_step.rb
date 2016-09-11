@@ -6,6 +6,7 @@ module MarketTown
     #
     # - {Contracts::UserAddressStorage#store_billing_address}
     # - {Contracts::UserAddressStorage#store_delivery_address}
+    # - {Contracts::Order#set_addresses}
     # - {Contracts::Fulfilments#propose_shipments}
     # - {Contracts::Fulfilments#can_fulfil_shipments?}
     # - {Contracts::Fulfilments#apply_shipment_costs}
@@ -18,6 +19,7 @@ module MarketTown
       steps :validate_billing_address,
             :use_billing_address_as_delivery_address,
             :validate_delivery_address,
+            :set_order_addresses,
             :store_user_addresses,
             :propose_shipments,
             :validate_shipments,
@@ -44,6 +46,14 @@ module MarketTown
       #
       def validate_delivery_address(state)
         validate_address(:delivery, state[:delivery_address])
+      end
+
+      # Sets addresses on order
+      #
+      def set_order_addresses(state)
+        deps.order.set_addresses(state)
+      rescue MissingDependency
+        add_dependency_missing_warning(state, :cannot_set_order_addresses)
       end
 
       # Tries to store user addresses
