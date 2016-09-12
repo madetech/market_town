@@ -138,6 +138,28 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#set_addresses-instance_method" title="#set_addresses (instance method)">#<strong>set_addresses</strong>(state)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -199,12 +221,46 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="set_addresses-instance_method">
+  
+    #<strong>set_addresses</strong>(state)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11
+12
+13</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/integrations/spree/order.rb', line 9</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_addresses'>set_addresses</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:order</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_build_bill_address'>build_bill_address</span><span class='lparen'>(</span><span class='id identifier rubyid_transform_address'>transform_address</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:billing_address</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:order</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_build_ship_address'>build_ship_address</span><span class='lparen'>(</span><span class='id identifier rubyid_transform_address'>transform_address</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:delivery_address</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Sun Jul 10 09:42:34 2016 by
+  Generated on Mon Sep 12 12:16:12 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>

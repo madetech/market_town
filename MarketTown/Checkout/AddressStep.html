@@ -110,13 +110,17 @@
 
 <p>Dependencies:</p>
 <ul><li>
-<p><span class='object_link'><a href="Contracts/Fulfilments.html#can_fulfil_address%3F-instance_method" title="MarketTown::Checkout::Contracts::Fulfilments#can_fulfil_address? (method)">Contracts::Fulfilments#can_fulfil_address?</a></span></p>
-</li><li>
 <p><span class='object_link'><a href="Contracts/UserAddressStorage.html#store_billing_address-instance_method" title="MarketTown::Checkout::Contracts::UserAddressStorage#store_billing_address (method)">Contracts::UserAddressStorage#store_billing_address</a></span></p>
 </li><li>
 <p><span class='object_link'><a href="Contracts/UserAddressStorage.html#store_delivery_address-instance_method" title="MarketTown::Checkout::Contracts::UserAddressStorage#store_delivery_address (method)">Contracts::UserAddressStorage#store_delivery_address</a></span></p>
 </li><li>
+<p>Contracts::Order#set_addresses</p>
+</li><li>
 <p><span class='object_link'><a href="Contracts/Fulfilments.html#propose_shipments-instance_method" title="MarketTown::Checkout::Contracts::Fulfilments#propose_shipments (method)">Contracts::Fulfilments#propose_shipments</a></span></p>
+</li><li>
+<p><span class='object_link'><a href="Contracts/Fulfilments.html#can_fulfil_shipments%3F-instance_method" title="MarketTown::Checkout::Contracts::Fulfilments#can_fulfil_shipments? (method)">Contracts::Fulfilments#can_fulfil_shipments?</a></span></p>
+</li><li>
+<p><span class='object_link'><a href="Contracts/Fulfilments.html#apply_shipment_costs-instance_method" title="MarketTown::Checkout::Contracts::Fulfilments#apply_shipment_costs (method)">Contracts::Fulfilments#apply_shipment_costs</a></span></p>
 </li><li>
 <p><span class='object_link'><a href="Contracts/Finish.html#address_step-instance_method" title="MarketTown::Checkout::Contracts::Finish#address_step (method)">Contracts::Finish#address_step</a></span></p>
 </li></ul>
@@ -133,7 +137,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="AddressStep/CannotFulfilAddressError.html" title="MarketTown::Checkout::AddressStep::CannotFulfilAddressError (class)">CannotFulfilAddressError</a></span>, <span class='object_link'><a href="AddressStep/InvalidAddressError.html" title="MarketTown::Checkout::AddressStep::InvalidAddressError (class)">InvalidAddressError</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="AddressStep/CannotFulfilShipmentsError.html" title="MarketTown::Checkout::AddressStep::CannotFulfilShipmentsError (class)">CannotFulfilShipmentsError</a></span>, <span class='object_link'><a href="AddressStep/InvalidAddressError.html" title="MarketTown::Checkout::AddressStep::InvalidAddressError (class)">InvalidAddressError</a></span>
     
   
 </p>
@@ -160,7 +164,7 @@
         <li class="protected ">
   <span class="summary_signature">
     
-      <a href="#ensure_delivery-instance_method" title="#ensure_delivery (instance method)">#<strong>ensure_delivery</strong>(state)  &#x21d2; Object </a>
+      <a href="#apply_shipment_costs-instance_method" title="#apply_shipment_costs (instance method)">#<strong>apply_shipment_costs</strong>(state)  &#x21d2; Object </a>
     
 
     
@@ -175,7 +179,8 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Tries to ensure delivery can be made to address.</p>
+<p>Tries to apply shipment costs to delivery address ready to be confirmed at
+delivery step.</p>
 </div></span>
   
 </li>
@@ -225,6 +230,30 @@
     <span class="summary_desc"><div class='inline'>
 <p>Tries to proposes shipments to delivery address ready to be confirmed at
 delivery step.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="protected ">
+  <span class="summary_signature">
+    
+      <a href="#set_order_addresses-instance_method" title="#set_order_addresses (instance method)">#<strong>set_order_addresses</strong>(state)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title protected">protected</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sets addresses on order.</p>
 </div></span>
   
 </li>
@@ -322,6 +351,30 @@ delivery step.</p>
 </li>
 
       
+        <li class="protected ">
+  <span class="summary_signature">
+    
+      <a href="#validate_shipments-instance_method" title="#validate_shipments (instance method)">#<strong>validate_shipments</strong>(state)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title protected">protected</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Tries to validate shipments.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -349,9 +402,9 @@ delivery step.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="ensure_delivery-instance_method">
+  <h3 class="signature first" id="apply_shipment_costs-instance_method">
   
-    #<strong>ensure_delivery</strong>(state)  &#x21d2; <tt>Object</tt>  <span class="extras">(protected)</span>
+    #<strong>apply_shipment_costs</strong>(state)  &#x21d2; <tt>Object</tt>  <span class="extras">(protected)</span>
   
 
   
@@ -360,26 +413,14 @@ delivery step.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Tries to ensure delivery can be made to address</p>
+<p>Tries to apply shipment costs to delivery address ready to be confirmed at
+delivery step.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="AddressStep/CannotFulfilAddressError.html" title="MarketTown::Checkout::AddressStep::CannotFulfilAddressError (class)">CannotFulfilAddressError</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
 
 </div><table class="source_code">
   <tr>
@@ -387,23 +428,19 @@ delivery step.</p>
       <pre class="lines">
 
 
-51
-52
-53
-54
-55
-56
-57</pre>
+97
+98
+99
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 97</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_ensure_delivery'>ensure_delivery</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
-  <span class='kw'>unless</span> <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_fulfilments'>fulfilments</span><span class='period'>.</span><span class='id identifier rubyid_can_fulfil_address?'>can_fulfil_address?</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>CannotFulfilAddressError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:delivery_address</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_apply_shipment_costs'>apply_shipment_costs</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_fulfilments'>fulfilments</span><span class='period'>.</span><span class='id identifier rubyid_apply_shipment_costs'>apply_shipment_costs</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
 <span class='kw'>rescue</span> <span class='const'>MissingDependency</span>
-  <span class='id identifier rubyid_add_dependency_missing_warning'>add_dependency_missing_warning</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='symbol'>:cannot_ensure_delivery</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_add_dependency_missing_warning'>add_dependency_missing_warning</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='symbol'>:cannot_apply_shipment_costs</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -436,12 +473,12 @@ delivery step.</p>
       <pre class="lines">
 
 
-84
-85
-86</pre>
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_finish_address_step'>finish_address_step</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_finish'>finish</span><span class='period'>.</span><span class='id identifier rubyid_address_step'>address_step</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
@@ -491,6 +528,51 @@ delivery step.</p>
   <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_fulfilments'>fulfilments</span><span class='period'>.</span><span class='id identifier rubyid_propose_shipments'>propose_shipments</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
 <span class='kw'>rescue</span> <span class='const'>MissingDependency</span>
   <span class='id identifier rubyid_add_dependency_missing_warning'>add_dependency_missing_warning</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='symbol'>:cannot_propose_shipments</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="set_order_addresses-instance_method">
+  
+    #<strong>set_order_addresses</strong>(state)  &#x21d2; <tt>Object</tt>  <span class="extras">(protected)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Sets addresses on order</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55
+56
+57</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 53</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_set_order_addresses'>set_order_addresses</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_order'>order</span><span class='period'>.</span><span class='id identifier rubyid_set_addresses'>set_addresses</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'>MissingDependency</span>
+  <span class='id identifier rubyid_add_dependency_missing_warning'>add_dependency_missing_warning</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='symbol'>:cannot_set_order_addresses</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -580,14 +662,14 @@ delivery step.</p>
       <pre class="lines">
 
 
-35
-36
-37
-38
-39</pre>
+39
+40
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_use_billing_address_as_delivery_address'>use_billing_address_as_delivery_address</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:use_billing_address</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='kw'>true</span>
@@ -636,12 +718,12 @@ delivery step.</p>
       <pre class="lines">
 
 
-29
-30
-31</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_validate_billing_address'>validate_billing_address</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_address'>validate_address</span><span class='lparen'>(</span><span class='symbol'>:billing</span><span class='comma'>,</span> <span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:billing_address</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -688,15 +770,77 @@ delivery step.</p>
       <pre class="lines">
 
 
-43
-44
-45</pre>
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_validate_delivery_address'>validate_delivery_address</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_address'>validate_address</span><span class='lparen'>(</span><span class='symbol'>:delivery</span><span class='comma'>,</span> <span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:delivery_address</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="validate_shipments-instance_method">
+  
+    #<strong>validate_shipments</strong>(state)  &#x21d2; <tt>Object</tt>  <span class="extras">(protected)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Tries to validate shipments</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="AddressStep/CannotFulfilShipmentsError.html" title="MarketTown::Checkout::AddressStep::CannotFulfilShipmentsError (class)">CannotFulfilShipmentsError</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86
+87
+88
+89
+90
+91
+92</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'checkout/lib/market_town/checkout/steps/address_step.rb', line 86</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_validate_shipments'>validate_shipments</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_deps'>deps</span><span class='period'>.</span><span class='id identifier rubyid_fulfilments'>fulfilments</span><span class='period'>.</span><span class='id identifier rubyid_can_fulfil_shipments?'>can_fulfil_shipments?</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>CannotFulfilShipmentsError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='lbracket'>[</span><span class='symbol'>:shipments</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>rescue</span> <span class='const'>MissingDependency</span>
+  <span class='id identifier rubyid_add_dependency_missing_warning'>add_dependency_missing_warning</span><span class='lparen'>(</span><span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='symbol'>:cannot_validate_shipments</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -708,7 +852,7 @@ delivery step.</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Jul 10 09:42:34 2016 by
+  Generated on Mon Sep 12 12:16:11 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>
