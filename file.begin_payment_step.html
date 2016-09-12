@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: begin_payment_step
+  
+    &mdash; MarketTown
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "begin_payment_step";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: begin_payment_step</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <iframe id="search_frame" src="file_list.html"></iframe>
+
+      <div id="content"><div id='filecontents'><pre class="code ruby"><span class='kw'>module</span> <span class='const'>MarketTown</span>
+  <span class='kw'>module</span> <span class='const'>Checkout</span>
+    <span class='comment'># Handles start of payment. Validates payment method before applying costs,
+</span>    <span class='comment'># credit and sending a payment authorise or sale request to payment
+</span>    <span class='comment'># gateway. Typically after this step a controller would either redirect to
+</span>    <span class='comment'># a 3D secure page or straight to {CompletePaymentStep}.
+</span>    <span class='comment'>#
+</span>    <span class='comment'># Dependencies:
+</span>    <span class='comment'>#
+</span>    <span class='comment'># - {Contracts::Payments#valid_method?}
+</span>    <span class='comment'># - {Contracts::Fulfilments#apply_shipment_costs}
+</span>    <span class='comment'># - {Contracts::Tax#apply_order_tax}
+</span>    <span class='comment'># - {Contracts::Credit#apply_credit}
+</span>    <span class='comment'># - {Contracts::Payments#begin_transaction}
+</span>    <span class='comment'># - {Contracts::Finish#begin_payment_step}
+</span>    <span class='comment'>#
+</span>    <span class='kw'>class</span> <span class='const'>BeginPaymentStep</span> <span class='op'>&lt;</span> <span class='const'>Step</span>
+      <span class='id identifier rubyid_step'>step</span> <span class='symbol'>:validate_payment_method</span><span class='comma'>,</span>
+           <span class='symbol'>:apply_shipment_costs</span><span class='comma'>,</span>
+           <span class='symbol'>:apply_tax</span><span class='comma'>,</span>
+           <span class='symbol'>:apply_credit</span><span class='comma'>,</span>
+           <span class='symbol'>:process_payment</span><span class='comma'>,</span>
+           <span class='symbol'>:finish_begin_payment_step</span>
+
+      <span class='id identifier rubyid_protected'>protected</span>
+
+      <span class='kw'>def</span> <span class='id identifier rubyid_validate_payment_method'>validate_payment_method</span>
+      <span class='kw'>end</span>
+
+      <span class='kw'>def</span> <span class='id identifier rubyid_charge_payment_method'>charge_payment_method</span>
+      <span class='kw'>end</span>
+
+      <span class='kw'>def</span> <span class='id identifier rubyid_finish_begin_payment_step'>finish_begin_payment_step</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre></div></div>
+
+      <div id="footer">
+  Generated on Mon Sep 12 12:18:25 2016 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.3.0).
+</div>
+
+    </div>
+  </body>
+</html>
