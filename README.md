@@ -9,7 +9,7 @@ solutions to a single problem rather than being an e-commerce framework.
 
 ## The collection
 
- - :blue_book:　[**MarketTown::Brochure**](/brochure/)<br />
+ - 📘　[**MarketTown::Brochure**](/brochure/)<br />
    Deliver e-commerce content such as products and editorials to your customers.
 
  - 🖨　[**MarketTown::PrintHouse**](/print_house/)<br />
