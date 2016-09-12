@@ -9,13 +9,13 @@ solutions to a single problem rather than being an e-commerce framework.
 
 ## The collection
 
- - 📘　[**MarketTown::Brochure**](/brochure/)<br />
+ - 📘　[**MarketTown::Brochure**](https://github.com/madetech/market_town/tree/master/brochure)<br />
    Deliver e-commerce content such as products and editorials to your customers.
 
- - 🖨　[**MarketTown::PrintHouse**](/print_house/)<br />
+ - 🖨　[**MarketTown::PrintHouse**](https://github.com/madetech/market_town/tree/master/print_house)<br />
    Content scheduling and release management for your products and editorials.
 
- - 🛍　[**MarketTown::Checkout**](/checkout/)<br />
+ - 🛍　[**MarketTown::Checkout**](https://github.com/madetech/market_town/tree/master/checkout)<br />
    Checkout logic for your online store. With Spree, Solidus and webhook integrations.
 
 ## Contributing
