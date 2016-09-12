@@ -14,7 +14,7 @@ module MarketTown
     # end
     # ```
     #
-    # See {AddressStep#ensure_delivery} and {DeliveryStep#validate_shipments}
+    # See {AddressStep#propose_shipments} and {DeliveryStep#validate_shipments}
     # for real world examples.
     #
     class MissingDependency < RuntimeError; end
